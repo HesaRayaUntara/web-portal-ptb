@@ -1,27 +1,30 @@
 <div class="topbar">
     <div class="logo">
-        <a href="/"><img src="gambar/logo-ptb.jpg" alt="Logo PTB"></a>
+        <a href="/"><img src="{{ asset('gambar/logo-ptb.jpg') }}" alt="Logo PTB"></a>
         <div>
-            <strong>{{ __('site.brand.name') }}</strong>
-            <small>{{ __('site.brand.tagline') }}</small>
+            <strong>Program Studi PTB</strong>
+            <small>Pemuliaan Tanaman dan Teknologi Benih</small>
         </div>
     </div>
+
     <nav>
         <ul>
-            <li><a class="{{ request()->routeIs('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">{{ __('site.nav.home') }}</a></li>
-            <li><a class="{{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">{{ __('site.nav.profile') }}</a></li>
-            <li><a class="{{ request()->routeIs('kurikulum') ? 'active' : '' }}" href="{{ route('kurikulum') }}">{{ __('site.nav.curriculum') }}</a></li>
-            <li><a class="{{ request()->routeIs('dosen') ? 'active' : '' }}" href="{{ route('dosen') }}">{{ __('site.nav.lecturers') }}</a></li>
-            <li><a class="{{ request()->routeIs('berita') ? 'active' : '' }}" href="{{ route('berita') }}">{{ __('site.nav.news') }}</a></li>
-            <li><a class="{{ request()->routeIs('galeri') ? 'active' : '' }}" href="{{ route('galeri') }}">{{ __('site.nav.gallery') }}</a></li>
-            <li><a class="{{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">{{ __('site.nav.contact') }}</a></li>
+            <li><a class="{{ request()->routeIs('beranda') ? 'active' : '' }}" href="{{ route('beranda') }}">Beranda</a></li>
+            <li><a class="{{ request()->routeIs('profil') ? 'active' : '' }}" href="{{ route('profil') }}">Profil Prodi</a></li>
+            <li><a class="{{ request()->routeIs('kurikulum') ? 'active' : '' }}" href="{{ route('kurikulum') }}">Kurikulum</a></li>
+            <li><a class="{{ request()->routeIs('dosen') ? 'active' : '' }}" href="{{ route('dosen') }}">Dosen</a></li>
+            <li><a class="{{ request()->routeIs('berita') ? 'active' : '' }}" href="{{ route('berita') }}">Berita</a></li>
+            <li><a class="{{ request()->routeIs('galeri') ? 'active' : '' }}" href="{{ route('galeri') }}">Galeri</a></li>
+            <li><a class="{{ request()->routeIs('kontak') ? 'active' : '' }}" href="{{ route('kontak') }}">Kontak</a></li>
         </ul>
     </nav>
+
     @php
         $locale = app()->getLocale();
         $flags = ['id' => '🇮🇩', 'en' => '🇺🇸'];
     @endphp
-    <div class="language-select" aria-label="{{ __('site.language.label') }}">
+
+    <div class="language-select" aria-label="Pilih Bahasa">
         <button type="button">
             <span class="flag-icon" aria-hidden="true">{{ $flags[$locale] ?? '🌐' }}</span>
             <span class="language-code">{{ strtoupper($locale) }}</span>
