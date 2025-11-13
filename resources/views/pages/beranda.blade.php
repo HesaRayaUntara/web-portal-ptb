@@ -4,40 +4,46 @@
 
 @section('content')
     <!-- Hero Section -->
-    <section class="page-hero" style="--hero-image: url('https://images.unsplash.com/photo-1518976024611-28bf4b48222e?auto=format&fit=crop&w=1400&q=80');">
-        <div class="overlay">
-            <h1 class="hero-title">Selamat Datang Di Portal Web PTB</h1>
-            <p class="hero-subtitle">
+    <section
+        class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
+        style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1518976024611-28bf4b48222e?auto=format&fit=crop&w=1400&q=80');">
+        <div class="relative space-y-6 p-10 md:p-12 lg:p-16">
+            <h1 class="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">Selamat Datang Di Portal Web PTB</h1>
+            <p class="max-w-2xl text-base text-white/85 md:text-lg">
                 Mengembangkan pendidikan pertanian terapan yang inovatif, berkelanjutan, dan berdampak bagi masyarakat luas dan Indonesia.
             </p>
-            <div class="button-row">
-                <a class="btn btn-primary" href="{{ route('profil') }}">Kenali Program Studi</a>
-                <a class="btn btn-light" href="{{ route('berita') }}">Lihat Berita</a>
+            <div class="flex flex-wrap gap-4">
+                <a class="inline-flex items-center gap-2 rounded-badge bg-white px-6 py-3 text-sm font-semibold text-primary shadow-soft transition hover:-translate-y-0.5 hover:shadow-card"
+                   href="{{ route('profil') }}">Kenali Program Studi</a>
+                <a class="inline-flex items-center gap-2 rounded-badge border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white"
+                   href="{{ route('berita') }}">Lihat Berita</a>
             </div>
         </div>
     </section>
 
     <!-- Profil Program Studi -->
-    <section class="section-card">
-        <h2 class="section-header">Profil Program Studi</h2>
-        <div class="profile-wrapper">
-            <div class="profile-info">
-                <h2>Program Studi PTB</h2>
-                <span>Pemuliaan Tanaman dan Teknologi Benih</span>
-                <p>
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+        <div class="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+            <div class="space-y-6">
+                <div>
+                    <span class="inline-block rounded-full bg-primary/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-primary">Program Studi PTB</span>
+                    <h2 class="mt-4 text-3xl font-semibold text-secondary md:text-4xl">Pemuliaan Tanaman dan Teknologi Benih</h2>
+                </div>
+                <p class="text-sm leading-relaxed text-textMuted md:text-base">
                     Program Studi PTB mempersiapkan lulusan yang mampu merancang, mengaplikasikan, dan mengevaluasi teknologi pertanian
                     berkelanjutan melalui pembelajaran berbasis proyek, kerja lapang, dan kolaborasi lintas disiplin.
                 </p>
 
-                <div class="info-grid">
-                    <div class="info-badge">
-                        <strong>8 Semester</strong><br>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
+                        <span class="block text-base font-semibold text-textDark">8 Semester</span>
                         Lama studi reguler
                     </div>
-                    <div class="info-badge">
-                        <strong>Profesional</strong><br>
-                        Magang industri & komunitas
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
+                        <span class="block text-base font-semibold text-textDark">Profesional</span>
+                        Magang industri &amp; komunitas
                     </div>
+<<<<<<< HEAD
                     <div class="info-badge">
                         <strong>Visi</strong><br>
                         Menjadi program keahlian unggulan dalam menghasilkan tenaga ahli madya yang berintegritas tinggi, berjiwa wirausaha, dan berkompeten dalam kegiatan industry benih tanaman pertanian tropika.
@@ -47,40 +53,64 @@
                          1. Menyelenggarakan pendidikan keahlian yang berkualitas dan profesional dalam bidang teknologi industri benih.
                        <br> 2. Melaksanakan penelitian terapan dalam bidang teknologi benih untuk mendukung pengembangan industri benih.
                        <br> 3. Melakukan pengabdian kepada masyarakat melalui penyebarluasan teknologi terapan dalam bidang industri benih.
+=======
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
+                        <span class="block text-base font-semibold text-textDark">Global</span>
+                        Program pertukaran dan riset kolaboratif
+                    </div>
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
+                        <span class="block text-base font-semibold text-textDark">Terapan</span>
+                        Kolaborasi lintas disiplin berbasis inovasi
+>>>>>>> ddf955300f9cf86fd1d5a441f8ebd498912d7dc9
                     </div>
                 </div>
             </div>
 
+<<<<<<< HEAD
             <div class="profile-photo" style="background-image: url('https://sv.ipb.ac.id/wp-content/uploads/2021/12/deskripsi-tib.png');">
+=======
+            <div class="overflow-hidden rounded-card shadow-soft">
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80" alt="Mahasiswa PTB" class="h-full w-full object-cover">
+>>>>>>> ddf955300f9cf86fd1d5a441f8ebd498912d7dc9
             </div>
         </div>
     </section>
 
     <!-- Berita Harian -->
-    <section class="section-card">
-        <h2 class="section-header">Berita Harian</h2>
-        <div class="news-grid">
-            <article class="news-card">
-                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80" alt="Kegiatan berkebun">
-                <div class="card-body">
-                    <h3>Gardening With Us</h3>
-                    <p>Mahasiswa berkolaborasi dengan mitra desa untuk membangun kebun hidroponik komunitas.</p>
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+        <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+            <div>
+                <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Berita Harian</span>
+                <h2 class="mt-2 text-3xl font-semibold text-secondary">Sorotan Terbaru</h2>
+            </div>
+            <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
+                Jelajahi semua berita
+                <span aria-hidden="true">→</span>
+            </a>
+        </div>
+
+        <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
+                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80" alt="Kegiatan berkebun" class="h-44 w-full object-cover">
+                <div class="space-y-3 p-6">
+                    <h3 class="text-lg font-semibold text-textDark">Gardening With Us</h3>
+                    <p class="text-sm text-textMuted">Mahasiswa berkolaborasi dengan mitra desa untuk membangun kebun hidroponik komunitas.</p>
                 </div>
             </article>
 
-            <article class="news-card">
-                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80" alt="Penelitian PTB">
-                <div class="card-body">
-                    <h3>Riset Teknologi Pangan</h3>
-                    <p>Pengembangan produk pangan fungsional rendah emisi berhasil meraih pendanaan inkubasi.</p>
+            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80" alt="Penelitian PTB" class="h-44 w-full object-cover">
+                <div class="space-y-3 p-6">
+                    <h3 class="text-lg font-semibold text-textDark">Riset Teknologi Pangan</h3>
+                    <p class="text-sm text-textMuted">Pengembangan produk pangan fungsional rendah emisi berhasil meraih pendanaan inkubasi.</p>
                 </div>
             </article>
 
-            <article class="news-card">
-                <img src="https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80" alt="Pelatihan Petani">
-                <div class="card-body">
-                    <h3>Pelatihan Petani Mitra</h3>
-                    <p>Workshop digital farming untuk petani mitra menghasilkan peningkatan produktivitas 25%.</p>
+            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
+                <img src="https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80" alt="Pelatihan Petani" class="h-44 w-full object-cover">
+                <div class="space-y-3 p-6">
+                    <h3 class="text-lg font-semibold text-textDark">Pelatihan Petani Mitra</h3>
+                    <p class="text-sm text-textMuted">Workshop digital farming untuk petani mitra menghasilkan peningkatan produktivitas 25%.</p>
                 </div>
             </article>
         </div>
