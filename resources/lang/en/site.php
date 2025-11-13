@@ -42,7 +42,7 @@ return [
             'title' => 'Excellence of PTB Study Program',
             'subtitle' => 'Delivering innovative and sustainable applied agriculture education that creates real impact for communities.',
             'cta_primary' => 'Explore the Study Program',
-            'cta_secondary' => 'See Latest News',
+            'cta_secondary' => 'See News',
         ],
         'strengths' => [
             'kicker' => 'Strengths',

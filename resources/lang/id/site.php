@@ -42,7 +42,7 @@ return [
             'title' => 'Selamat Datang Di Portal Web PTB',
             'subtitle' => 'Mengembangkan pendidikan pertanian terapan yang inovatif, berkelanjutan, dan berdampak bagi masyarakat luas.',
             'cta_primary' => 'Kenali Program Studi',
-            'cta_secondary' => 'Lihat Berita Terbaru',
+            'cta_secondary' => 'Lihat Berita',
         ],
         'strengths' => [
             'kicker' => 'Keunggulan',
@@ -72,8 +72,8 @@ return [
             ],
         ],
         'profile' => [
-            'title' => 'Profil Program Studi',
-            'description' => 'Program Studi PTB mempersiapkan lulusan yang mampu merancang, mengaplikasikan, dan mengevaluasi teknologi pertanian berkelanjutan melalui pembelajaran berbasis proyek, kerja lapang, dan kolaborasi lintas disiplin.',
+            'title' => 'Profil Umum D4 Pemuliaan Tanaman dan Teknologi Benih',
+            'description' => 'Program Studi Teknologi Industri Benih bertujuan menghasilkan tenaga ahli madya yang berintegritas tinggi, berjiwa wirausaha, dan berkompeten dalam kegiatan industry benih tanaman pertanian tropika.',
             'badges' => [
                 'study_duration' => [
                     'title' => '8 Semester',
@@ -83,10 +83,13 @@ return [
                     'title' => 'Profesional',
                     'description' => 'Magang industri & komunitas',
                 ],
-                'global' => [
-                    'title' => 'Global',
-                    'description' => 'Program pertukaran dan riset kolaboratif',
+                'vision' => [
+                    'title' => 'Visi',
+                    'description' => 'Menjadi program keahlian unggulan dalam menghasilkan tenaga ahli madya yang berintegritas tinggi, berjiwa wirausaha, dan berkompeten dalam kegiatan industry benih tanaman pertanian tropika.',  
                 ],
+                'mission' => [
+                    'title' => 'Visi',
+                    'description' => 'Menjadi program keahlian unggulan dalam menghasilkan tenaga ahli madya yang berintegritas tinggi, berjiwa wirausaha, dan berkompeten dalam kegiatan industry benih tanaman pertanian tropika.',   
             ],
         ],
         'news' => [
@@ -352,5 +355,4 @@ return [
             'submit' => 'Kirim Pesan',
         ],
     ],
-];
-
+]];
