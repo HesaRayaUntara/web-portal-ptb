@@ -39,18 +39,19 @@
                         Magang industri & komunitas
                     </div>
                     <div class="info-badge">
-                        <strong>Global</strong><br>
-                        Program pertukaran dan riset kolaboratif
+                        <strong>Visi</strong><br>
+                        Menjadi program keahlian unggulan dalam menghasilkan tenaga ahli madya yang berintegritas tinggi, berjiwa wirausaha, dan berkompeten dalam kegiatan industry benih tanaman pertanian tropika.
                     </div>
                     <div class="info-badge">
-                        <strong>Terapan</strong><br>
-                        Kolaborasi lintas disiplin berbasis inovasi
+                        <strong>Misi</strong><br>
+                         1. Menyelenggarakan pendidikan keahlian yang berkualitas dan profesional dalam bidang teknologi industri benih.
+                       <br> 2. Melaksanakan penelitian terapan dalam bidang teknologi benih untuk mendukung pengembangan industri benih.
+                       <br> 3. Melakukan pengabdian kepada masyarakat melalui penyebarluasan teknologi terapan dalam bidang industri benih.
                     </div>
                 </div>
             </div>
 
-            <div class="profile-photo">
-                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80" alt="Mahasiswa PTB">
+            <div class="profile-photo" style="background-image: url('https://sv.ipb.ac.id/wp-content/uploads/2021/12/deskripsi-tib.png');">
             </div>
         </div>
     </section>

@@ -402,16 +402,23 @@
         }
 
         .profile-wrapper {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 28px;
-            align-items: center;
+            display: flex; /* <-- INI KUNCINYA */
+            align-items: flex-start;
+            gap:2rem;
         }
 
         .profile-photo {
+            flex: 1; /* Bikin kolom gambar lebih sempit */
             border-radius: var(--radius-md);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 300px;
+        }
+        .profile-info {
+            flex: 2;
         }
 
         .profile-info h2 {
@@ -431,9 +438,9 @@
 
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 16px;
             margin-top: 24px;
+            grid-template-columns: repeat(2, 1fr); 
         }
 
         .info-badge {
