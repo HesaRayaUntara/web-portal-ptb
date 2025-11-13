@@ -1,38 +1,46 @@
-@php($footer = __('site.footer'))
-
 <div class="footer-inner">
+    {{-- Kontak --}}
     <div class="footer-card">
-        <h4>{{ $footer['contact_title'] }}</h4>
+        <h4>Kontak Kami</h4>
         <ul>
-            <li>{{ $footer['address'] }}</li>
-            <li>{{ $footer['phone'] }}</li>
-            <li>{{ $footer['email'] }}</li>
-            <li>{{ $footer['office_hours'] }}</li>
+            <li>Jl. Raya Dramaga, Kampus IPB, Bogor, Jawa Barat 16680</li>
+            <li>Telepon: (0251) 862-3456</li>
+            <li>Email: info@ptb.ac.id</li>
+            <li>Jam Operasional: Senin–Jumat, 08.00–16.00 WIB</li>
         </ul>
     </div>
+
+    {{-- Informasi --}}
     <div class="footer-card">
-        <h4>{{ $footer['info_title'] }}</h4>
+        <h4>Informasi</h4>
         <ul>
-            @foreach($footer['info_items'] as $item)
-                <li>{{ $item }}</li>
-            @endforeach
+            <li>Tentang Program Studi</li>
+            <li>Kurikulum dan Akademik</li>
+            <li>Dosen dan Penelitian</li>
+            <li>Galeri Kegiatan</li>
+            <li>Kontak dan Layanan</li>
         </ul>
     </div>
+
+    {{-- Media Sosial --}}
     <div class="footer-card">
-        <h4>{{ $footer['follow_title'] }}</h4>
+        <h4>Ikuti Kami</h4>
         <div class="socials">
-            <a href="#" aria-label="{{ $footer['social']['instagram'] }}">IG</a>
-            <a href="#" aria-label="{{ $footer['social']['youtube'] }}">YT</a>
-            <a href="#" aria-label="{{ $footer['social']['facebook'] }}">FB</a>
-            <a href="#" aria-label="{{ $footer['social']['linkedin'] }}">IN</a>
+            <a href="#" aria-label="Instagram">IG</a>
+            <a href="#" aria-label="YouTube">YT</a>
+            <a href="#" aria-label="Facebook">FB</a>
+            <a href="#" aria-label="LinkedIn">IN</a>
         </div>
     </div>
+
+    {{-- Kolaborasi --}}
     <div class="footer-card">
-        <h4>{{ $footer['collab_title'] }}</h4>
+        <h4>Kolaborasi dan Mitra</h4>
         <div class="footer-partners">
-            @foreach($footer['partners'] as $partner)
-                <span>{{ $partner }}</span>
-            @endforeach
+            <span>IPB University</span>
+            <span>Kementerian Pertanian</span>
+            <span>Startup Agrotech</span>
+            <span>Komunitas Inovasi Hijau</span>
         </div>
     </div>
 </div>
