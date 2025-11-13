@@ -14,47 +14,6 @@
         </div>
     </section>
 
-    <section class="section-card features-section">
-        <div class="features-header">
-            <div class="features-title">
-                <span class="section-kicker">{{ __('site.home.strengths.kicker') }}</span>
-                <h2>{{ __('site.home.strengths.heading') }}</h2>
-                <p>{{ __('site.home.strengths.subtitle') }}</p>
-            </div>
-            <div class="features-image">
-                <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80" alt="Aktivitas pertanian berkelanjutan">
-            </div>
-        </div>
-        <div class="feature-list">
-            @foreach(__('site.home.strengths.items') as $feature)
-                <article class="feature-item">
-                    <span class="feature-icon" aria-hidden="true">
-                        @switch($feature['icon'] ?? '')
-                            @case('check')
-                                ✓
-                                @break
-                            @case('globe')
-                                🌍
-                                @break
-                            @case('lab')
-                                ⚗️
-                                @break
-                            @case('users')
-                                👥
-                                @break
-                            @default
-                                ✔
-                        @endswitch
-                    </span>
-                    <div class="feature-text">
-                        <h3>{{ $feature['title'] }}</h3>
-                        <p>{{ $feature['description'] }}</p>
-                    </div>
-                </article>
-            @endforeach
-        </div>
-    </section>
-
     <section class="section-card">
         <h2 class="section-header">{{ __('site.home.profile.title') }}</h2>
         <div class="profile-wrapper">
@@ -70,6 +29,10 @@
                     <div class="info-badge">
                         <strong>{{ __('site.home.profile.badges.professional.title') }}</strong><br>
                         {{ __('site.home.profile.badges.professional.description') }}
+                    </div>
+                    <div class="info-badge">
+                        <strong>{{ __('site.home.profile.badges.global.title') }}</strong><br>
+                        {{ __('site.home.profile.badges.global.description') }}
                     </div>
                     <div class="info-badge">
                         <strong>{{ __('site.home.profile.badges.global.title') }}</strong><br>

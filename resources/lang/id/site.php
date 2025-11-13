@@ -3,7 +3,7 @@
 return [
     'brand' => [
         'name' => 'Program Studi PTB',
-        'tagline' => 'Pertanian Terapan Berkelanjutan',
+        'tagline' => 'Pemuliaan Tanaman dan Teknologi Benih',
     ],
     'nav' => [
         'home' => 'Beranda',
@@ -39,7 +39,7 @@ return [
     ],
     'home' => [
         'hero' => [
-            'title' => 'Keunggulan Program Studi PTB',
+            'title' => 'Selamat Datang Di Portal Web PTB',
             'subtitle' => 'Mengembangkan pendidikan pertanian terapan yang inovatif, berkelanjutan, dan berdampak bagi masyarakat luas.',
             'cta_primary' => 'Kenali Program Studi',
             'cta_secondary' => 'Lihat Berita Terbaru',
