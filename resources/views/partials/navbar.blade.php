@@ -1,6 +1,6 @@
 <div class="topbar">
     <div class="logo">
-        <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=200&q=80" alt="Logo PTB">
+        <a href="/"><img src="gambar/logo-ptb.jpg" alt="Logo PTB"></a>
         <div>
             <strong>{{ __('site.brand.name') }}</strong>
             <small>{{ __('site.brand.tagline') }}</small>

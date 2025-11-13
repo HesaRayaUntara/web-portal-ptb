@@ -195,10 +195,10 @@ return [
     'lecturers' => [
         'hero' => [
             'title' => 'Profil Dosen',
-            'subtitle' => 'Mengenal para pengajar profesional yang menjadi mentor sekaligus mitra riset di Program Studi PTB.',
+            'subtitle' => 'Mengenal para pengajar profesional yang menjadi mentor sekaligus mitra riset di Program Studi PTB',
         ],
         'profile' => [
-            'name' => 'Dr. Anindita S. Putri, S.P., M.P.',
+            'name' => 'Dr. Undang, S.P., M.P.',
             'role' => 'Kepala Program Studi',
             'summary' => 'Spesialisasi pada agroekologi, ketahanan pangan, dan model pertanian regeneratif. Aktif dalam riset pengelolaan tanah berkelanjutan dan pemberdayaan petani muda melalui komunitas inovasi desa.',
             'badges' => [
@@ -222,26 +222,31 @@ return [
                 'name' => 'Nama',
                 'expertise' => 'Bidang Keahlian',
                 'contact' => 'Kontak',
+                'action' => 'Aksi',
                 'rows' => [
                     [
                         'name' => 'Ir. Bagus Raharjo, M.Sc.',
                         'expertise' => 'Teknologi Irigasi Cerdas',
                         'contact' => 'bagus.raharjo@ptb.ac.id',
+                        'action' => 'detail',
                     ],
                     [
                         'name' => 'Dr. Nurma Hidayati, S.P., M.Si.',
                         'expertise' => 'Keamanan Pangan & Nutrisi',
                         'contact' => 'nurma.hidayati@ptb.ac.id',
+                        'action' => 'detail',
                     ],
                     [
                         'name' => 'Dr. (Cand.) Ardi Prakoso, S.P., M.P.',
                         'expertise' => 'Agribisnis Digital',
                         'contact' => 'ardi.prakoso@ptb.ac.id',
+                        'action' => 'detail',
                     ],
                     [
                         'name' => 'Dr. Silvi Lestari, S.P., M.P.',
                         'expertise' => 'Manajemen Sumber Daya Lahan',
                         'contact' => 'silvi.lestari@ptb.ac.id',
+                        'action' => 'detail',
                     ],
                 ],
             ],

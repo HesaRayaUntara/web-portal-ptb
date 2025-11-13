@@ -13,7 +13,7 @@
     <section class="section-card">
         <div class="profile-wrapper">
             <div class="profile-photo">
-                <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80" alt="Dr. Anindita">
+                <img src="gambar/contoh.png" alt="Dr. Anindita">
             </div>
             <div class="profile-info">
                 <h2>{{ __('site.lecturers.profile.name') }}</h2>
@@ -32,6 +32,10 @@
                         <strong>{{ __('site.lecturers.profile.badges.award.title') }}</strong><br>
                         {{ __('site.lecturers.profile.badges.award.description') }}
                     </div>
+                    <div class="info-badge">
+                        <strong>{{ __('site.lecturers.profile.badges.award.title') }}</strong><br>
+                        {{ __('site.lecturers.profile.badges.award.description') }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -45,6 +49,7 @@
                 <th>{{ __('site.lecturers.team.table.name') }}</th>
                 <th>{{ __('site.lecturers.team.table.expertise') }}</th>
                 <th>{{ __('site.lecturers.team.table.contact') }}</th>
+                <th>{{ __('site.lecturers.team.table.action') }}</th>
             </tr>
             </thead>
             <tbody>
@@ -53,6 +58,10 @@
                     <td>{{ $row['name'] }}</td>
                     <td>{{ $row['expertise'] }}</td>
                     <td>{{ $row['contact'] }}</td>
+                    <td>
+                        <a href="/detail-dosen/{{ Str::slug($row['name']) }}" class="btn btn-primary">{{ $row['action'] }}</a>
+                    </td>
+
                 </tr>
             @endforeach
             </tbody>
