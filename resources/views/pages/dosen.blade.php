@@ -3,37 +3,46 @@
 @section('title', 'Dosen')
 
 @section('content')
-    <section class="page-hero" style="--hero-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80');">
-        <div class="overlay">
-            <h1 class="hero-title">Profil Dosen</h1>
-            <p class="hero-subtitle">Mengenal para pengajar profesional yang menjadi mentor sekaligus mitra riset di Program Studi PTB.</p>
+    <section
+        class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
+        style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80');">
+        <div class="relative space-y-6 p-10 md:p-12 lg:p-16">
+            <span class="inline-flex rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-white">Dosen</span>
+            <h1 class="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">Profil Dosen</h1>
+            <p class="max-w-2xl text-base text-white/85 md:text-lg">Mengenal para pengajar profesional yang menjadi mentor sekaligus mitra riset di Program Studi PTB.</p>
         </div>
     </section>
 
-    <section class="section-card">
-        <div class="profile-wrapper">
-            <div class="profile-photo">
-                <img src="gambar/contoh.png" alt="Dr. Undang">
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+        <div class="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+            <div class="space-y-6">
+                <div class="overflow-hidden rounded-card shadow-soft">
+                    <img src="{{ asset('gambar/contoh.png') }}" alt="Dr. Undang" class="w-full object-cover">
+                </div>
             </div>
-            <div class="profile-info">
-                <h2>Dr. Undang, S.P., M.P.</h2>
-                <span>Kepala Program Studi</span>
-                <p>Spesialisasi pada agroekologi, ketahanan pangan, dan model pertanian regeneratif. Aktif dalam riset pengelolaan tanah berkelanjutan dan pemberdayaan petani muda melalui komunitas inovasi desa.</p>
-                <div class="info-grid">
-                    <div class="info-badge">
-                        <strong>Pendidikan</strong><br>
+            <div class="space-y-6">
+                <div>
+                    <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Dr. Undang, S.P., M.P.</h2>
+                    <span class="mt-3 inline-flex rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-primary">Kepala Program Studi</span>
+                </div>
+                <p class="text-sm leading-relaxed text-textMuted md:text-base">
+                    Spesialisasi pada agroekologi, ketahanan pangan, dan model pertanian regeneratif. Aktif dalam riset pengelolaan tanah berkelanjutan dan pemberdayaan petani muda melalui komunitas inovasi desa.
+                </p>
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
+                        <span class="block text-base font-semibold text-textDark">Pendidikan</span>
                         S3 Agroekologi - Wageningen University
                     </div>
-                    <div class="info-badge">
-                        <strong>Riset Aktif</strong><br>
-                        Teknologi biochar & circular agriculture
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
+                        <span class="block text-base font-semibold text-textDark">Riset Aktif</span>
+                        Teknologi biochar &amp; circular agriculture
                     </div>
-                    <div class="info-badge">
-                        <strong>Penghargaan</strong><br>
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
+                        <span class="block text-base font-semibold text-textDark">Penghargaan</span>
                         Green Innovation Award 2024
                     </div>
-                    <div class="info-badge">
-                        <strong>Publikasi</strong><br>
+                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
+                        <span class="block text-base font-semibold text-textDark">Publikasi</span>
                         Lebih dari 15 jurnal internasional terindeks Scopus
                     </div>
                 </div>
@@ -41,58 +50,63 @@
         </div>
     </section>
 
-    <section class="section-card">
-        <h2 class="section-header">Tim Dosen</h2>
-        <table class="dosen-table">
-            <thead>
-                <tr>
-                    <th>Nama</th>
-                    <th>Bidang Keahlian</th>
-                    <th>Kontak</th>
-                    <th>Aksi</th>
-                </tr>
-            </thead>
-            <tbody>
-                @php
-                    $dosenList = [
-                        [
-                            'name' => 'Ir. Bagus Raharjo, M.Sc.',
-                            'expertise' => 'Teknologi Irigasi Cerdas',
-                            'contact' => 'bagus.raharjo@ptb.ac.id',
-                            'action' => 'Detail',
-                        ],
-                        [
-                            'name' => 'Dr. Nurma Hidayati, S.P., M.Si.',
-                            'expertise' => 'Keamanan Pangan & Nutrisi',
-                            'contact' => 'nurma.hidayati@ptb.ac.id',
-                            'action' => 'Detail',
-                        ],
-                        [
-                            'name' => 'Dr. (Cand.) Ardi Prakoso, S.P., M.P.',
-                            'expertise' => 'Agribisnis Digital',
-                            'contact' => 'ardi.prakoso@ptb.ac.id',
-                            'action' => 'Detail',
-                        ],
-                        [
-                            'name' => 'Dr. Silvi Lestari, S.P., M.P.',
-                            'expertise' => 'Manajemen Sumber Daya Lahan',
-                            'contact' => 'silvi.lestari@ptb.ac.id',
-                            'action' => 'Detail',
-                        ],
-                    ];
-                @endphp
-
-                @foreach($dosenList as $row)
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+        <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Tim Dosen</h2>
+        <div class="mt-8 overflow-hidden rounded-section border border-primary/10 bg-white shadow-soft">
+            <table class="w-full table-auto text-left text-sm text-textDark">
+                <thead class="bg-accent text-primary">
                     <tr>
-                        <td>{{ $row['name'] }}</td>
-                        <td>{{ $row['expertise'] }}</td>
-                        <td>{{ $row['contact'] }}</td>
-                        <td>
-                            <a href="/detail-dosen/{{ Str::slug($row['name']) }}" class="btn btn-primary btn-sm">{{ $row['action'] }}</a>
-                        </td>
+                        <th class="px-6 py-4 font-semibold">Nama</th>
+                        <th class="px-6 py-4 font-semibold">Bidang Keahlian</th>
+                        <th class="px-6 py-4 font-semibold">Kontak</th>
+                        <th class="px-6 py-4 font-semibold">Aksi</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="divide-y divide-primary/10">
+                    @php
+                        $dosenList = [
+                            [
+                                'name' => 'Ir. Bagus Raharjo, M.Sc.',
+                                'expertise' => 'Teknologi Irigasi Cerdas',
+                                'contact' => 'bagus.raharjo@ptb.ac.id',
+                                'action' => 'Detail',
+                            ],
+                            [
+                                'name' => 'Dr. Nurma Hidayati, S.P., M.Si.',
+                                'expertise' => 'Keamanan Pangan & Nutrisi',
+                                'contact' => 'nurma.hidayati@ptb.ac.id',
+                                'action' => 'Detail',
+                            ],
+                            [
+                                'name' => 'Dr. (Cand.) Ardi Prakoso, S.P., M.P.',
+                                'expertise' => 'Agribisnis Digital',
+                                'contact' => 'ardi.prakoso@ptb.ac.id',
+                                'action' => 'Detail',
+                            ],
+                            [
+                                'name' => 'Dr. Silvi Lestari, S.P., M.P.',
+                                'expertise' => 'Manajemen Sumber Daya Lahan',
+                                'contact' => 'silvi.lestari@ptb.ac.id',
+                                'action' => 'Detail',
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach($dosenList as $row)
+                        <tr class="hover:bg-accent/60">
+                            <td class="px-6 py-4 font-semibold">{{ $row['name'] }}</td>
+                            <td class="px-6 py-4">{{ $row['expertise'] }}</td>
+                            <td class="px-6 py-4 text-primary">{{ $row['contact'] }}</td>
+                            <td class="px-6 py-4">
+                                <a href="/detail-dosen/{{ Str::slug($row['name']) }}"
+                                   class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
+                                    {{ $row['action'] }}
+                                </a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </section>
 @endsection
