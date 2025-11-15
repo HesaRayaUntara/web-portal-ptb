@@ -1,8 +1,6 @@
-@extends('layouts.main')
+<?php $__env->startSection('title', 'Beranda'); ?>
 
-@section('title', 'Beranda')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Hero Section -->
     <section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
@@ -14,9 +12,9 @@
             </p>
             <div class="flex flex-wrap gap-4">
                 <a class="inline-flex items-center gap-2 rounded-badge bg-white px-6 py-3 text-sm font-semibold text-primary shadow-soft transition hover:-translate-y-0.5 hover:shadow-card"
-                   href="{{ route('profil') }}">Kenali Program Studi</a>
+                   href="<?php echo e(route('profil')); ?>">Kenali Program Studi</a>
                 <a class="inline-flex items-center gap-2 rounded-badge border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white"
-                   href="{{ route('berita') }}">Lihat Berita</a>
+                   href="<?php echo e(route('berita')); ?>">Lihat Berita</a>
             </div>
         </div>
     </section>
@@ -67,7 +65,7 @@
                 <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Berita Harian</span>
                 <h2 class="mt-2 text-3xl font-semibold text-secondary">Sorotan Terbaru</h2>
             </div>
-            <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
+            <a href="<?php echo e(route('berita')); ?>" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
                 Jelajahi semua berita
                 <span aria-hidden="true">→</span>
             </a>
@@ -99,4 +97,5 @@
             </article>
         </div>
     </section>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web-portal-ptb\resources\views/layouts/main.blade.php ENDPATH**/ ?>

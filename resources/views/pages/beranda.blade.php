@@ -8,7 +8,7 @@
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
         style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1518976024611-28bf4b48222e?auto=format&fit=crop&w=1400&q=80');">
         <div class="relative space-y-6 p-10 md:p-12 lg:p-16">
-            <h1 class="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">Selamat Datang Di Portal Web PTB</h1>
+            <h1 class="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">Selamat Datang di Portal Web PTB</h1>
             <p class="max-w-2xl text-base text-white/85 md:text-lg">
                 Mengembangkan pendidikan pertanian terapan yang inovatif, berkelanjutan, dan berdampak bagi masyarakat luas dan Indonesia.
             </p>
@@ -26,8 +26,12 @@
         <div class="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
             <div class="space-y-6">
                 <div>
-                    <span class="inline-block rounded-full bg-primary/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-primary">Program Studi PTB</span>
-                    <h2 class="mt-4 text-3xl font-semibold text-secondary md:text-4xl">Pemuliaan Tanaman dan Teknologi Benih</h2>
+                    <span class="inline-block rounded-full bg-primary/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-primary">
+                        Program Studi PTB
+                    </span>
+                    <h2 class="mt-4 text-3xl font-semibold text-secondary md:text-4xl">
+                        Pemuliaan Tanaman dan Teknologi Benih
+                    </h2>
                 </div>
                 <p class="text-sm leading-relaxed text-textMuted md:text-base">
                     Program Studi PTB mempersiapkan lulusan yang mampu merancang, mengaplikasikan, dan mengevaluasi teknologi pertanian
@@ -43,17 +47,6 @@
                         <span class="block text-base font-semibold text-textDark">Profesional</span>
                         Magang industri &amp; komunitas
                     </div>
-<<<<<<< HEAD
-                    <div class="info-badge">
-                        <strong>Visi</strong><br>
-                        Menjadi program keahlian unggulan dalam menghasilkan tenaga ahli madya yang berintegritas tinggi, berjiwa wirausaha, dan berkompeten dalam kegiatan industry benih tanaman pertanian tropika.
-                    </div>
-                    <div class="info-badge">
-                        <strong>Misi</strong><br>
-                         1. Menyelenggarakan pendidikan keahlian yang berkualitas dan profesional dalam bidang teknologi industri benih.
-                       <br> 2. Melaksanakan penelitian terapan dalam bidang teknologi benih untuk mendukung pengembangan industri benih.
-                       <br> 3. Melakukan pengabdian kepada masyarakat melalui penyebarluasan teknologi terapan dalam bidang industri benih.
-=======
                     <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
                         <span class="block text-base font-semibold text-textDark">Global</span>
                         Program pertukaran dan riset kolaboratif
@@ -61,17 +54,13 @@
                     <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
                         <span class="block text-base font-semibold text-textDark">Terapan</span>
                         Kolaborasi lintas disiplin berbasis inovasi
->>>>>>> ddf955300f9cf86fd1d5a441f8ebd498912d7dc9
                     </div>
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <div class="profile-photo" style="background-image: url('https://sv.ipb.ac.id/wp-content/uploads/2021/12/deskripsi-tib.png');">
-=======
             <div class="overflow-hidden rounded-card shadow-soft">
-                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80" alt="Mahasiswa PTB" class="h-full w-full object-cover">
->>>>>>> ddf955300f9cf86fd1d5a441f8ebd498912d7dc9
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80"
+                     alt="Mahasiswa PTB" class="h-full w-full object-cover">
             </div>
         </div>
     </section>
@@ -91,7 +80,8 @@
 
         <div class="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80" alt="Kegiatan berkebun" class="h-44 w-full object-cover">
+                <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80"
+                     alt="Kegiatan berkebun" class="h-44 w-full object-cover">
                 <div class="space-y-3 p-6">
                     <h3 class="text-lg font-semibold text-textDark">Gardening With Us</h3>
                     <p class="text-sm text-textMuted">Mahasiswa berkolaborasi dengan mitra desa untuk membangun kebun hidroponik komunitas.</p>
@@ -99,7 +89,8 @@
             </article>
 
             <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80" alt="Penelitian PTB" class="h-44 w-full object-cover">
+                <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80"
+                     alt="Penelitian PTB" class="h-44 w-full object-cover">
                 <div class="space-y-3 p-6">
                     <h3 class="text-lg font-semibold text-textDark">Riset Teknologi Pangan</h3>
                     <p class="text-sm text-textMuted">Pengembangan produk pangan fungsional rendah emisi berhasil meraih pendanaan inkubasi.</p>
@@ -107,7 +98,8 @@
             </article>
 
             <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                <img src="https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80" alt="Pelatihan Petani" class="h-44 w-full object-cover">
+                <img src="https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80"
+                     alt="Pelatihan Petani" class="h-44 w-full object-cover">
                 <div class="space-y-3 p-6">
                     <h3 class="text-lg font-semibold text-textDark">Pelatihan Petani Mitra</h3>
                     <p class="text-sm text-textMuted">Workshop digital farming untuk petani mitra menghasilkan peningkatan produktivitas 25%.</p>
