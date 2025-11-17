@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 // Route Language Switch
 Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.switch');
@@ -20,6 +21,11 @@ Route::get('/profil', function () {
 Route::get('/kurikulum', function () {
     return view('pages.kurikulum');
 })->name('kurikulum');
+
+// Route Detail Kurikulum
+Route::get('/kurikulum/detail', function () {
+    return view('pages.kurikulum-detail');
+})->name('kurikulum.detail');
 
 // Route Dosen
 Route::get('/dosen', function () {
@@ -86,9 +92,87 @@ Route::get('/dosen/{slug}', function ($slug) {
     return view('pages.detail-dosen', ['dosen' => $dosenData[$slug]]);
 })->name('dosen.detail');
 
-// Route Berita
 Route::get('/berita', function () {
-    return view('pages.berita');
+    $newsItems = [
+        [
+            'title' => 'Workshop Digital Farming',
+            'desc' => 'Mahasiswa PTB mengadakan pelatihan penggunaan teknologi digital dalam sistem pertanian cerdas untuk meningkatkan efisiensi produksi.',
+            'image' => 'https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Field Trip ke Lembaga Riset Pertanian',
+            'desc' => 'Kunjungan lapangan ke Balai Penelitian Tanaman Pangan memberikan pengalaman langsung tentang inovasi benih unggul dan pemuliaan tanaman.',
+            'image' => 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Konferensi Nasional Teknologi Pertanian',
+            'desc' => 'Dosen dan mahasiswa PTB berpartisipasi dalam konferensi nasional untuk mempresentasikan hasil penelitian inovatif di bidang pertanian presisi.',
+            'image' => 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Seminar Inovasi Benih Unggul',
+            'desc' => 'Seminar membahas inovasi terbaru dalam pengembangan benih unggul dan teknik pemuliaan tanaman modern.',
+            'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Pelatihan Agribisnis Digital',
+            'desc' => 'Peserta dilatih menggunakan platform digital untuk memasarkan produk pertanian dan mengelola rantai pasok.',
+            'image' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Kolaborasi Riset Internasional',
+            'desc' => 'PTB menjalin kerja sama riset dengan universitas luar negeri untuk pengembangan teknologi pertanian presisi.',
+            'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Peluncuran Inkubator Startup Pertanian',
+            'desc' => 'Program inkubator baru diluncurkan untuk mendukung mahasiswa dalam membangun startup teknologi pertanian.',
+            'image' => 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Festival Produk Hortikultura',
+            'desc' => 'Acara tahunan yang menampilkan produk hortikultura unggulan hasil penelitian dan praktik mahasiswa.',
+            'image' => 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Pelatihan Keselamatan Laboratorium',
+            'desc' => 'Pelatihan wajib bagi mahasiswa untuk memastikan prosedur keselamatan laboratorium terpenuhi.',
+            'image' => 'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Kuliah Tamu Teknologi Benih',
+            'desc' => 'Pakar industri benih berbagi pengalaman tentang tantangan dan peluang di sektor perbenihan modern.',
+            'image' => 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Program Pengabdian Desa Tangguh',
+            'desc' => 'Mahasiswa PTB mendampingi petani desa dalam menerapkan teknologi pertanian berkelanjutan.',
+            'image' => 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80',
+        ],
+        [
+            'title' => 'Kompetisi Inovasi Pangan Lokal',
+            'desc' => 'Kompetisi untuk mengembangkan produk pangan lokal bernilai tambah dan siap dikomersialisasikan.',
+            'image' => 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80',
+        ],
+    ];
+
+    $perPage = 9;
+    $currentPage = request()->get('page', 1);
+    $items = collect($newsItems);
+    $currentItems = $items->forPage($currentPage, $perPage)->values();
+
+    $news = new LengthAwarePaginator(
+        $currentItems,
+        $items->count(),
+        $perPage,
+        $currentPage,
+        [
+            'path' => request()->url(),
+            'query' => request()->query(),
+        ]
+    );
+
+    return view('pages.berita', ['news' => $news]);
 })->name('berita');
 
 // Route Galeri

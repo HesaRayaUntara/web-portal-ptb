@@ -20,7 +20,7 @@
         </div>
     </section>
 
-    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
                 <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Sorotan</span>
@@ -62,7 +62,7 @@
         </div>
     </section>
 
-    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="space-y-6">
             <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Galeri Virtual</h2>
             <p class="text-sm leading-relaxed text-textMuted md:text-base">

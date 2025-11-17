@@ -23,9 +23,18 @@
     </section>
 
     {{-- Struktur Kurikulum --}}
-    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="space-y-6">
-            <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Struktur Perkuliahan per Semester</h2>
+            <div class="flex items-center justify-between gap-4">
+                <h2 class="text-3xl font-semibold text-secondary md:text-4xl">
+                    Struktur Perkuliahan per Semester
+                </h2>
+                <a href="{{ route('kurikulum.detail') }}"
+                   class="hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark md:inline-flex">
+                    <span>Detail Kurikulum</span>
+                    <span class="text-sm">➜</span>
+                </a>
+            </div>
             <div class="grid gap-4 md:grid-cols-2">
                 <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
                     <span class="block text-base font-semibold text-textDark">Semester 1–2</span>
@@ -44,11 +53,18 @@
                     Praktik kerja lapang, pengembangan inovasi teknologi, dan penyusunan tugas akhir berbasis riset atau produk.
                 </div>
             </div>
+            <div class="mt-4 flex justify-end md:hidden">
+                <a href="{{ route('kurikulum.detail') }}"
+                   class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
+                    <span>Detail Kurikulum</span>
+                    <span class="text-sm">➜</span>
+                </a>
+            </div>
         </div>
     </section>
 
     {{-- Fokus Pembelajaran --}}
-    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="space-y-6">
             <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Fokus dan Keunggulan Program</h2>
             <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

@@ -18,7 +18,7 @@
         </div>
     </section>
 
-    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
             <div class="space-y-6">
                 <div class="overflow-hidden rounded-card shadow-soft">
@@ -55,7 +55,7 @@
         </div>
     </section>
 
-    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Tim Dosen</h2>
         <div class="mt-8 overflow-hidden rounded-section border border-primary/10 bg-white shadow-soft">
             <table class="w-full table-auto text-left text-sm text-textDark">

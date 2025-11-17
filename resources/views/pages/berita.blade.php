@@ -30,70 +30,16 @@
     </section>
 
     <!-- Kegiatan Terkini -->
-    <section id="kegiatan" class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
+    <section id="kegiatan" class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div>
-                <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Kegiatan Terkini</span>
-                <h2 class="mt-2 text-3xl font-semibold text-secondary md:text-4xl">Sorotan Kegiatan</h2>
-            </div>
-        </div>
-
-        <div class="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            @foreach ([
-                [
-                    'title' => 'Workshop Digital Farming',
-                    'desc' => 'Mahasiswa PTB mengadakan pelatihan penggunaan teknologi digital dalam sistem pertanian cerdas untuk meningkatkan efisiensi produksi.',
-                    'image' => 'https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80',
-                ],
-                [
-                    'title' => 'Field Trip ke Lembaga Riset Pertanian',
-                    'desc' => 'Kunjungan lapangan ke Balai Penelitian Tanaman Pangan memberikan pengalaman langsung tentang inovasi benih unggul dan pemuliaan tanaman.',
-                    'image' => 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80',
-                ],
-                [
-                    'title' => 'Konferensi Nasional Teknologi Pertanian',
-                    'desc' => 'Dosen dan mahasiswa PTB berpartisipasi dalam konferensi nasional untuk mempresentasikan hasil penelitian inovatif di bidang pertanian presisi.',
-                    'image' => 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80',
-                ],
-            ] as $item)
-                <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                    <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" class="h-44 w-full object-cover">
-                    <div class="space-y-3 p-6">
-                        <h3 class="text-lg font-semibold text-textDark">{{ $item['title'] }}</h3>
-                        <p class="text-sm text-textMuted">{{ $item['desc'] }}</p>
-                    </div>
-                </article>
-            @endforeach
-        </div>
-    </section>
-
-    <!-- Arsip Berita -->
-    <section id="arsip" class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
-        <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-            <div>
-                <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Arsip Berita</span>
+                <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Berita Terkini</span>
                 <h2 class="mt-2 text-3xl font-semibold text-secondary md:text-4xl">Jejak Kegiatan</h2>
             </div>
         </div>
 
         <div class="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-            @foreach ([
-                [
-                    'title' => 'Program Inkubasi Startup Pertanian',
-                    'desc' => 'Mahasiswa PTB terpilih dalam program inkubasi startup berbasis pertanian berkelanjutan yang mendukung inovasi teknologi hijau.',
-                    'image' => 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80',
-                ],
-                [
-                    'title' => 'Pengabdian Masyarakat di Desa Mitra',
-                    'desc' => 'Kegiatan pengabdian masyarakat fokus pada pelatihan pemuliaan benih dan manajemen pertanian berbasis lingkungan di desa mitra binaan.',
-                    'image' => 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80',
-                ],
-                [
-                    'title' => 'Kolaborasi Internasional Riset Tanaman',
-                    'desc' => 'Kerja sama riset antara PTB dan universitas luar negeri dalam pengembangan varietas tanaman adaptif terhadap perubahan iklim.',
-                    'image' => 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=800&q=80',
-                ],
-            ] as $item)
+            @foreach ($news as $item)
                 <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
                     <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" class="h-44 w-full object-cover">
                     <div class="space-y-3 p-6">
@@ -103,5 +49,22 @@
                 </article>
             @endforeach
         </div>
+
+        @if ($news->hasPages())
+            <div class="mt-10 flex justify-center">
+                <nav class="flex items-center gap-2 rounded-full border border-primary/10 bg-white px-5 py-2 text-sm shadow-soft">
+                    @foreach (range(1, $news->lastPage()) as $page)
+                        <a
+                            href="{{ $news->url($page) }}"
+                            class="min-w-[36px] rounded-full px-3 py-1 text-center font-semibold transition
+                                {{ $page == $news->currentPage() ? 'bg-primary text-white shadow-card' : 'text-textMuted hover:bg-primary/10 hover:text-primary' }}">
+                            {{ $page }}
+                        </a>
+                    @endforeach
+                </nav>
+            </div>
+        @endif
     </section>
+
+    
 @endsection
