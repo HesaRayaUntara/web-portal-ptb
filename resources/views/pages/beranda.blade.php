@@ -36,8 +36,7 @@
                     <h2 class="mt-4 text-3xl font-semibold text-secondary md:text-4xl">Pemuliaan Tanaman dan Teknologi Benih</h2>
                 </div>
                 <p class="text-sm leading-relaxed text-textMuted md:text-base">
-                    Program Studi PTB mempersiapkan lulusan yang mampu merancang, mengaplikasikan, dan mengevaluasi teknologi pertanian
-                    berkelanjutan melalui pembelajaran berbasis proyek, kerja lapang, dan kolaborasi lintas disiplin.
+                    Program Studi Teknologi Industri Benih bertujuan menghasilkan tenaga ahli madya yang berintegritas tinggi, berjiwa wirausaha, dan berkompeten dalam kegiatan industry benih tanaman pertanian tropika.
                 </p>
 
                 <div class="grid gap-4 sm:grid-cols-2">
@@ -50,8 +49,8 @@
                         Magang industri &amp; komunitas
                     </div>
                     <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
-                        <span class="block text-base font-semibold text-textDark">Global</span>
-                        Program pertukaran dan riset kolaboratif
+                        <span class="block text-base font-semibold text-textDark">Lama Studi</span>
+                        8 Semester (4 Tahun)
                     </div>
                     <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted shadow-soft">
                         <span class="block text-base font-semibold text-textDark">Terapan</span>
