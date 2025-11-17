@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <div class="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div class="mt-8 grid gap-6 md:grid-cols-3 xl:grid-cols-3">
             <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
                     <img src="<?php echo e($item['image']); ?>" alt="<?php echo e($item['title']); ?>" class="h-44 w-full object-cover">
