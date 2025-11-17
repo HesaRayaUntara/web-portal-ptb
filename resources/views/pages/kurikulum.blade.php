@@ -3,6 +3,14 @@
 @section('title', 'Kurikulum')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
+        <a href="{{ route('beranda') }}" class="transition hover:text-primary">Beranda</a>
+        <span> > </span>
+        <a href="{{ route('kurikulum') }}" class="transition hover:text-primary text-primaryDark">Kurikulum</a>
+    </nav>
+
+
     {{-- Hero Section --}}
     <section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"

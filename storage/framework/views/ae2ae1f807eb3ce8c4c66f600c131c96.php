@@ -1,6 +1,13 @@
 <?php $__env->startSection('title', 'Galeri'); ?>
 
 <?php $__env->startSection('content'); ?>
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
+        <a href="<?php echo e(route('beranda')); ?>" class="transition hover:text-primary">Beranda</a>
+        <span> > </span>
+        <a href="<?php echo e(route('galeri')); ?>" class="transition hover:text-primary text-primaryDark">Galeri</a>
+    </nav>
+
     <section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
         style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80');">
@@ -61,7 +68,7 @@
             </p>
             <div class="flex flex-wrap gap-4">
                 <a class="inline-flex items-center gap-2 rounded-badge bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark"
-                   href="#">Kunjungi Galeri 360°</a>
+                   href="https://maps.app.goo.gl/vEXfeLcF2XWido3B7" target="_blank">Kunjungi Galeri 360°</a>
                 <a class="inline-flex items-center gap-2 rounded-badge border border-primary/20 px-6 py-3 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-primary"
                    href="#">Unduh Katalog</a>
             </div>

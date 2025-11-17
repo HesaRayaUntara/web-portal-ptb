@@ -1,8 +1,14 @@
 <?php $__env->startSection('title', 'Beranda'); ?>
 
 <?php $__env->startSection('content'); ?>
+
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
+        <a href="/" class="transition hover:text-primary text-primaryDark">Beranda</a>
+    </nav>
+
     <!-- Hero Section -->
-    <section
+<section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
         style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1518976024611-28bf4b48222e?auto=format&fit=crop&w=1400&q=80');">
         <div class="relative space-y-6 p-10 md:p-12 lg:p-16">

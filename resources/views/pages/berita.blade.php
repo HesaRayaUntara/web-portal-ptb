@@ -3,21 +3,29 @@
 @section('title', 'Berita')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
+        <a href="{{ route('beranda') }}" class="transition hover:text-primary">Beranda</a>
+        <span> > </span>
+        <a href="{{ route('berita') }}" class="transition hover:text-primary text-primaryDark">Berita</a>
+    </nav>
+
     <!-- Hero Section -->
     <section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
         style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=1400&q=80');">
         <div class="relative space-y-6 p-10 md:p-12 lg:p-16">
+            <span class="inline-flex rounded-full bg-white/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-white">Berita</span>
             <h1 class="text-3xl font-bold leading-tight md:text-4xl lg:text-5xl">Berita dan Kegiatan PTB</h1>
             <p class="max-w-2xl text-base text-white/85 md:text-lg">
                 Temukan informasi terbaru seputar kegiatan, inovasi, dan kolaborasi dari Program Studi Pemuliaan Tanaman dan Teknologi Benih.
             </p>
-            <div class="flex flex-wrap gap-4">
+            <!-- <div class="flex flex-wrap gap-4">
                 <a class="inline-flex items-center gap-2 rounded-badge bg-white px-6 py-3 text-sm font-semibold text-primary shadow-soft transition hover:-translate-y-0.5 hover:shadow-card"
                    href="#kegiatan">Kegiatan Terkini</a>
                 <a class="inline-flex items-center gap-2 rounded-badge border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:border-white"
                    href="#arsip">Arsip Berita</a>
-            </div>
+            </div> -->
         </div>
     </section>
 

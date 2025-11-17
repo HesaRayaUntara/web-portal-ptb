@@ -8,19 +8,19 @@
             </div>
             <ul class="space-y-2 text-sm text-white/80">
                 <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">📍</span>
+                    <!-- <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">📍</span> -->
                     <span>Jl. Kumbang, Kampus IPB Cilibende, Bogor, Jawa Barat 16680</span>
                 </li>
                 <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">☎️</span>
+                    <!-- <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">☎️</span> -->
                     <span>(0251) 862-3456</span>
                 </li>
                 <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">✉️</span>
+                    <!-- <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">✉️</span> -->
                     <span>info@ptb.ac.id</span>
                 </li>
                 <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">🕑</span>
+                    <!-- <span class="mt-1 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs">🕑</span> -->
                     <span>Senin–Jumat, 08.00–16.00 WIB</span>
                 </li>
             </ul>
@@ -52,7 +52,7 @@
         {{-- Peta --}}
         <div class="space-y-4">
             <h4 class="text-sm font-semibold uppercase tracking-wider2 text-white/90">Lokasi Kami</h4>
-            <p class="text-sm text-white/80">Kunjungi kampus kami di pusat Kota Bogor dan rasakan lingkungan belajar terintegrasi.</p>
+            <!-- <p class="text-sm text-white/80">Kunjungi kampus kami di pusat Kota Bogor dan rasakan lingkungan belajar terintegrasi.</p> -->
             <div class="overflow-hidden rounded-2xl shadow-soft ring-1 ring-white/10">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15853.860402064673!2d106.78780043196791!3d-6.588965744636781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69c5f2b25cf481%3A0x18a4eabbf4da5231!2sIPB%20Cilibende!5e0!3m2!1sid!2sid!4v1763041512122!5m2!1sid!2sid"

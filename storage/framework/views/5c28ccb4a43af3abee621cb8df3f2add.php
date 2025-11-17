@@ -1,6 +1,14 @@
 <?php $__env->startSection('title', 'Kurikulum'); ?>
 
 <?php $__env->startSection('content'); ?>
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
+        <a href="<?php echo e(route('beranda')); ?>" class="transition hover:text-primary">Beranda</a>
+        <span> > </span>
+        <a href="<?php echo e(route('kurikulum')); ?>" class="transition hover:text-primary text-primaryDark">Kurikulum</a>
+    </nav>
+
+
     
     <section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"

@@ -1,15 +1,13 @@
-
-
 <?php $__env->startSection('title', 'Detail Dosen - ' . $dosen['name']); ?>
 
 <?php $__env->startSection('content'); ?>
     <!-- Breadcrumb -->
-    <nav class="mb-8 flex items-center gap-2 text-sm text-textMuted">
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
         <a href="<?php echo e(route('beranda')); ?>" class="transition hover:text-primary">Beranda</a>
-        <span>/</span>
+        <span> > </span>
         <a href="<?php echo e(route('dosen')); ?>" class="transition hover:text-primary">Dosen</a>
-        <span>/</span>
-        <span class="text-textDark"><?php echo e($dosen['name']); ?></span>
+        <span> > </span>
+        <span class="text-primaryDark"><?php echo e($dosen['name']); ?></span>
     </nav>
 
     <!-- Hero Section -->

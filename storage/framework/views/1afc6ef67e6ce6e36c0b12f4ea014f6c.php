@@ -17,7 +17,7 @@
     </header>
 
     <main class="flex-1">
-        <div class="mx-auto w-full max-w-content px-6 py-12 md:px-10 lg:px-12 lg:py-16">
+        <div class="mx-auto w-full max-w-content px-6 py-12 md:px-10 lg:px-12 lg:py-8">
             <?php echo $__env->yieldContent('content'); ?>
         </div>
     </main>

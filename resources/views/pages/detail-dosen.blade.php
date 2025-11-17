@@ -4,12 +4,12 @@
 
 @section('content')
     <!-- Breadcrumb -->
-    <nav class="mb-8 flex items-center gap-2 text-sm text-textMuted">
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
         <a href="{{ route('beranda') }}" class="transition hover:text-primary">Beranda</a>
-        <span>/</span>
+        <span> > </span>
         <a href="{{ route('dosen') }}" class="transition hover:text-primary">Dosen</a>
-        <span>/</span>
-        <span class="text-textDark">{{ $dosen['name'] }}</span>
+        <span> > </span>
+        <span class="text-primaryDark">{{ $dosen['name'] }}</span>
     </nav>
 
     <!-- Hero Section -->

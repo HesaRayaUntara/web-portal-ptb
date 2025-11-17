@@ -3,6 +3,13 @@
 @section('title', 'Dosen')
 
 @section('content')
+    <!-- Breadcrumb -->
+    <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
+        <a href="{{ route('beranda') }}" class="transition hover:text-primary">Beranda</a>
+        <span> > </span>
+        <a href="{{ route('dosen') }}" class="transition hover:text-primary text-primaryDark">Dosen</a>
+    </nav>
+
     <section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
         style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1400&q=80');">
