@@ -85,10 +85,10 @@
             kelas dunia.
         </p>
         <div class="mt-6 grid grid-cols-2 gap-4 text-center text-sm font-semibold text-textMuted">
-            <div class="rounded-lg border border-dashed border-primary/30 px-4 py-3 text-primary">PT Agrotech Nusantara</div>
-            <div class="rounded-lg border border-dashed border-primary/30 px-4 py-3 text-primary">GreenFarm Global</div>
-            <div class="rounded-lg border border-dashed border-primary/30 px-4 py-3 text-primary">SmartAgri Labs</div>
-            <div class="rounded-lg border border-dashed border-primary/30 px-4 py-3 text-primary">LIPI Agro</div>
+            <div class="rounded-lg hover:bg-secondary/15 px-4 py-3 text-primary bg-secondary/10">PT Agrotech Nusantara</div>
+            <div class="rounded-lg hover:bg-secondary/15 px-4 py-3 text-primary bg-secondary/10">GreenFarm Global</div>
+            <div class="rounded-lg hover:bg-secondary/15 px-4 py-3 text-primary bg-secondary/10">SmartAgri Labs</div>
+            <div class="rounded-lg hover:bg-secondary/15 px-4 py-3 text-primary bg-secondary/10">LIPI Agro</div>
         </div>
     </div>
 </div>
@@ -129,14 +129,14 @@
 
     <div class="mt-8 grid gap-6 md:grid-cols-3 xl:grid-cols-3">
         <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1573497491765-dccce02b29df?auto=format&fit=crop&w=800&q=80" alt="Laboratorium Inovasi" class="h-44 w-full object-cover">
+            <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80" alt="Laboratorium Inovasi" class="h-44 w-full object-cover">
             <div class="space-y-3 p-6">
                 <h3 class="text-lg font-semibold text-textDark">Laboratorium Inovasi</h3>
                 <p class="text-sm text-textMuted">Fasilitas modern untuk kegiatan penelitian dan pengembangan teknologi berbasis data dan otomasi.</p>
             </div>
         </article>
         <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80" alt="Agro Tech Park" class="h-44 w-full object-cover">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Agro Tech Park" class="h-44 w-full object-cover">
             <div class="space-y-3 p-6">
                 <h3 class="text-lg font-semibold text-textDark">Agro Tech Park</h3>
                 <p class="text-sm text-textMuted">Ruang praktik terbuka bagi mahasiswa untuk menerapkan teknologi pertanian presisi di lingkungan nyata.</p>

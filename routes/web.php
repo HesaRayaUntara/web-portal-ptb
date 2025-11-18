@@ -14,7 +14,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Mahasiswa PTB mengadakan pelatihan penggunaan teknologi digital dalam sistem pertanian cerdas untuk meningkatkan efisiensi produksi.',
                 'image' => 'https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Tim Humas PTB',
-                'date' => '2024-10-02',
+                'date' => '2025-10-02',
                 'content' => [
                     'Workshop ini menghadirkan pelaku industri serta peneliti teknologi pertanian yang memandu mahasiswa mengenal perangkat Internet of Things, sensor kelembapan tanah, dan dasbor analitik untuk pemantauan lahan secara real time.',
                     'Peserta mempraktikkan integrasi data lapangan dengan platform digital farming yang dikembangkan PTB sehingga mampu merancang keputusan budidaya berbasis data.',
@@ -27,7 +27,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Kunjungan lapangan ke Balai Penelitian Tanaman Pangan memberikan pengalaman langsung tentang inovasi benih unggul dan pemuliaan tanaman.',
                 'image' => 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Dr. Arini Wibowo',
-                'date' => '2024-09-18',
+                'date' => '2025-09-18',
                 'content' => [
                     'Mahasiswa diajak meninjau laboratorium kultur jaringan, rumah kaca, serta plot demonstrasi untuk memahami tahapan seleksi galur dan uji adaptasi varietas.',
                     'Peneliti balai berbagi praktik terbaik mengenai kolaborasi kampus-industri dalam menghasilkan varietas unggul yang siap disebarkan ke petani mitra.',
@@ -40,7 +40,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Dosen dan mahasiswa PTB berpartisipasi dalam konferensi nasional untuk mempresentasikan hasil penelitian inovatif di bidang pertanian presisi.',
                 'image' => 'https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Prof. Lestari Widodo',
-                'date' => '2024-08-30',
+                'date' => '2025-08-30',
                 'content' => [
                     'Delegasi PTB memaparkan riset tentang pemanfaatan drone multispektral untuk memantau kesehatan tanaman dan mengoptimalkan pemupukan variabel.',
                     'Kolaborasi lintas kampus dijajaki untuk pengembangan perangkat lunak open-source yang mendukung pengambilan keputusan agronomis.',
@@ -53,7 +53,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Seminar membahas inovasi terbaru dalam pengembangan benih unggul dan teknik pemuliaan tanaman modern.',
                 'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Ir. Maya Setia, M.P.',
-                'date' => '2024-08-10',
+                'date' => '2025-08-10',
                 'content' => [
                     'Pemateri menyoroti pentingnya pemetaan genetika untuk mempercepat pemuliaan melalui seleksi berbantu marker.',
                     'Peserta memperoleh studi kasus penerapan bioteknologi dalam menghasilkan benih tahan cekaman abiotik.',
@@ -66,7 +66,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Peserta dilatih menggunakan platform digital untuk memasarkan produk pertanian dan mengelola rantai pasok.',
                 'image' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Rahmat Pradipta',
-                'date' => '2024-07-28',
+                'date' => '2025-07-28',
                 'content' => [
                     'Pelatihan membahas strategi branding, analitik penjualan, serta otomasi pemesanan melalui marketplace agribisnis.',
                     'Mahasiswa mengembangkan rencana bisnis yang memadukan produksi pangan lokal dengan kanal distribusi digital.',
@@ -79,7 +79,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'PTB menjalin kerja sama riset dengan universitas luar negeri untuk pengembangan teknologi pertanian presisi.',
                 'image' => 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Biro Kerja Sama PTB',
-                'date' => '2024-07-05',
+                'date' => '2025-07-05',
                 'content' => [
                     'Kemitraan ini fokus pada pemanfaatan kecerdasan buatan untuk memprediksi kebutuhan nutrisi tanaman secara spesifik lokasi.',
                     'Tim gabungan akan melakukan pertukaran peneliti dan membuka akses terhadap fasilitas laboratorium canggih.',
@@ -92,7 +92,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Program inkubator baru diluncurkan untuk mendukung mahasiswa dalam membangun startup teknologi pertanian.',
                 'image' => 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Nur Azizah, S.P., M.M.',
-                'date' => '2024-06-17',
+                'date' => '2025-06-17',
                 'content' => [
                     'Inkubator menyediakan pendampingan bisnis, akses mentor investor, serta fasilitas prototyping.',
                     'Batch perdana berfokus pada solusi pascapanen, marketplace komoditas, dan otomasi rumah kaca.',
@@ -104,8 +104,8 @@ if (!function_exists('beritaItems')) {
                 'title' => 'Festival Produk Hortikultura',
                 'desc' => 'Acara tahunan yang menampilkan produk hortikultura unggulan hasil penelitian dan praktik mahasiswa.',
                 'image' => 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80',
-                'author' => 'Panitia Festival Hortikultura',
-                'date' => '2024-05-26',
+                'author' => 'Panitia Festival',
+                'date' => '2025-05-26',
                 'content' => [
                     'Festival menghadirkan stan edukasi mengenai varietas buah tropis, sayuran hidroponik, dan bunga potong premium.',
                     'Pengunjung dapat mencicipi produk olahan hortikultura sekaligus mempelajari teknik budidaya ramah lingkungan.',
@@ -118,7 +118,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Pelatihan wajib bagi mahasiswa untuk memastikan prosedur keselamatan laboratorium terpenuhi.',
                 'image' => 'https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Laboratorium PTB',
-                'date' => '2024-05-12',
+                'date' => '2025-05-12',
                 'content' => [
                     'Materi meliputi penanganan bahan kimia, penggunaan APD, dan tata cara evakuasi darurat.',
                     'Instruktur menekankan pentingnya pencatatan sampel serta kalibrasi alat sebelum eksperimen.',
@@ -131,7 +131,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Pakar industri benih berbagi pengalaman tentang tantangan dan peluang di sektor perbenihan modern.',
                 'image' => 'https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=800&q=80',
                 'author' => 'PT Semai Nusantara',
-                'date' => '2024-04-22',
+                'date' => '2025-04-22',
                 'content' => [
                     'Kuliah tamu menyoroti kebutuhan transparansi rantai pasok benih dan penggunaan blockchain untuk pelacakan asal.',
                     'Mahasiswa diajak memahami standar sertifikasi benih serta strategi penetrasi pasar ekspor.',
@@ -143,8 +143,8 @@ if (!function_exists('beritaItems')) {
                 'title' => 'Program Pengabdian Desa Tangguh',
                 'desc' => 'Mahasiswa PTB mendampingi petani desa dalam menerapkan teknologi pertanian berkelanjutan.',
                 'image' => 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=800&q=80',
-                'author' => 'Unit Pengabdian Masyarakat',
-                'date' => '2024-03-30',
+                'author' => 'Tim Humas PTB',
+                'date' => '2025-03-30',
                 'content' => [
                     'Program memfokuskan pelatihan pembuatan pupuk hayati cair, manajemen air, dan perencanaan tanam adaptif iklim.',
                     'Pendampingan dilakukan selama tiga bulan hingga petani mandiri mengelola catatan produksi dan pemasaran.',
@@ -157,7 +157,7 @@ if (!function_exists('beritaItems')) {
                 'desc' => 'Kompetisi untuk mengembangkan produk pangan lokal bernilai tambah dan siap dikomersialisasikan.',
                 'image' => 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80',
                 'author' => 'Komite Inovasi Pangan',
-                'date' => '2024-03-12',
+                'date' => '2025-03-12',
                 'content' => [
                     'Peserta menampilkan formulasi produk berbasis umbi lokal, sorgum, dan rempah Nusantara.',
                     'Juri menilai aspek gizi, keberlanjutan bahan baku, hingga strategi pemasaran digital.',
@@ -242,7 +242,7 @@ Route::get('/dosen/{slug}', function ($slug) {
             'position' => 'Dosen Tetap',
             'education' => 'S3 Ilmu Tanah - Bogor Agricultural University',
             'research' => 'Soil Management, Land Use Planning & Environmental Conservation',
-            'awards' => 'Environmental Excellence Award 2024',
+            'awards' => 'Environmental Excellence Award 2025',
             'publications' => '15 jurnal internasional, 4 buku referensi',
             'description' => 'Spesialis dalam manajemen sumber daya lahan berkelanjutan dan konservasi tanah. Fokus pada pengembangan strategi penggunaan lahan yang optimal, rehabilitasi lahan terdegradasi, dan integrasi konservasi lingkungan dalam sistem pertanian.',
             'image' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=800&q=80',

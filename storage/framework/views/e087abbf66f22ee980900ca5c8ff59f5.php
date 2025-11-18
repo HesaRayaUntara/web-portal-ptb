@@ -38,13 +38,33 @@
 
         <div class="mt-8 grid gap-6 md:grid-cols-3 xl:grid-cols-3">
             <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                    <img src="<?php echo e($item['image']); ?>" alt="<?php echo e($item['title']); ?>" class="h-44 w-full object-cover">
-                    <div class="space-y-3 p-6">
-                        <h3 class="text-lg font-semibold text-textDark"><?php echo e($item['title']); ?></h3>
-                        <p class="text-sm text-textMuted"><?php echo e($item['desc']); ?></p>
-                    </div>
-                </article>
+                <a href="<?php echo e(route('berita.detail', $item['slug'])); ?>" class="group block h-full">
+                    <article class="flex h-full flex-col overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-card">
+                        <div class="relative">
+                            <img src="<?php echo e($item['image']); ?>" alt="<?php echo e($item['title']); ?>" class="h-44 w-full object-cover transition duration-300 group-hover:scale-105">
+                            <div class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primaryDark shadow-soft">
+                                <?php echo e(\Carbon\Carbon::parse($item['date'])->translatedFormat('d F Y')); ?>
+
+                            </div>
+                        </div>
+                        <div class="flex flex-1 flex-col justify-between space-y-3 p-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-textDark group-hover:text-primary"><?php echo e($item['title']); ?></h3>
+                                <p class="mt-2 text-sm text-textMuted"><?php echo e($item['desc']); ?></p>
+                            </div>
+                            <div class="flex items-center justify-between text-xs font-semibold text-textMuted/80">
+                                <span class="flex items-center gap-2 text-textMuted">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c1.656 0 3-1.12 3-2.5S13.656 6 12 6s-3 1.12-3 2.5S10.344 11 12 11zm0 0c-3 0-6 1.567-6 3.5V18h12v-3.5c0-1.933-3-3.5-6-3.5z" />
+                                    </svg>
+                                    <?php echo e($item['author']); ?>
+
+                                </span>
+                                <span class="text-primaryDark"><?php echo e(\Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y')); ?></span>
+                            </div>
+                        </div>
+                    </article>
+                </a>
             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </div>
 
