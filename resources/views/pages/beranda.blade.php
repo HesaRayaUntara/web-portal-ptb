@@ -61,7 +61,7 @@
         </div>
 
         <div class="overflow-hidden rounded-card shadow-soft">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=900&q=80" alt="Mahasiswa PTB" class="h-full w-full object-cover">
+            <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80" alt="Mahasiswa PTB" class="h-full w-full object-cover">
         </div>
     </div>
 </section>

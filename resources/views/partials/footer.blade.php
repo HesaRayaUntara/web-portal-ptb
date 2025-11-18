@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <div class="mx-auto flex w-full max-w-content flex-col gap-12 px-6 py-12 md:px-10 lg:px-12">
     <div class="grid gap-10 lg:grid-cols-[1.1fr_1fr_1.1fr]">
         {{-- Kontak --}}
@@ -38,13 +40,27 @@
             </ul>
             <div class="space-y-3 pt-4">
                 <h4 class="text-sm font-semibold uppercase tracking-wider2 text-white/90">Ikuti Kami</h4>
-                <div class="flex flex-wrap gap-2">
-                    @foreach(['IG', 'YT', 'FB', 'IN'] as $social)
-                        <a href="#"
-                           class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-xs font-semibold tracking-wide transition hover:bg-white/20">
-                            {{ $social }}
-                        </a>
-                    @endforeach
+                <div class="flex flex-wrap gap-3">
+
+                    {{-- Instagram --}}
+                    <a href="https://instagram.com" target="_blank" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white text-xl transition hover:bg-white/20">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+
+                    {{-- Facebook --}}
+                    <a href="https://facebook.com" target="_blank" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white text-xl transition hover:bg-white/20">
+                        <i class="fa-brands fa-facebook"></i>
+                    </a>
+
+                    {{-- YouTube --}}
+                    <a href="https://youtube.com" target="_blank" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white text-xl transition hover:bg-white/20">
+                        <i class="fa-brands fa-youtube"></i>
+                    </a>
+
+                    {{-- TikTok (opsional) --}}
+                    <a href="https://tiktok.com" target="_blank" class="inline-flex h-10 w-10 items-center justify-center rounded-full  border border-white/20 bg-white/10 text-white text-xl transition hover:bg-white/20">
+                        <i class="fa-brands fa-tiktok"></i>
+                    </a>
                 </div>
             </div>
         </div>

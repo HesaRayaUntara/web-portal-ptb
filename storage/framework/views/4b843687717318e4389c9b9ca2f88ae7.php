@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Login Admin'); ?>
 
 <?php $__env->startSection('content'); ?>
