@@ -65,7 +65,7 @@
     <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="space-y-6">
             <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Fokus dan Keunggulan Program</h2>
-            <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <div class="grid gap-6 md:grid-cols-3 xl:grid-cols-3">
                 <div class="rounded-card border-t-4 border-primary bg-white/60 p-8 text-center shadow-soft">
                     <h3 class="text-xl font-semibold text-primary">Presisi Teknologi</h3>
                     <p class="mt-3 text-sm text-textMuted">Mengintegrasikan teknologi presisi dalam bidang pertanian, termasuk sistem sensor, otomasi, dan Internet of Things (IoT).</p>
