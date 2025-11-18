@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Detail Kurikulum'); ?>
 
 <?php $__env->startSection('content'); ?>

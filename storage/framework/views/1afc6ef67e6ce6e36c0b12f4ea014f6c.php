@@ -9,6 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css', 'resources/js/app.js']); ?>
     <?php echo $__env->yieldPushContent('styles'); ?>
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo e(asset('gambar/favicon_io/apple-touch-icon.png')); ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo e(asset('gambar/favicon_io/favicon-32x32.png')); ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo e(asset('gambar/favicon_io/favicon-16x16.png')); ?>">
+    <link rel="manifest" href="<?php echo e(asset('gambar/favicon_io/site.webmanifest')); ?>">
+
 </head>
 <body class="bg-body text-textDark font-poppins antialiased">
 <div class="flex min-h-screen flex-col">

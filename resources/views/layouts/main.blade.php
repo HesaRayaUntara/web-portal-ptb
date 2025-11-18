@@ -9,6 +9,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('gambar/favicon_io/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('gambar/favicon_io/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('gambar/favicon_io/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('gambar/favicon_io/site.webmanifest') }}">
+
 </head>
 <body class="bg-body text-textDark font-poppins antialiased">
 <div class="flex min-h-screen flex-col">

@@ -70,7 +70,7 @@
             </p>
             <div class="flex flex-wrap gap-4">
                 <a class="inline-flex items-center gap-2 rounded-badge bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark"
-                   href="https://maps.app.goo.gl/vEXfeLcF2XWido3B7" target="_blank">Kunjungi Galeri 360°</a>
+                   href="https://maps.app.goo.gl/eNiDgAiGJYbsjy346" target="_blank">Kunjungi Galeri 360°</a>
                 <a class="inline-flex items-center gap-2 rounded-badge border border-primary/20 px-6 py-3 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-primary"
                    href="#">Unduh Katalog</a>
             </div>

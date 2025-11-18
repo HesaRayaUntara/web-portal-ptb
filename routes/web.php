@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\AdminAuthController;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 if (!function_exists('beritaItems')) {
@@ -295,3 +296,15 @@ Route::get('/galeri', function () {
 Route::get('/kontak', function () {
     return view('pages.kontak');
 })->name('kontak');
+
+// Route Admin Login
+Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name('admin.login');
+Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
+Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+// Route Admin Dashboard (protected)
+Route::middleware('admin.auth')->group(function () {
+    Route::get('/admin', function () {
+        return view('pages.admin');
+    })->name('admin.dashboard');
+});
