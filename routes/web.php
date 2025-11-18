@@ -174,13 +174,24 @@ Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.
 
 // Route Beranda (Home)
 Route::get('/', function () {
-    return view('pages.beranda');
+    // Get latest 5 photos from gallery (only photos, not videos)
+    $allItems = collect(galeriItems());
+    $latestPhotos = $allItems->filter(function ($item) {
+        return $item['type'] === 'photo';
+    })->take(5)->values();
+    
+    return view('pages.beranda', ['latestGalleryPhotos' => $latestPhotos]);
 })->name('beranda');
 
 // Route Profil
 Route::get('/profil', function () {
     return view('pages.profil');
 })->name('profil');
+
+// Route Fasilitas
+Route::get('/fasilitas', function () {
+    return view('pages.fasilitas');
+})->name('fasilitas');
 
 // Route Kurikulum
 Route::get('/kurikulum', function () {
@@ -287,9 +298,151 @@ Route::get('/berita/{slug}', function (string $slug) {
     return view('pages.berita-detail', ['item' => $newsItem]);
 })->name('berita.detail');
 
+if (!function_exists('galeriItems')) {
+    function galeriItems(): array
+    {
+        return [
+            [
+                'title' => 'Greenhouse Project',
+                'desc' => 'Pengembangan sistem nutrisi otomatis untuk budidaya sayur dengan emisi rendah.',
+                'image' => 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80',
+                'type' => 'video',
+                'category' => 'Riset',
+                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            ],
+            [
+                'title' => 'Harvest Day',
+                'desc' => 'Panen raya bersama komunitas mitra sebagai bagian dari program regenerasi desa.',
+                'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
+                'type' => 'video',
+                'category' => 'Kegiatan',
+                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            ],
+            [
+                'title' => 'Community Outreach',
+                'desc' => 'Kolaborasi mahasiswa dengan petani lokal dalam menerapkan teknologi irigasi tetes.',
+                'image' => 'https://images.unsplash.com/photo-1441123285228-1448e608f3d5?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Kegiatan',
+            ],
+            [
+                'title' => 'Food Innovation Lab',
+                'desc' => 'Pameran hasil penelitian produk pangan fungsional karya mahasiswa PTB.',
+                'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Pameran',
+            ],
+            [
+                'title' => 'Community Outreach',
+                'desc' => 'Kolaborasi mahasiswa dengan petani lokal dalam menerapkan teknologi irigasi tetes.',
+                'image' => 'https://images.unsplash.com/photo-1441123285228-1448e608f3d5?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Kegiatan',
+            ],
+            [
+                'title' => 'Food Innovation Lab',
+                'desc' => 'Pameran hasil penelitian produk pangan fungsional karya mahasiswa PTB.',
+                'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Pameran',
+            ],
+            [
+                'title' => 'Harvest Day',
+                'desc' => 'Panen raya bersama komunitas mitra sebagai bagian dari program regenerasi desa.',
+                'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
+                'type' => 'video',
+                'category' => 'Kegiatan',
+                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            ],
+            [
+                'title' => 'Community Outreach',
+                'desc' => 'Kolaborasi mahasiswa dengan petani lokal dalam menerapkan teknologi irigasi tetes.',
+                'image' => 'https://images.unsplash.com/photo-1441123285228-1448e608f3d5?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Kegiatan',
+            ],
+            [
+                'title' => 'Greenhouse Project',
+                'desc' => 'Pengembangan sistem nutrisi otomatis untuk budidaya sayur dengan emisi rendah.',
+                'image' => 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80',
+                'type' => 'video',
+                'category' => 'Riset',
+                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            ],
+            [
+                'title' => 'Harvest Day',
+                'desc' => 'Panen raya bersama komunitas mitra sebagai bagian dari program regenerasi desa.',
+                'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
+                'type' => 'video',
+                'category' => 'Kegiatan',
+                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            ],
+            [
+                'title' => 'Community Outreach',
+                'desc' => 'Kolaborasi mahasiswa dengan petani lokal dalam menerapkan teknologi irigasi tetes.',
+                'image' => 'https://images.unsplash.com/photo-1441123285228-1448e608f3d5?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Kegiatan',
+            ],
+            [
+                'title' => 'Food Innovation Lab',
+                'desc' => 'Pameran hasil penelitian produk pangan fungsional karya mahasiswa PTB.',
+                'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Pameran',
+            ],
+            [
+                'title' => 'Food Innovation Lab',
+                'desc' => 'Pameran hasil penelitian produk pangan fungsional karya mahasiswa PTB.',
+                'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Pameran',
+            ],
+            [
+                'title' => 'Community Outreach',
+                'desc' => 'Kolaborasi mahasiswa dengan petani lokal dalam menerapkan teknologi irigasi tetes.',
+                'image' => 'https://images.unsplash.com/photo-1441123285228-1448e608f3d5?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Kegiatan',
+            ],
+            [
+                'title' => 'Food Innovation Lab',
+                'desc' => 'Pameran hasil penelitian produk pangan fungsional karya mahasiswa PTB.',
+                'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
+                'type' => 'photo',
+                'category' => 'Pameran',
+            ],
+            [
+                'title' => 'Harvest Day',
+                'desc' => 'Panen raya bersama komunitas mitra sebagai bagian dari program regenerasi desa.',
+                'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
+                'type' => 'video',
+                'category' => 'Kegiatan',
+                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            ],
+        ];
+    }
+}
+
 // Route Galeri
 Route::get('/galeri', function () {
-    return view('pages.galeri');
+    $perPage = 12;
+    $currentPage = request()->get('page', 1);
+    $items = collect(galeriItems());
+    $currentItems = $items->forPage($currentPage, $perPage)->values();
+
+    $gallery = new LengthAwarePaginator(
+        $currentItems,
+        $items->count(),
+        $perPage,
+        $currentPage,
+        [
+            'path' => request()->url(),
+            'query' => request()->query(),
+        ]
+    );
+
+    return view('pages.galeri', ['gallery' => $gallery]);
 })->name('galeri');
 
 // Route Kontak (jika ada linknya di menu/footer)

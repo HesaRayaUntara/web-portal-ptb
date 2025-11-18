@@ -28,38 +28,67 @@
             </div>
         </div>
 
-        <div class="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            @foreach ([
-                [
-                    'title' => 'Greenhouse Project',
-                    'desc' => 'Pengembangan sistem nutrisi otomatis untuk budidaya sayur dengan emisi rendah.',
-                    'image' => 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80',
-                ],
-                [
-                    'title' => 'Community Outreach',
-                    'desc' => 'Kolaborasi mahasiswa dengan petani lokal dalam menerapkan teknologi irigasi tetes.',
-                    'image' => 'https://images.unsplash.com/photo-1441123285228-1448e608f3d5?auto=format&fit=crop&w=800&q=80',
-                ],
-                [
-                    'title' => 'Food Innovation Lab',
-                    'desc' => 'Pameran hasil penelitian produk pangan fungsional karya mahasiswa PTB.',
-                    'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
-                ],
-                [
-                    'title' => 'Harvest Day',
-                    'desc' => 'Panen raya bersama komunitas mitra sebagai bagian dari program regenerasi desa.',
-                    'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
-                ],
-            ] as $item)
-                <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                    <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" class="h-44 w-full object-cover">
-                    <div class="space-y-3 p-6">
-                        <h3 class="text-lg font-semibold text-textDark">{{ $item['title'] }}</h3>
-                        <p class="text-sm text-textMuted">{{ $item['desc'] }}</p>
+        <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            @foreach ($gallery as $item)
+                <article class="gallery-item group relative overflow-hidden rounded-card cursor-pointer" 
+                         data-type="{{ $item['type'] }}"
+                         data-image="{{ $item['image'] }}"
+                         data-title="{{ $item['title'] }}"
+                         data-desc="{{ $item['desc'] }}"
+                         @if(isset($item['youtube_url'])) data-youtube-url="{{ $item['youtube_url'] }}" @endif>
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                        <div class="absolute top-3 left-3 flex gap-2">
+                            <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary shadow-soft">
+                                {{ $item['category'] }}
+                            </span>
+                            @if($item['type'] === 'video')
+                                <span class="flex items-center justify-center rounded-full bg-primary/90 px-2.5 py-1 text-white shadow-soft">
+                                    <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
+                                    </svg>
+                                </span>
+                            @endif
+                        </div>
+                        <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
+                            <h3 class="mb-2 text-lg font-bold leading-tight transition-transform duration-300 group-hover:translate-y-[-4px]">{{ $item['title'] }}</h3>
+                            <p class="line-clamp-2 text-xs text-white/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:text-sm">{{ $item['desc'] }}</p>
+                        </div>
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                            @if($item['type'] === 'video')
+                                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg">
+                                    <svg class="ml-1 h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
+                                    </svg>
+                                </div>
+                            @else
+                                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg">
+                                    <svg class="h-8 w-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path>
+                                    </svg>
+                                </div>
+                            @endif
+                        </div>
                     </div>
                 </article>
             @endforeach
         </div>
+
+        @if ($gallery->hasPages())
+            <div class="mt-10 flex justify-center">
+                <nav class="flex items-center gap-2 rounded-full border border-primary/10 bg-white px-5 py-2 text-sm shadow-soft">
+                    @foreach (range(1, $gallery->lastPage()) as $page)
+                        <a
+                            href="{{ $gallery->url($page) }}"
+                            class="min-w-[36px] rounded-full px-3 py-1 text-center font-semibold transition
+                                {{ $page == $gallery->currentPage() ? 'bg-primary text-white shadow-card' : 'text-textMuted hover:bg-primary/10 hover:text-primary' }}">
+                            {{ $page }}
+                        </a>
+                    @endforeach
+                </nav>
+            </div>
+        @endif
     </section>
 
     <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
@@ -76,4 +105,81 @@
             </div>
         </div>
     </section>
+
+    <!-- Image Modal -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
+        <div class="relative w-full max-w-md">
+            <button id="closeModal" class="absolute -right-2 -top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-textDark shadow-lg transition hover:bg-gray-100">
+                <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <div class="relative w-full overflow-hidden rounded-lg bg-white shadow-xl">
+                <div class="relative w-full" style="padding-bottom: 75%;">
+                    <img id="modalImage" src="" alt="" class="absolute inset-0 h-full w-full object-cover">
+                </div>
+                <div class="bg-white p-3 text-center">
+                    <h3 id="modalTitle" class="text-sm font-bold text-textDark md:text-base"></h3>
+                    <p id="modalDesc" class="mt-1 text-xs text-textMuted"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const modal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalDesc = document.getElementById('modalDesc');
+            const closeModal = document.getElementById('closeModal');
+
+            galleryItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    const image = this.getAttribute('data-image');
+                    const title = this.getAttribute('data-title');
+                    const desc = this.getAttribute('data-desc');
+                    const youtubeUrl = this.getAttribute('data-youtube-url');
+
+                    if (type === 'video' && youtubeUrl) {
+                        // Redirect to YouTube
+                        window.open(youtubeUrl, '_blank');
+                    } else if (type === 'photo') {
+                        // Open modal with image
+                        modalImage.src = image;
+                        modalImage.alt = title;
+                        modalTitle.textContent = title;
+                        modalDesc.textContent = desc;
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // Close modal functions
+            function closeImageModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+
+            closeModal.addEventListener('click', closeImageModal);
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeImageModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeImageModal();
+                }
+            });
+        });
+    </script>
 @endsection

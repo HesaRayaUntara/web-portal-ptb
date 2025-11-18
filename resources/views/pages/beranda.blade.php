@@ -29,7 +29,7 @@
 
 <!-- Profil Program Studi -->
 <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-16 md:p-10 lg:p-12">
-    <div class="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
+    <div class="grid gap-8 md:grid-cols-2 md:items-center lg:gap-10">
         <div class="space-y-6">
             <div>
                 <span class="inline-block rounded-full bg-primary/15 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-primary">Program Studi PTB</span>
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="overflow-hidden rounded-card shadow-soft">
+        <div class="overflow-hidden rounded-card shadow-soft aspect-square">
             <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80" alt="Mahasiswa PTB" class="h-full w-full object-cover">
         </div>
     </div>
@@ -101,6 +101,68 @@
     </div>
 </section>
 
+<!-- Galeri Carousel -->
+@if(isset($latestGalleryPhotos) && $latestGalleryPhotos->count() > 0)
+<section class="mt-8 rounded-section bg-white p-6 shadow-soft md:mt-6 md:p-8">
+    <div class="space-y-4">
+        <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+                <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Galeri</span>
+                <h2 class="mt-1 text-2xl font-semibold text-secondary md:text-3xl">Momen Terbaru</h2>
+            </div>
+            <a href="{{ route('galeri') }}" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
+                Lihat semua galeri
+                <span aria-hidden="true">></span>
+            </a>
+        </div>
+
+        <!-- Carousel Container -->
+        <div class="relative mt-4">
+            <div class="gallery-carousel overflow-hidden rounded-card">
+                <div class="carousel-track flex transition-transform duration-500 ease-in-out" id="carouselTrack">
+                    @foreach($latestGalleryPhotos as $index => $photo)
+                    <div class="carousel-slide min-w-full flex-shrink-0" data-index="{{ $index }}">
+                        <div class="relative h-48 md:h-64 overflow-hidden rounded-card">
+                            <img src="{{ $photo['image'] }}" alt="{{ $photo['title'] }}" class="h-full w-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 text-white">
+                                <span class="inline-block rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold text-white mb-1.5">
+                                    {{ $photo['category'] }}
+                                </span>
+                                <h3 class="text-lg md:text-xl font-bold mb-1">{{ $photo['title'] }}</h3>
+                                <p class="text-xs text-white/90 line-clamp-2">{{ $photo['desc'] }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
+                </div>
+
+                <!-- Navigation Buttons -->
+                @if($latestGalleryPhotos->count() > 1)
+                <button class="carousel-btn carousel-prev absolute left-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-white/90 text-primary shadow-lg transition hover:bg-white hover:scale-110" aria-label="Previous slide">
+                    <svg class="h-4 w-4 md:h-5 md:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button class="carousel-btn carousel-next absolute right-2 top-1/2 -translate-y-1/2 z-10 flex h-8 w-8 md:h-10 md:w-10 items-center justify-center rounded-full bg-white/90 text-primary shadow-lg transition hover:bg-white hover:scale-110" aria-label="Next slide">
+                    <svg class="h-4 w-4 md:h-5 md:w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+
+                <!-- Indicators -->
+                <div class="absolute bottom-2 md:bottom-3 left-1/2 -translate-x-1/2 z-10 flex gap-1.5">
+                    @foreach($latestGalleryPhotos as $index => $photo)
+                    <button class="carousel-indicator h-1.5 rounded-full transition-all {{ $index === 0 ? 'w-5 md:w-6 bg-white' : 'w-1.5 bg-white/50' }}" data-index="{{ $index }}" aria-label="Go to slide {{ $index + 1 }}"></button>
+                    @endforeach
+                </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</section>
+@endif
+
 <!-- Berita Harian -->
 <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
     <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
@@ -110,7 +172,7 @@
         </div>
         <a href="{{ route('berita') }}" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
             Jelajahi semua berita
-            <span aria-hidden="true">→</span>
+            <span aria-hidden="true">></span>
         </a>
     </div>
 
@@ -140,4 +202,116 @@
         </article>
     </div>
 </section>
+
+@push('scripts')
+@if(isset($latestGalleryPhotos) && $latestGalleryPhotos->count() > 1)
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const track = document.getElementById('carouselTrack');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    
+    if (!track || slides.length === 0) return;
+    
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    
+    function updateCarousel() {
+        const translateX = -currentIndex * 100;
+        track.style.transform = `translateX(${translateX}%)`;
+        
+        // Update indicators
+        indicators.forEach((indicator, index) => {
+            if (index === currentIndex) {
+                indicator.classList.remove('w-1.5', 'bg-white/50');
+                indicator.classList.add('w-5', 'md:w-6', 'bg-white');
+            } else {
+                indicator.classList.remove('w-5', 'md:w-6', 'bg-white');
+                indicator.classList.add('w-1.5', 'bg-white/50');
+            }
+        });
+    }
+    
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateCarousel();
+    }
+    
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateCarousel();
+    }
+    
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+    }
+    
+    // Event listeners
+    if (nextBtn) {
+        nextBtn.addEventListener('click', nextSlide);
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', prevSlide);
+    }
+    
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => goToSlide(index));
+    });
+    
+    // Auto-play (optional - uncomment if desired)
+    // let autoPlayInterval = setInterval(nextSlide, 5000);
+    // 
+    // track.addEventListener('mouseenter', () => {
+    //     clearInterval(autoPlayInterval);
+    // });
+    // 
+    // track.addEventListener('mouseleave', () => {
+    //     autoPlayInterval = setInterval(nextSlide, 5000);
+    // });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+        }
+    });
+    
+    // Touch/swipe support for mobile
+    let startX = 0;
+    let isDragging = false;
+    
+    track.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+        isDragging = true;
+    });
+    
+    track.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        e.preventDefault();
+    });
+    
+    track.addEventListener('touchend', (e) => {
+        if (!isDragging) return;
+        isDragging = false;
+        const endX = e.changedTouches[0].clientX;
+        const diff = startX - endX;
+        
+        if (Math.abs(diff) > 50) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+        }
+    });
+});
+</script>
+@endif
+@endpush
 @endsection

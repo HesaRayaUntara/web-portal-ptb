@@ -18,37 +18,41 @@
         </div>
     </section>
 
-    <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
-        <div class="grid gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center">
-            <div class="space-y-6">
-                <div class="overflow-hidden rounded-card shadow-soft">
-                    <img src="<?php echo e(asset('gambar/contoh.png')); ?>" alt="Dr. Undang" class="w-full object-cover">
+    <section class="mt-8 rounded-section bg-white p-6 shadow-soft md:mt-6 md:p-8 lg:p-10">
+        <div class="mx-auto max-w-5xl">
+            <div class="grid gap-6 md:grid-cols-[1fr_1.5fr] md:items-center lg:gap-8">
+                <div class="flex justify-center">
+                    <div class="w-full max-w-[280px] overflow-hidden rounded-card shadow-soft">
+                        <div class="relative w-full" style="padding-bottom: 133.33%;">
+                            <img src="<?php echo e(asset('gambar/contoh.png')); ?>" alt="Dr. Undang" class="absolute inset-0 h-full w-full object-cover">
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="space-y-6">
-                <div>
-                    <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Dr. Undang, S.P., M.P.</h2>
-                    <span class="mt-3 inline-flex rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-primary">Kepala Program Studi</span>
-                </div>
-                <p class="text-sm leading-relaxed text-textMuted md:text-base">
-                    Spesialisasi pada agroekologi, ketahanan pangan, dan model pertanian regeneratif. Aktif dalam riset pengelolaan tanah berkelanjutan dan pemberdayaan petani muda melalui komunitas inovasi desa.
-                </p>
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
-                        <span class="block text-base font-semibold text-textDark">Pendidikan</span>
-                        S3 Agroekologi - Wageningen University
+                <div class="space-y-5 text-center md:text-left">
+                    <div>
+                        <h2 class="text-2xl font-semibold text-secondary md:text-3xl">Dr. Undang, S.P., M.P.</h2>
+                        <span class="mt-2 inline-flex rounded-full bg-primary/15 px-4 py-1 text-sm font-semibold text-primary">Kepala Program Studi</span>
                     </div>
-                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
-                        <span class="block text-base font-semibold text-textDark">Riset Aktif</span>
-                        Teknologi biochar &amp; circular agriculture
-                    </div>
-                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
-                        <span class="block text-base font-semibold text-textDark">Penghargaan</span>
-                        Green Innovation Award 2024
-                    </div>
-                    <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
-                        <span class="block text-base font-semibold text-textDark">Publikasi</span>
-                        Lebih dari 15 jurnal internasional terindeks Scopus
+                    <p class="text-sm leading-relaxed text-textMuted md:text-base">
+                        Spesialisasi pada agroekologi, ketahanan pangan, dan model pertanian regeneratif. Aktif dalam riset pengelolaan tanah berkelanjutan dan pemberdayaan petani muda melalui komunitas inovasi desa.
+                    </p>
+                    <div class="grid gap-3 sm:grid-cols-2">
+                        <div class="rounded-badge border border-primary/15 bg-accent p-4 text-sm text-textMuted">
+                            <span class="block text-base font-semibold text-textDark">Pendidikan</span>
+                            S3 Agroekologi - Wageningen University
+                        </div>
+                        <div class="rounded-badge border border-primary/15 bg-accent p-4 text-sm text-textMuted">
+                            <span class="block text-base font-semibold text-textDark">Riset Aktif</span>
+                            Teknologi biochar &amp; circular agriculture
+                        </div>
+                        <div class="rounded-badge border border-primary/15 bg-accent p-4 text-sm text-textMuted">
+                            <span class="block text-base font-semibold text-textDark">Penghargaan</span>
+                            Green Innovation Award 2024
+                        </div>
+                        <div class="rounded-badge border border-primary/15 bg-accent p-4 text-sm text-textMuted">
+                            <span class="block text-base font-semibold text-textDark">Publikasi</span>
+                            Lebih dari 15 jurnal internasional terindeks Scopus
+                        </div>
                     </div>
                 </div>
             </div>

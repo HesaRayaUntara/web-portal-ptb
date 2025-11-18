@@ -118,14 +118,19 @@
 
 
 <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
-    <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <div>
-            <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Fasilitas Pembelajaran</span>
-            <h2 class="mt-2 text-3xl font-semibold text-secondary md:text-4xl">Lingkungan Belajar Modern</h2>
+    <div class="space-y-6">
+        <div class="flex items-center justify-between gap-4">
+            <div>
+                <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Fasilitas Pembelajaran</span>
+                <h2 class="mt-2 text-3xl font-semibold text-secondary md:text-4xl">Lingkungan Belajar Modern</h2>
+            </div>
+            <a href="<?php echo e(route('fasilitas')); ?>"
+               class="hidden items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft md:inline-flex">
+                Selengkapnya
+                <span aria-hidden="true">></span>
+            </a>
         </div>
-    </div>
-
-    <div class="mt-8 grid gap-6 md:grid-cols-3 xl:grid-cols-3">
+        <div class="grid gap-6 md:grid-cols-3 xl:grid-cols-3">
         <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
             <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80" alt="Laboratorium Inovasi" class="h-44 w-full object-cover">
             <div class="space-y-3 p-6">
@@ -147,6 +152,14 @@
                 <p class="text-sm text-textMuted">Ruang belajar interaktif yang mendukung pembelajaran kolaboratif dan pengembangan ide kreatif mahasiswa.</p>
             </div>
         </article>
+        </div>
+        <div class="mt-4 flex justify-end md:hidden">
+            <a href="<?php echo e(route('fasilitas')); ?>"
+               class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
+                Selengkapnya
+                <span aria-hidden="true">></span>
+            </a>
+        </div>
     </div>
 </section>
 <?php $__env->stopSection(); ?>

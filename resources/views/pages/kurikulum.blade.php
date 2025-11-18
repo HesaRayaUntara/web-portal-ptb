@@ -32,7 +32,7 @@
                 <a href="{{ route('kurikulum.detail') }}"
                    class="hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark md:inline-flex">
                     <span>Detail Kurikulum</span>
-                    <span class="text-sm">➜</span>
+                    <span class="text-sm">></span>
                 </a>
             </div>
             <div class="grid gap-4 md:grid-cols-2">
@@ -57,7 +57,7 @@
                 <a href="{{ route('kurikulum.detail') }}"
                    class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
                     <span>Detail Kurikulum</span>
-                    <span class="text-sm">➜</span>
+                    <span class="text-sm">></span>
                 </a>
             </div>
         </div>
