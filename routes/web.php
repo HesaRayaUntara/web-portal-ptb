@@ -49,19 +49,6 @@ if (!function_exists('beritaItems')) {
                 ],
             ],
             [
-                'slug' => 'seminar-inovasi-benih-unggul',
-                'title' => 'Seminar Inovasi Benih Unggul',
-                'desc' => 'Seminar membahas inovasi terbaru dalam pengembangan benih unggul dan teknik pemuliaan tanaman modern.',
-                'image' => 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=800&q=80',
-                'author' => 'Ir. Maya Setia, M.P.',
-                'date' => '2025-08-10',
-                'content' => [
-                    'Pemateri menyoroti pentingnya pemetaan genetika untuk mempercepat pemuliaan melalui seleksi berbantu marker.',
-                    'Peserta memperoleh studi kasus penerapan bioteknologi dalam menghasilkan benih tahan cekaman abiotik.',
-                    'Diskusi menghasilkan rencana kolaborasi dengan industri benih nasional untuk hilirisasi teknologi kampus.',
-                ],
-            ],
-            [
                 'slug' => 'pelatihan-agribisnis-digital',
                 'title' => 'Pelatihan Agribisnis Digital',
                 'desc' => 'Peserta dilatih menggunakan platform digital untuk memasarkan produk pertanian dan mengelola rantai pasok.',
@@ -180,7 +167,14 @@ Route::get('/', function () {
         return $item['type'] === 'photo';
     })->take(5)->values();
     
-    return view('pages.beranda', ['latestGalleryPhotos' => $latestPhotos]);
+    // Get latest 5 news items sorted by date (newest first)
+    $allNews = collect(beritaItems());
+    $latestNews = $allNews->sortByDesc('date')->take(5)->values();
+    
+    return view('pages.beranda', [
+        'latestGalleryPhotos' => $latestPhotos,
+        'latestNews' => $latestNews
+    ]);
 })->name('beranda');
 
 // Route Profil
@@ -308,15 +302,15 @@ if (!function_exists('galeriItems')) {
                 'image' => 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80',
                 'type' => 'video',
                 'category' => 'Riset',
-                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'youtube_url' => 'https://youtu.be/4qz9Lp8IjEI?si=0fvB9GxcR9rnOiHQ',
             ],
             [
                 'title' => 'Harvest Day',
-                'desc' => 'Panen raya bersama komunitas mitra sebagai bagian dari program regenerasi desa.',
+                'desc' => 'Panen raya bersama komunitas mitra sebagai bagian dari program regenerasi desa. ',
                 'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
                 'type' => 'video',
                 'category' => 'Kegiatan',
-                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'youtube_url' => 'https://youtu.be/oQiLdhINyqM?si=imALRBTNajfTSsao',
             ],
             [
                 'title' => 'Community Outreach',
@@ -352,7 +346,7 @@ if (!function_exists('galeriItems')) {
                 'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
                 'type' => 'video',
                 'category' => 'Kegiatan',
-                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'youtube_url' => 'https://youtu.be/Y9GJzpU-7m4?si=oYxSS7dmSBCB0Eli',
             ],
             [
                 'title' => 'Community Outreach',
@@ -367,7 +361,7 @@ if (!function_exists('galeriItems')) {
                 'image' => 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?auto=format&fit=crop&w=800&q=80',
                 'type' => 'video',
                 'category' => 'Riset',
-                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'youtube_url' => 'https://youtu.be/4qz9Lp8IjEI?si=0fvB9GxcR9rnOiHQ',
             ],
             [
                 'title' => 'Harvest Day',
@@ -375,7 +369,7 @@ if (!function_exists('galeriItems')) {
                 'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
                 'type' => 'video',
                 'category' => 'Kegiatan',
-                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'youtube_url' => 'https://youtu.be/oQiLdhINyqM?si=imALRBTNajfTSsao',
             ],
             [
                 'title' => 'Community Outreach',
@@ -418,7 +412,7 @@ if (!function_exists('galeriItems')) {
                 'image' => 'https://images.unsplash.com/photo-1525026198548-4baa812f1183?auto=format&fit=crop&w=800&q=80',
                 'type' => 'video',
                 'category' => 'Kegiatan',
-                'youtube_url' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+                'youtube_url' => 'https://youtu.be/Y9GJzpU-7m4?si=oYxSS7dmSBCB0Eli',
             ],
         ];
     }

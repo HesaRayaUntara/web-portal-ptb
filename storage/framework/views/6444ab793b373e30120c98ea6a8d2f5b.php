@@ -21,33 +21,33 @@
 </section>
 
 <!--  -->
-<section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
-    <div class="grid gap-8 lg:grid-cols-2">
+<section class="mt-8 rounded-section bg-white p-6 shadow-soft md:mt-6 md:p-6 lg:p-8">
+    <div class="grid gap-5 lg:grid-cols-2">
         
-        <div class="rounded-card border border-primary/15 bg-white/90 p-8">
+        <div class="rounded-card border border-primary/15 bg-white/90 p-5">
             <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Visi</span>
-            <h2 class="mt-3 text-3xl font-semibold text-secondary md:text-4xl">Menjadi Prodi Unggulan</h2>
-            <p class="mt-4 text-sm leading-relaxed text-textMuted md:text-base">
+            <h2 class="mt-2 text-xl font-semibold text-secondary md:text-2xl">Menjadi Prodi Unggulan</h2>
+            <p class="mt-3 text-sm leading-relaxed text-textMuted">
                 Mewujudkan program studi yang inovatif, berdaya saing global, dan memberikan dampak nyata bagi kemajuan
                 agroindustri berkelanjutan melalui kolaborasi riset, teknologi, serta pemberdayaan masyarakat.
             </p>
         </div>
 
         
-        <div class="rounded-card border border-primary/15 bg-white/90 p-8">
+        <div class="rounded-card border border-primary/15 bg-white/90 p-5">
             <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Misi</span>
-            <h2 class="mt-3 text-3xl font-semibold text-secondary md:text-4xl">Langkah Strategis</h2>
-            <ul class="mt-6 space-y-4 text-sm text-textMuted md:text-base">
-                <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">1</span>
+            <h2 class="mt-2 text-xl font-semibold text-secondary md:text-2xl">Langkah Strategis</h2>
+            <ul class="mt-4 space-y-3 text-sm text-textMuted">
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">1</span>
                     Mengembangkan kurikulum adaptif berbasis teknologi dan kebutuhan industri.
                 </li>
-                <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">2</span>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">2</span>
                     Mendorong riset terapan yang menghasilkan solusi inovatif bagi sektor pertanian dan pangan.
                 </li>
-                <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">3</span>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">3</span>
                     Menjalin kemitraan strategis dengan industri, pemerintah, dan komunitas global.
                 </li>
             </ul>
@@ -92,6 +92,94 @@
 </div>
 
 
+<section class="mt-10 rounded-3xl border border-primary/10 bg-white p-5 shadow-soft md:mt-8 md:p-6">
+    <div class="text-center">
+        <span class="text-xs font-semibold uppercase tracking-wide4 text-secondary/80">Prospek Karier</span>
+        <h3 class="mt-2 text-2xl font-semibold text-textDark">Arah Karier Unggulan</h3>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+        <article class="rounded-2xl border border-primary/10 bg-white p-5">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-primary shadow-soft">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.964m11.49-9.642 1.149-.964M7.501 19.795l.75-1.3m7.5-12.99.75-1.3m-6.063 16.658.26-1.477m2.605-14.772.26-1.477m0 17.726-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205 12 12m6.894 5.785-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide4 text-primary/70">Industri / Tempat Bekerja</p>
+                    <h3 class="text-lg font-semibold text-textDark">Jejaring Profesional</h3>
+                </div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm font-semibold text-textDark">
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span>
+                    Startup agritech
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span>
+                    Laboratorium riset
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span>
+                    Pabrik pangan & logistik
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span>
+                    BUMN & instansi pemerintah
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span>
+                    Konsultan keberlanjutan
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span>
+                    Komunitas wirausaha agro
+                </li>
+            </ul>
+        </article>
+        <article class="rounded-2xl border border-secondary/10 bg-white p-5">
+            <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-white text-secondary shadow-soft">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide4 text-secondary/70">Posisi yang Banyak Dicari</p>
+                    <h3 class="text-lg font-semibold text-textDark">Peran Favorit Industri</h3>
+                </div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm font-semibold text-textDark">
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-secondary"></span>
+                    Quality control specialist
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-secondary"></span>
+                    Data & automation engineer
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-secondary"></span>
+                    Project manager inovasi
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-secondary"></span>
+                    Konsultan agro & ESG
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-secondary"></span>
+                    Dosen & peneliti terapan
+                </li>
+                <li class="flex items-start gap-3">
+                    <span class="mt-1 h-2.5 w-2.5 rounded-full bg-secondary"></span>
+                    Business development ekspor
+                </li>
+            </ul>
+        </article>
+    </div>
+</section>
+
+
 <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
     <div class="space-y-6">
         <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Filosofi dan Nilai Dasar</h2>
@@ -125,37 +213,37 @@
                 <h2 class="mt-2 text-3xl font-semibold text-secondary md:text-4xl">Lingkungan Belajar Modern</h2>
             </div>
             <a href="<?php echo e(route('fasilitas')); ?>"
-               class="hidden items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft md:inline-flex">
+                class="hidden items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft md:inline-flex">
                 Selengkapnya
                 <span aria-hidden="true">></span>
             </a>
         </div>
         <div class="grid gap-6 md:grid-cols-3 xl:grid-cols-3">
-        <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80" alt="Laboratorium Inovasi" class="h-44 w-full object-cover">
-            <div class="space-y-3 p-6">
-                <h3 class="text-lg font-semibold text-textDark">Laboratorium Inovasi</h3>
-                <p class="text-sm text-textMuted">Fasilitas modern untuk kegiatan penelitian dan pengembangan teknologi berbasis data dan otomasi.</p>
-            </div>
-        </article>
-        <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Agro Tech Park" class="h-44 w-full object-cover">
-            <div class="space-y-3 p-6">
-                <h3 class="text-lg font-semibold text-textDark">Agro Tech Park</h3>
-                <p class="text-sm text-textMuted">Ruang praktik terbuka bagi mahasiswa untuk menerapkan teknologi pertanian presisi di lingkungan nyata.</p>
-            </div>
-        </article>
-        <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80" alt="Learning Studio" class="h-44 w-full object-cover">
-            <div class="space-y-3 p-6">
-                <h3 class="text-lg font-semibold text-textDark">Learning Studio</h3>
-                <p class="text-sm text-textMuted">Ruang belajar interaktif yang mendukung pembelajaran kolaboratif dan pengembangan ide kreatif mahasiswa.</p>
-            </div>
-        </article>
+            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
+                <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80" alt="Laboratorium Inovasi" class="h-44 w-full object-cover">
+                <div class="space-y-3 p-6">
+                    <h3 class="text-lg font-semibold text-textDark">Laboratorium Inovasi</h3>
+                    <p class="text-sm text-textMuted">Fasilitas modern untuk kegiatan penelitian dan pengembangan teknologi berbasis data dan otomasi.</p>
+                </div>
+            </article>
+            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Agro Tech Park" class="h-44 w-full object-cover">
+                <div class="space-y-3 p-6">
+                    <h3 class="text-lg font-semibold text-textDark">Agro Tech Park</h3>
+                    <p class="text-sm text-textMuted">Ruang praktik terbuka bagi mahasiswa untuk menerapkan teknologi pertanian presisi di lingkungan nyata.</p>
+                </div>
+            </article>
+            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
+                <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80" alt="Learning Studio" class="h-44 w-full object-cover">
+                <div class="space-y-3 p-6">
+                    <h3 class="text-lg font-semibold text-textDark">Learning Studio</h3>
+                    <p class="text-sm text-textMuted">Ruang belajar interaktif yang mendukung pembelajaran kolaboratif dan pengembangan ide kreatif mahasiswa.</p>
+                </div>
+            </article>
         </div>
         <div class="mt-4 flex justify-end md:hidden">
             <a href="<?php echo e(route('fasilitas')); ?>"
-               class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
+                class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
                 Selengkapnya
                 <span aria-hidden="true">></span>
             </a>

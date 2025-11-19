@@ -65,37 +65,125 @@
 </section>
 
 <!--  -->
-<section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
-    <div class="grid gap-8 lg:grid-cols-2">
+<section class="mt-8 rounded-section bg-white p-6 shadow-soft md:mt-6 md:p-6 lg:p-8">
+    <div class="grid gap-5 lg:grid-cols-2">
         
-        <div class="rounded-card border border-primary/15 bg-white/90 p-8">
+        <div class="rounded-card border border-primary/15 bg-white/90 p-5">
             <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Visi</span>
-            <h2 class="mt-3 text-3xl font-semibold text-secondary md:text-4xl">Menjadi Prodi Unggulan</h2>
-            <p class="mt-4 text-sm leading-relaxed text-textMuted md:text-base">
+            <h2 class="mt-2 text-xl font-semibold text-secondary md:text-2xl">Menjadi Prodi Unggulan</h2>
+            <p class="mt-3 text-sm leading-relaxed text-textMuted">
                 Mewujudkan program studi yang inovatif, berdaya saing global, dan memberikan dampak nyata bagi kemajuan
                 agroindustri berkelanjutan melalui kolaborasi riset, teknologi, serta pemberdayaan masyarakat.
             </p>
         </div>
 
         
-        <div class="rounded-card border border-primary/15 bg-white/90 p-8">
+        <div class="rounded-card border border-primary/15 bg-white/90 p-5">
             <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Misi</span>
-            <h2 class="mt-3 text-3xl font-semibold text-secondary md:text-4xl">Langkah Strategis</h2>
-            <ul class="mt-6 space-y-4 text-sm text-textMuted md:text-base">
-                <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">1</span>
+            <h2 class="mt-2 text-xl font-semibold text-secondary md:text-2xl">Langkah Strategis</h2>
+            <ul class="mt-4 space-y-3 text-sm text-textMuted">
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">1</span>
                     Mengembangkan kurikulum adaptif berbasis teknologi dan kebutuhan industri.
                 </li>
-                <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">2</span>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">2</span>
                     Mendorong riset terapan yang menghasilkan solusi inovatif bagi sektor pertanian dan pangan.
                 </li>
-                <li class="flex items-start gap-3">
-                    <span class="mt-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">3</span>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">3</span>
                     Menjalin kemitraan strategis dengan industri, pemerintah, dan komunitas global.
                 </li>
             </ul>
         </div>
+    </div>
+</section>
+
+<!-- Prospek Karir -->
+<section class="mt-8 rounded-section bg-white p-6 shadow-soft md:mt-6 md:p-6 lg:p-8">
+    <div class="text-center">
+        <span class="text-xs font-semibold uppercase tracking-wide4 text-secondary/80">Prospek Karier</span>
+        <h3 class="mt-2 text-xl font-semibold text-textDark md:text-2xl">Arah Karier Unggulan</h3>
+    </div>
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+        <article class="rounded-card border border-primary/10 bg-white p-5">
+            <div class="flex items-center gap-3">
+                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-primary shadow-soft">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12a7.5 7.5 0 0 0 15 0m-15 0a7.5 7.5 0 1 1 15 0m-15 0H3m16.5 0H21m-1.5 0H12m-8.457 3.077 1.41-.513m14.095-5.13 1.41-.513M5.106 17.785l1.15-.964m11.49-9.642 1.149-.964M7.501 19.795l.75-1.3m7.5-12.99.75-1.3m-6.063 16.658.26-1.477m2.605-14.772.26-1.477m0 17.726-.26-1.477M10.698 4.614l-.26-1.477M16.5 19.794l-.75-1.299M7.5 4.205 12 12m6.894 5.785-1.149-.964M6.256 7.178l-1.15-.964m15.352 8.864-1.41-.513M4.954 9.435l-1.41-.514M12.002 12l-3.75 6.495" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide4 text-primary/70">Industri / Tempat Bekerja</p>
+                    <h3 class="text-base font-semibold text-textDark md:text-lg">Jejaring Profesional</h3>
+                </div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm font-semibold text-textDark">
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-primary"></span>
+                    Startup agritech
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-primary"></span>
+                    Laboratorium riset
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-primary"></span>
+                    Pabrik pangan & logistik
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-primary"></span>
+                    BUMN & instansi pemerintah
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-primary"></span>
+                    Konsultan keberlanjutan
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-primary"></span>
+                    Komunitas wirausaha agro
+                </li>
+            </ul>
+        </article>
+        <article class="rounded-card border border-secondary/10 bg-white p-5">
+            <div class="flex items-center gap-3">
+                <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-white text-secondary shadow-soft">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-5 w-5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+                    </svg>
+                </div>
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wide4 text-secondary/70">Posisi yang Banyak Dicari</p>
+                    <h3 class="text-base font-semibold text-textDark md:text-lg">Peran Favorit Industri</h3>
+                </div>
+            </div>
+            <ul class="mt-4 space-y-2 text-sm font-semibold text-textDark">
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-secondary"></span>
+                    Quality control specialist
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-secondary"></span>
+                    Data & automation engineer
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-secondary"></span>
+                    Project manager inovasi
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-secondary"></span>
+                    Konsultan agro & ESG
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-secondary"></span>
+                    Dosen & peneliti terapan
+                </li>
+                <li class="flex items-start gap-2.5">
+                    <span class="mt-1 h-2 w-2 rounded-full bg-secondary"></span>
+                    Business development ekspor
+                </li>
+            </ul>
+        </article>
     </div>
 </section>
 
@@ -108,7 +196,7 @@
                 <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Galeri</span>
                 <h2 class="mt-1 text-2xl font-semibold text-secondary md:text-3xl">Momen Terbaru</h2>
             </div>
-            <a href="<?php echo e(route('galeri')); ?>" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
+            <a href="<?php echo e(route('galeri')); ?>" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-4 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:shadow-soft">
                 Lihat semua galeri
                 <span aria-hidden="true">></span>
             </a>
@@ -163,42 +251,52 @@
 <?php endif; ?>
 
 <!-- Berita Harian -->
-<section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
-    <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+<section class="mt-8 rounded-section bg-white p-6 shadow-soft md:mt-6 md:p-6 lg:p-8">
+    <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
             <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Berita Harian</span>
-            <h2 class="mt-2 text-3xl font-semibold text-secondary">Sorotan Terbaru</h2>
+            <h2 class="mt-1 text-2xl font-semibold text-secondary md:text-3xl">Sorotan Terbaru</h2>
         </div>
-        <a href="<?php echo e(route('berita')); ?>" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-5 py-2 text-sm font-semibold text-primary transition hover:border-primary hover:shadow-soft">
+        <a href="<?php echo e(route('berita')); ?>" class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-4 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:shadow-soft">
             Jelajahi semua berita
             <span aria-hidden="true">></span>
         </a>
     </div>
 
-    <div class="mt-8 grid gap-6 md:grid-cols-3 lg:grid-cols-3">
-        <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1514996937319-344454492b37?auto=format&fit=crop&w=800&q=80" alt="Kegiatan berkebun" class="h-44 w-full object-cover">
-            <div class="space-y-3 p-6">
-                <h3 class="text-lg font-semibold text-textDark">Gardening With Us</h3>
-                <p class="text-sm text-textMuted">Mahasiswa berkolaborasi dengan mitra desa untuk membangun kebun hidroponik komunitas.</p>
-            </div>
-        </article>
+    <div class="mt-6 space-y-3">
+        <?php if(isset($latestNews) && $latestNews->count() > 0): ?>
+        <?php $__currentLoopData = $latestNews; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <a href="<?php echo e(route('berita.detail', $item['slug'])); ?>" class="group block">
+            <article class="flex flex-col overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-card md:flex-row">
+                <div class="relative h-32 w-full flex-shrink-0 md:h-auto md:w-40">
+                    <img src="<?php echo e($item['image']); ?>" alt="<?php echo e($item['title']); ?>" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-semibold text-primaryDark shadow-soft">
+                        <?php echo e(\Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y')); ?>
 
-        <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&w=800&q=80" alt="Penelitian PTB" class="h-44 w-full object-cover">
-            <div class="space-y-3 p-6">
-                <h3 class="text-lg font-semibold text-textDark">Riset Teknologi Pangan</h3>
-                <p class="text-sm text-textMuted">Pengembangan produk pangan fungsional rendah emisi berhasil meraih pendanaan inkubasi.</p>
-            </div>
-        </article>
+                    </div>
+                </div>
+                <div class="flex flex-1 flex-col justify-between space-y-2 p-4">
+                    <div>
+                        <h3 class="text-base font-semibold text-textDark group-hover:text-primary line-clamp-1"><?php echo e($item['title']); ?></h3>
+                        <p class="mt-1.5 text-xs text-textMuted line-clamp-2"><?php echo e($item['desc']); ?></p>
+                    </div>
+                    <div class="flex items-center justify-between text-[10px] font-semibold text-textMuted/80">
+                        <span class="flex items-center gap-1.5 text-textMuted">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c1.656 0 3-1.12 3-2.5S13.656 6 12 6s-3 1.12-3 2.5S10.344 11 12 11zm0 0c-3 0-6 1.567-6 3.5V18h12v-3.5c0-1.933-3-3.5-6-3.5z" />
+                            </svg>
+                            <?php echo e($item['author']); ?>
 
-        <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-            <img src="https://images.unsplash.com/photo-1458640904116-093b74971de9?auto=format&fit=crop&w=800&q=80" alt="Pelatihan Petani" class="h-44 w-full object-cover">
-            <div class="space-y-3 p-6">
-                <h3 class="text-lg font-semibold text-textDark">Pelatihan Petani Mitra</h3>
-                <p class="text-sm text-textMuted">Workshop digital farming untuk petani mitra menghasilkan peningkatan produktivitas 25%.</p>
-            </div>
-        </article>
+                        </span>
+                        <span class="text-primaryDark"><?php echo e(\Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y')); ?></span>
+                    </div>
+                </div>
+            </article>
+        </a>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php else: ?>
+        <p class="text-center text-sm text-textMuted py-8">Tidak ada berita tersedia.</p>
+        <?php endif; ?>
     </div>
 </section>
 

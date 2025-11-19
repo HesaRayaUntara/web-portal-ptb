@@ -28,14 +28,28 @@
 
         <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <?php
+                    $displayImage = $item['image'];
+                    if ($item['type'] === 'video' && isset($item['youtube_url'])) {
+                        $videoId = null;
+                        if (preg_match('/(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/)([^\s&]+)/', $item['youtube_url'], $matches)) {
+                            $videoId = $matches[1];
+                        } elseif (preg_match('/youtu\.be\/([^\s?&]+)/', $item['youtube_url'], $matches)) {
+                            $videoId = $matches[1];
+                        }
+                        if ($videoId) {
+                            $displayImage = "https://img.youtube.com/vi/{$videoId}/hqdefault.jpg";
+                        }
+                    }
+                ?>
                 <article class="gallery-item group relative overflow-hidden rounded-card cursor-pointer" 
                          data-type="<?php echo e($item['type']); ?>"
-                         data-image="<?php echo e($item['image']); ?>"
+                         data-image="<?php echo e($displayImage); ?>"
                          data-title="<?php echo e($item['title']); ?>"
                          data-desc="<?php echo e($item['desc']); ?>"
                          <?php if(isset($item['youtube_url'])): ?> data-youtube-url="<?php echo e($item['youtube_url']); ?>" <?php endif; ?>>
-                    <div class="relative h-64 overflow-hidden">
-                        <img src="<?php echo e($item['image']); ?>" alt="<?php echo e($item['title']); ?>" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="<?php echo e($displayImage); ?>" alt="<?php echo e($item['title']); ?>" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                         <div class="absolute top-3 left-3 flex gap-2">
                             <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary shadow-soft">
@@ -50,9 +64,15 @@
                                 </span>
                             <?php endif; ?>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 p-5 text-white">
-                            <h3 class="mb-2 text-lg font-bold leading-tight transition-transform duration-300 group-hover:translate-y-[-4px]"><?php echo e($item['title']); ?></h3>
-                            <p class="line-clamp-2 text-xs text-white/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:text-sm"><?php echo e($item['desc']); ?></p>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-3 text-white">
+                            <h3 class="text-base font-semibold leading-tight line-clamp-1">
+                                <?php echo e($item['title']); ?>
+
+                            </h3>
+                            <p class="mt-1 line-clamp-1 text-[11px] text-white/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                                <?php echo e($item['desc']); ?>
+
+                            </p>
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
                             <?php if($item['type'] === 'video'): ?>
@@ -106,21 +126,22 @@
         </div>
     </section>
 
-    <!-- Image Modal -->
-    <div id="imageModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
-        <div class="relative w-full max-w-md">
+    <!-- Media Modal -->
+    <div id="mediaModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
+        <div class="relative w-full max-w-2xl">
             <button id="closeModal" class="absolute -right-2 -top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-textDark shadow-lg transition hover:bg-gray-100">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
             <div class="relative w-full overflow-hidden rounded-lg bg-white shadow-xl">
-                <div class="relative w-full" style="padding-bottom: 75%;">
-                    <img id="modalImage" src="" alt="" class="absolute inset-0 h-full w-full object-cover">
+                <div class="relative w-full bg-black" style="padding-bottom: 56.25%;">
+                    <img id="modalImage" src="" alt="" class="absolute inset-0 h-full w-full object-cover hidden">
+                    <iframe id="modalVideo" class="absolute inset-0 h-full w-full hidden" src="" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
-                <div class="bg-white p-3 text-center">
+                <div class="bg-white p-4 text-center">
                     <h3 id="modalTitle" class="text-sm font-bold text-textDark md:text-base"></h3>
-                    <p id="modalDesc" class="mt-1 text-xs text-textMuted"></p>
+                    <p id="modalDesc" class="mt-1 text-xs text-textMuted md:text-sm"></p>
                 </div>
             </div>
         </div>
@@ -129,11 +150,52 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const galleryItems = document.querySelectorAll('.gallery-item');
-            const modal = document.getElementById('imageModal');
+            const modal = document.getElementById('mediaModal');
             const modalImage = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
             const modalTitle = document.getElementById('modalTitle');
             const modalDesc = document.getElementById('modalDesc');
             const closeModal = document.getElementById('closeModal');
+
+            function openModal() {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function showImage({ image, title, desc }) {
+                modalVideo.classList.add('hidden');
+                modalVideo.src = '';
+                modalImage.classList.remove('hidden');
+                modalImage.src = image;
+                modalImage.alt = title;
+                modalTitle.textContent = title;
+                modalDesc.textContent = desc;
+                openModal();
+            }
+
+            function getYoutubeEmbedUrl(url) {
+                if (!url) return null;
+                const standardMatch = url.match(/(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/)([^\s&]+)/);
+                const shortMatch = url.match(/youtu\.be\/([^\s?&]+)/);
+                const videoId = standardMatch ? standardMatch[1] : (shortMatch ? shortMatch[1] : null);
+                return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+            }
+
+            function showVideo({ youtubeUrl, title, desc }) {
+                const embedUrl = getYoutubeEmbedUrl(youtubeUrl);
+                if (!embedUrl) {
+                    window.open(youtubeUrl, '_blank');
+                    return;
+                }
+                modalImage.classList.add('hidden');
+                modalImage.src = '';
+                modalVideo.classList.remove('hidden');
+                modalVideo.src = `${embedUrl}?autoplay=1&rel=0`;
+                modalTitle.textContent = title;
+                modalDesc.textContent = desc;
+                openModal();
+            }
 
             galleryItems.forEach(item => {
                 item.addEventListener('click', function() {
@@ -144,17 +206,9 @@
                     const youtubeUrl = this.getAttribute('data-youtube-url');
 
                     if (type === 'video' && youtubeUrl) {
-                        // Redirect to YouTube
-                        window.open(youtubeUrl, '_blank');
+                        showVideo({ youtubeUrl, title, desc });
                     } else if (type === 'photo') {
-                        // Open modal with image
-                        modalImage.src = image;
-                        modalImage.alt = title;
-                        modalTitle.textContent = title;
-                        modalDesc.textContent = desc;
-                        modal.classList.remove('hidden');
-                        modal.classList.add('flex');
-                        document.body.style.overflow = 'hidden';
+                        showImage({ image, title, desc });
                     }
                 });
             });
@@ -164,6 +218,10 @@
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
                 document.body.style.overflow = '';
+                modalImage.src = '';
+                modalVideo.src = '';
+                modalImage.classList.add('hidden');
+                modalVideo.classList.add('hidden');
             }
 
             closeModal.addEventListener('click', closeImageModal);
