@@ -1,30 +1,28 @@
-@extends('layouts.main')
+<?php $__env->startSection('title', 'Admin Dashboard'); ?>
 
-@section('title', 'Admin Dashboard')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div class="rounded-section border border-borderSoft bg-white shadow-soft">
         <div class="flex flex-col gap-8 lg:flex-row">
             <aside class="w-full border-borderSoft bg-[#F4F7F3] p-6 lg:w-80 lg:border-r">
                 <div class="flex flex-col gap-6">
                     <div class="flex items-center gap-3 rounded-card bg-white px-4 py-3 shadow-soft">
-                        <img src="{{ asset('gambar/logo-ptb.png') }}" alt="Logo PTB" class="h-12 w-12 rounded-full border border-primary/30 object-cover">
+                        <img src="<?php echo e(asset('gambar/logo-ptb.png')); ?>" alt="Logo PTB" class="h-12 w-12 rounded-full border border-primary/30 object-cover">
                         <div>
                             <p class="text-sm font-semibold text-textDark">Pemuliaan Tanaman</p>
                             <p class="text-xs text-textMuted">dan Teknologi Benih</p>
                         </div>
                     </div>
                     <nav class="space-y-1 text-sm font-semibold text-textMuted">
-                        <button class="w-full rounded-xl bg-primary py-3 text-left text-white shadow-soft">Dasbor</button>
-                        <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Profil Program Studi</button>
+                        <a href="<?php echo e(route('admin.dashboard')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Dasbor</a>
+                        <a href="<?php echo e(route('admin.profil.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
                         <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Profil Dosen</button>
                         <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Kurikulum</button>
                         <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Formulir Kontak</button>
                         <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Berita</button>
                         <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Galeri</button>
                     </nav>
-                    <form method="POST" action="{{ route('admin.logout') }}">
-                        @csrf
+                    <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
+                        <?php echo csrf_field(); ?>
                         <button type="submit"
                             class="flex w-full items-center justify-center gap-2 rounded-xl border border-primary/20 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white">
                             <span>Keluar Admin</span>
@@ -45,8 +43,8 @@
                         <img src="https://flagcdn.com/w20/id.png" alt="Bahasa" class="rounded-full">
                         Bahasa
                     </span>
-                    <form method="POST" action="{{ route('admin.logout') }}">
-                        @csrf
+                    <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
+                        <?php echo csrf_field(); ?>
                         <button type="submit" class="rounded-badge bg-white/15 px-4 py-2 text-white transition hover:bg-white/30">Keluar</button>
                     </form>
                 </div>
@@ -78,9 +76,9 @@
                         </div>
                         <div class="mt-6 h-32 rounded-card bg-white/70 p-4 shadow-inner">
                             <div class="flex h-full items-end justify-between gap-2">
-                                @foreach ([50, 80, 65, 120, 90, 150, 110] as $value)
-                                    <span class="flex-1 rounded-t-md bg-primary/80" style="height: {{ $value / 1.8 }}px"></span>
-                                @endforeach
+                                <?php $__currentLoopData = [50, 80, 65, 120, 90, 150, 110]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <span class="flex-1 rounded-t-md bg-primary/80" style="height: <?php echo e(round($value / 1.8)); ?>px"></span>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
                         <div class="mt-6 grid grid-cols-3 gap-4 text-center text-sm font-semibold text-secondary">
@@ -111,27 +109,31 @@
                         </button>
                     </div>
                     <div class="mt-6 divide-y divide-borderSoft rounded-card bg-white text-sm shadow-soft">
-                        @foreach ([
+                        <?php $__currentLoopData = [
                             ['name' => 'Beranda umum', 'status' => 'Live', 'time' => '5 menit lalu'],
                             ['name' => 'Kurikulum 2025', 'status' => 'Draft', 'time' => '30 menit lalu'],
                             ['name' => 'Profil Prodi', 'status' => 'Review', 'time' => '1 jam lalu'],
                             ['name' => 'Berita terbaru', 'status' => 'Scheduled', 'time' => 'Kemarin'],
                             ['name' => 'Galeri', 'status' => 'Live', 'time' => '2 hari lalu'],
-                        ] as $log)
+                        ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $log): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="flex items-center justify-between px-5 py-4">
                                 <div>
-                                    <p class="font-semibold text-textDark">{{ $log['name'] }}</p>
-                                    <p class="text-xs text-textMuted">{{ $log['time'] }}</p>
+                                    <p class="font-semibold text-textDark"><?php echo e($log['name']); ?></p>
+                                    <p class="text-xs text-textMuted"><?php echo e($log['time']); ?></p>
                                 </div>
                                 <span class="rounded-badge px-4 py-1 text-xs font-semibold
-                                    {{ $log['status'] === 'Live' ? 'bg-emerald-100 text-emerald-600' : '' }}
-                                    {{ $log['status'] === 'Draft' ? 'bg-amber-100 text-amber-700' : '' }}
-                                    {{ $log['status'] === 'Review' ? 'bg-indigo-100 text-indigo-600' : '' }}
-                                    {{ $log['status'] === 'Scheduled' ? 'bg-rose-100 text-rose-600' : '' }}">
-                                    {{ $log['status'] }}
+                                    <?php echo e($log['status'] === 'Live' ? 'bg-emerald-100 text-emerald-600' : ''); ?>
+
+                                    <?php echo e($log['status'] === 'Draft' ? 'bg-amber-100 text-amber-700' : ''); ?>
+
+                                    <?php echo e($log['status'] === 'Review' ? 'bg-indigo-100 text-indigo-600' : ''); ?>
+
+                                    <?php echo e($log['status'] === 'Scheduled' ? 'bg-rose-100 text-rose-600' : ''); ?>">
+                                    <?php echo e($log['status']); ?>
+
                                 </span>
                             </div>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </div>
                 </div>
 
@@ -158,31 +160,35 @@
                                     </tr>
                                 </thead>
                                 <tbody class="divide-y divide-borderSoft bg-white">
-                                    @foreach ([
+                                    <?php $__currentLoopData = [
                                         ['code' => 'PTB101', 'name' => 'Dasar Pemuliaan Tanaman', 'sks' => 3, 'semester' => '1', 'status' => 'Live'],
                                         ['code' => 'PTB203', 'name' => 'Teknik Produksi Benih', 'sks' => 2, 'semester' => '3', 'status' => 'Draft'],
                                         ['code' => 'PTB305', 'name' => 'Bioteknologi Tanaman', 'sks' => 3, 'semester' => '5', 'status' => 'Review'],
                                         ['code' => 'PTB402', 'name' => 'Manajemen Gudang Benih', 'sks' => 2, 'semester' => '7', 'status' => 'Scheduled'],
-                                    ] as $course)
+                                    ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $course): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
-                                            <td class="px-4 py-3 font-semibold text-secondary">{{ $course['code'] }}</td>
-                                            <td class="px-4 py-3 text-textDark">{{ $course['name'] }}</td>
-                                            <td class="px-4 py-3 font-semibold text-primary">{{ $course['sks'] }} SKS</td>
-                                            <td class="px-4 py-3">{{ $course['semester'] }}</td>
+                                            <td class="px-4 py-3 font-semibold text-secondary"><?php echo e($course['code']); ?></td>
+                                            <td class="px-4 py-3 text-textDark"><?php echo e($course['name']); ?></td>
+                                            <td class="px-4 py-3 font-semibold text-primary"><?php echo e($course['sks']); ?> SKS</td>
+                                            <td class="px-4 py-3"><?php echo e($course['semester']); ?></td>
                                             <td class="px-4 py-3">
                                                 <span class="rounded-badge px-3 py-1 text-xs font-semibold
-                                                    {{ $course['status'] === 'Live' ? 'bg-emerald-100 text-emerald-600' : '' }}
-                                                    {{ $course['status'] === 'Draft' ? 'bg-amber-100 text-amber-700' : '' }}
-                                                    {{ $course['status'] === 'Review' ? 'bg-indigo-100 text-indigo-600' : '' }}
-                                                    {{ $course['status'] === 'Scheduled' ? 'bg-rose-100 text-rose-600' : '' }}">
-                                                    {{ $course['status'] }}
+                                                    <?php echo e($course['status'] === 'Live' ? 'bg-emerald-100 text-emerald-600' : ''); ?>
+
+                                                    <?php echo e($course['status'] === 'Draft' ? 'bg-amber-100 text-amber-700' : ''); ?>
+
+                                                    <?php echo e($course['status'] === 'Review' ? 'bg-indigo-100 text-indigo-600' : ''); ?>
+
+                                                    <?php echo e($course['status'] === 'Scheduled' ? 'bg-rose-100 text-rose-600' : ''); ?>">
+                                                    <?php echo e($course['status']); ?>
+
                                                 </span>
                                             </td>
                                             <td class="px-4 py-3 text-right">
                                                 <button class="text-xs font-semibold text-primary hover:underline">Edit</button>
                                             </td>
                                         </tr>
-                                    @endforeach
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </tbody>
                             </table>
                         </div>
@@ -260,9 +266,9 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const toggle = document.getElementById('admin-menu-toggle');
@@ -274,4 +280,6 @@
             }
         });
     </script>
-@endpush
+<?php $__env->stopPush(); ?>
+
+<?php echo $__env->make('layouts.admin', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web-portal-ptb\resources\views/admin-pages/admin.blade.php ENDPATH**/ ?>

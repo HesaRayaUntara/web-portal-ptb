@@ -179,7 +179,8 @@ Route::get('/', function () {
 
 // Route Profil
 Route::get('/profil', function () {
-    return view('pages.profil');
+    $profilProdi = \App\Models\ProfilProdi::first();
+    return view('pages.profil', compact('profilProdi'));
 })->name('profil');
 
 // Route Fasilitas
@@ -452,6 +453,15 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 // Route Admin Dashboard (protected)
 Route::middleware('admin.auth')->group(function () {
     Route::get('/admin', function () {
-        return view('pages.admin');
+        return view('admin-pages.admin');
     })->name('admin.dashboard');
+    
+    Route::resource('admin/profil', \App\Http\Controllers\ProfilProdiController::class)->names([
+        'index' => 'admin.profil.index',
+        'create' => 'admin.profil.create',
+        'store' => 'admin.profil.store',
+        'edit' => 'admin.profil.edit',
+        'update' => 'admin.profil.update',
+        'destroy' => 'admin.profil.destroy',
+    ]);
 });
