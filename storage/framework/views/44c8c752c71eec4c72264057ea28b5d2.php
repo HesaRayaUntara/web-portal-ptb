@@ -31,70 +31,52 @@
 
     
     <section class="mt-12 space-y-10 md:mt-16">
-        <?php
-            $semesters = [
-                1 => 'Semester 1',
-                2 => 'Semester 2',
-                3 => 'Semester 3',
-                4 => 'Semester 4',
-                5 => 'Semester 5',
-                6 => 'Semester 6',
-                7 => 'Semester 7',
-                8 => 'Semester 8',
-            ];
-        ?>
+        <?php if($kurikulumBySemester->count() > 0): ?>
+            <?php $__currentLoopData = $kurikulumBySemester; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $semester => $kurikulumItems): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                <section class="rounded-section bg-white p-6 shadow-soft md:p-8">
+                    <div class="mb-4 flex items-center justify-between gap-4">
+                        <h2 class="text-2xl font-semibold text-secondary md:text-3xl">
+                            Semester <?php echo e($semester); ?>
 
-        <?php $__currentLoopData = $semesters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $number => $label): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        </h2>
+                        <span class="rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-primary">
+                            Kurikulum PTB
+                        </span>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-section border border-primary/10 bg-white">
+                        <table class="min-w-full table-auto text-left text-sm text-textDark">
+                            <thead class="bg-accent text-primary">
+                            <tr>
+                                <th class="px-4 py-3 font-semibold md:px-6 md:py-4">No</th>
+                                <th class="px-4 py-3 font-semibold md:px-6 md:py-4">Kode</th>
+                                <th class="px-4 py-3 font-semibold md:px-6 md:py-4">Nama Mata Kuliah</th>
+                                <th class="px-4 py-3 font-semibold md:px-6 md:py-4">Status MK</th>
+                                <th class="px-4 py-3 font-semibold md:px-6 md:py-4">SKS</th>
+                            </tr>
+                            </thead>
+                            <tbody class="divide-y divide-primary/10">
+                            <?php $__currentLoopData = $kurikulumItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr class="hover:bg-accent/60">
+                                    <td class="px-4 py-3 md:px-6 md:py-4"><?php echo e($index + 1); ?></td>
+                                    <td class="px-4 py-3 md:px-6 md:py-4"><?php echo e($item->kode_mata_kuliah); ?></td>
+                                    <td class="px-4 py-3 md:px-6 md:py-4"><?php echo e($item->nama_mata_kuliah); ?></td>
+                                    <td class="px-4 py-3 md:px-6 md:py-4"><?php echo e($item->status_mata_kuliah); ?></td>
+                                    <td class="px-4 py-3 md:px-6 md:py-4"><?php echo e($item->sks_kuliah + $item->sks_praktikum); ?> (<?php echo e($item->sks_kuliah); ?>-<?php echo e($item->sks_praktikum); ?>)</td>
+                                </tr>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php else: ?>
             <section class="rounded-section bg-white p-6 shadow-soft md:p-8">
-                <div class="mb-4 flex items-center justify-between gap-4">
-                    <h2 class="text-2xl font-semibold text-secondary md:text-3xl">
-                        <?php echo e($label); ?>
-
-                    </h2>
-                    <span class="rounded-full bg-primary/10 px-4 py-1 text-xs font-semibold uppercase tracking-wide4 text-primary">
-                        Kurikulum PTB
-                    </span>
-                </div>
-
-                <div class="overflow-x-auto rounded-section border border-primary/10 bg-white">
-                    <table class="min-w-full table-auto text-left text-sm text-textDark">
-                        <thead class="bg-accent text-primary">
-                        <tr>
-                            <th class="px-4 py-3 font-semibold md:px-6 md:py-4">No</th>
-                            <th class="px-4 py-3 font-semibold md:px-6 md:py-4">Kode</th>
-                            <th class="px-4 py-3 font-semibold md:px-6 md:py-4">Nama Mata Kuliah</th>
-                            <th class="px-4 py-3 font-semibold md:px-6 md:py-4">Status MK</th>
-                            <th class="px-4 py-3 font-semibold md:px-6 md:py-4">SKS</th>
-                        </tr>
-                        </thead>
-                        <tbody class="divide-y divide-primary/10">
-                        
-                        <tr class="hover:bg-accent/60">
-                            <td class="px-4 py-3 md:px-6 md:py-4">1</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">PTB<?php echo e(sprintf('%01d', $number)); ?>01</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">Pertanian Inovatif</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">Vokasi</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">3</td>
-                        </tr>
-                        <tr class="hover:bg-accent/60">
-                            <td class="px-4 py-3 md:px-6 md:py-4">2</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">PTB<?php echo e(sprintf('%01d', $number)); ?>02</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">Nama Mata Kuliah 2</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">Vokasi</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">3</td>
-                        </tr>
-                        <tr class="hover:bg-accent/60">
-                            <td class="px-4 py-3 md:px-6 md:py-4">3</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">PTB<?php echo e(sprintf('%01d', $number)); ?>03</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">Nama Mata Kuliah 3</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">Vokasi</td>
-                            <td class="px-4 py-3 md:px-6 md:py-4">2</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                <div class="py-12 text-center">
+                    <p class="text-textMuted">Data kurikulum belum tersedia.</p>
                 </div>
             </section>
-        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
     </section>
 <?php $__env->stopSection(); ?>
 

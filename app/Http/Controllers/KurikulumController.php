@@ -45,13 +45,13 @@ class KurikulumController extends Controller
                 'sks_praktikum' => 'required|integer|min:0',
             ]);
 
-            // Cek apakah kode mata kuliah sudah ada
+            // Check if kode_mata_kuliah already exists
             $existingKurikulum = Kurikulum::where('kode_mata_kuliah', $validated['kode_mata_kuliah'])->first();
             
             if ($existingKurikulum) {
                 return redirect()->back()
                     ->withInput()
-                    ->with('error', 'Data dengan kode mata kuliah "' . $validated['kode_mata_kuliah'] . '" sudah ada. Coba lagi.');
+                    ->with('error', 'Data ' . $validated['kode_mata_kuliah'] . ' sudah ada. coba lagi');
             }
 
             Kurikulum::create($validated);
@@ -129,7 +129,7 @@ class KurikulumController extends Controller
                 'sks_praktikum' => 'required|integer|min:0',
             ]);
 
-            // Cek apakah kode mata kuliah sudah ada di record lain
+            // Check if kode_mata_kuliah already exists in another record
             $existingKurikulum = Kurikulum::where('kode_mata_kuliah', $validated['kode_mata_kuliah'])
                 ->where('id', '!=', $id)
                 ->first();
@@ -137,7 +137,7 @@ class KurikulumController extends Controller
             if ($existingKurikulum) {
                 return redirect()->back()
                     ->withInput()
-                    ->with('error', 'Data dengan kode mata kuliah "' . $validated['kode_mata_kuliah'] . '" sudah ada. Coba lagi.');
+                    ->with('error', 'Data ' . $validated['kode_mata_kuliah'] . ' sudah ada. coba lagi');
             }
 
             $kurikulum->update($validated);

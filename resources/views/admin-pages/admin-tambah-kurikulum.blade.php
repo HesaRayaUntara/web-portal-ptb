@@ -148,7 +148,7 @@
                     <div class="grid gap-4 md:grid-cols-2">
                         <div>
                             <label for="sks_kuliah" class="mb-2 block text-sm font-semibold text-textDark">SKS Kuliah</label>
-                            <input type="number" id="sks_kuliah" name="sks_kuliah" value="{{ old('sks_kuliah') }}" required min="0"
+                            <input type="number" id="sks_kuliah" name="sks_kuliah" value="{{ old('sks_kuliah', 0) }}" required min="0"
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="0">
                             @error('sks_kuliah')
@@ -158,7 +158,7 @@
 
                         <div>
                             <label for="sks_praktikum" class="mb-2 block text-sm font-semibold text-textDark">SKS Praktikum</label>
-                            <input type="number" id="sks_praktikum" name="sks_praktikum" value="{{ old('sks_praktikum') }}" required min="0"
+                            <input type="number" id="sks_praktikum" name="sks_praktikum" value="{{ old('sks_praktikum', 0) }}" required min="0"
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="0">
                             @error('sks_praktikum')
@@ -182,5 +182,44 @@
         </main>
     </div>
 </div>
+
+<script>
+    // Auto-hide alerts after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const successAlert = document.getElementById('success-alert');
+        const errorAlert = document.getElementById('error-alert');
+        const validationAlert = document.getElementById('validation-alert');
+
+        if (successAlert) {
+            setTimeout(function() {
+                successAlert.style.transition = 'opacity 0.5s ease-out';
+                successAlert.style.opacity = '0';
+                setTimeout(function() {
+                    successAlert.remove();
+                }, 500);
+            }, 5000);
+        }
+
+        if (errorAlert) {
+            setTimeout(function() {
+                errorAlert.style.transition = 'opacity 0.5s ease-out';
+                errorAlert.style.opacity = '0';
+                setTimeout(function() {
+                    errorAlert.remove();
+                }, 500);
+            }, 5000);
+        }
+
+        if (validationAlert) {
+            setTimeout(function() {
+                validationAlert.style.transition = 'opacity 0.5s ease-out';
+                validationAlert.style.opacity = '0';
+                setTimeout(function() {
+                    validationAlert.remove();
+                }, 500);
+            }, 5000);
+        }
+    });
+</script>
 @endsection
 

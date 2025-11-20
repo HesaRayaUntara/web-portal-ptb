@@ -36,19 +36,23 @@
             <div class="grid gap-4 md:grid-cols-2">
                 <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
                     <span class="block text-base font-semibold text-textDark">Semester 1-2</span>
-                    Dasar-dasar sains, matematika, teknologi informasi, serta pengenalan rekayasa dan prinsip keteknikan.
+                    <?php echo e($deskripsiKurikulum->deskripsi_semester_1_2); ?>
+
                 </div>
                 <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
                     <span class="block text-base font-semibold text-textDark">Semester 3-4</span>
-                    Peningkatan kompetensi pada bidang pemrograman, sistem digital, elektronika, dan penerapan teknologi pertanian.
+                    <?php echo e($deskripsiKurikulum->deskripsi_semester_3_4); ?>
+
                 </div>
                 <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
                     <span class="block text-base font-semibold text-textDark">Semester 5-6</span>
-                    Penerapan teknologi berbasis proyek dan penelitian terapan, termasuk pengolahan data dan integrasi sistem.
+                    <?php echo e($deskripsiKurikulum->deskripsi_semester_5_6); ?>
+
                 </div>
                 <div class="rounded-badge border border-primary/15 bg-accent p-5 text-sm text-textMuted">
                     <span class="block text-base font-semibold text-textDark">Semester 7-8</span>
-                    Praktik kerja lapang, pengembangan inovasi teknologi, dan penyusunan tugas akhir berbasis riset atau produk.
+                    <?php echo e($deskripsiKurikulum->deskripsi_semester_7_8); ?>
+
                 </div>
             </div>
             <div class="mt-4 flex justify-end md:hidden">

@@ -183,5 +183,44 @@
         </main>
     </div>
 </div>
+
+<script>
+    // Auto-hide alerts after 5 seconds
+    document.addEventListener('DOMContentLoaded', function() {
+        const successAlert = document.getElementById('success-alert');
+        const errorAlert = document.getElementById('error-alert');
+        const validationAlert = document.getElementById('validation-alert');
+
+        if (successAlert) {
+            setTimeout(function() {
+                successAlert.style.transition = 'opacity 0.5s ease-out';
+                successAlert.style.opacity = '0';
+                setTimeout(function() {
+                    successAlert.remove();
+                }, 500);
+            }, 5000);
+        }
+
+        if (errorAlert) {
+            setTimeout(function() {
+                errorAlert.style.transition = 'opacity 0.5s ease-out';
+                errorAlert.style.opacity = '0';
+                setTimeout(function() {
+                    errorAlert.remove();
+                }, 500);
+            }, 5000);
+        }
+
+        if (validationAlert) {
+            setTimeout(function() {
+                validationAlert.style.transition = 'opacity 0.5s ease-out';
+                validationAlert.style.opacity = '0';
+                setTimeout(function() {
+                    validationAlert.remove();
+                }, 500);
+            }, 5000);
+        }
+    });
+</script>
 @endsection
 

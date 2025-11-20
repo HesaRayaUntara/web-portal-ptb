@@ -1,5 +1,10 @@
 @extends('layouts.main')
 
+@php
+    use Illuminate\Support\Facades\Storage;
+    use Illuminate\Support\Str;
+@endphp
+
 @section('title', 'Beranda')
 
 @section('content')
@@ -267,27 +272,27 @@
     <div class="mt-6 space-y-3">
         @if(isset($latestNews) && $latestNews->count() > 0)
         @foreach($latestNews as $item)
-        <a href="{{ route('berita.detail', $item['slug']) }}" class="group block">
+        <a href="{{ route('berita.detail', $item->slug) }}" class="group block">
             <article class="flex flex-col overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-card md:flex-row">
-                <div class="relative h-32 w-full flex-shrink-0 md:h-auto md:w-40">
-                    <img src="{{ $item['image'] }}" alt="{{ $item['title'] }}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
-                    <div class="absolute right-2 top-2 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-semibold text-primaryDark shadow-soft">
-                        {{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}
+                <div class="relative h-28 w-full flex-shrink-0 md:h-40 md:w-36">
+                    <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/800x600' }}" alt="{{ $item->judul }}" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                    <div class="absolute right-1.5 top-1.5 rounded-full bg-white/90 px-1.5 py-0.5 text-[9px] font-semibold text-primaryDark shadow-soft">
+                        {{ ($item->kategori) ? $item->kategori->nama : 'Umum' }}
                     </div>
                 </div>
-                <div class="flex flex-1 flex-col justify-between space-y-2 p-4">
+                <div class="flex flex-1 flex-col justify-between space-y-2.5 p-4">
                     <div>
-                        <h3 class="text-base font-semibold text-textDark group-hover:text-primary line-clamp-1">{{ $item['title'] }}</h3>
-                        <p class="mt-1.5 text-xs text-textMuted line-clamp-2">{{ $item['desc'] }}</p>
+                        <h3 class="text-base font-semibold text-textDark group-hover:text-primary line-clamp-1">{{ $item->judul }}</h3>
+                        <p class="mt-1.5 text-sm text-textMuted line-clamp-3">{{ Str::limit(strip_tags($item->isi), 300) }}</p>
                     </div>
-                    <div class="flex items-center justify-between text-[10px] font-semibold text-textMuted/80">
+                    <div class="flex items-center justify-between text-xs font-semibold text-textMuted/80">
                         <span class="flex items-center gap-1.5 text-textMuted">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 11c1.656 0 3-1.12 3-2.5S13.656 6 12 6s-3 1.12-3 2.5S10.344 11 12 11zm0 0c-3 0-6 1.567-6 3.5V18h12v-3.5c0-1.933-3-3.5-6-3.5z" />
                             </svg>
-                            {{ $item['author'] }}
+                            {{ $item->penulis }}
                         </span>
-                        <span class="text-primaryDark">{{ \Carbon\Carbon::parse($item['date'])->translatedFormat('d M Y') }}</span>
+                        <span class="text-primaryDark">{{ ($item->tanggal_publikasi ?? $item->created_at)->translatedFormat('d M Y') }}</span>
                     </div>
                 </div>
             </article>

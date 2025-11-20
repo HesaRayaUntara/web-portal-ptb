@@ -315,10 +315,10 @@
 
                 {{-- Submit Button --}}
                 <div class="flex justify-end gap-4">
-                    <button type="button" onclick="window.location.href='{{ route('admin.dashboard') }}'" 
-                        class="rounded-xl border border-borderSoft bg-white px-6 py-3 text-sm font-semibold text-textDark shadow-soft transition hover:bg-gray-50">
+                    <a href="{{ route('admin.dashboard') }}" 
+                        class="inline-block rounded-xl border border-borderSoft bg-white px-6 py-3 text-sm font-semibold text-textDark shadow-soft transition hover:bg-gray-50">
                         Batal
-                    </button>
+                    </a>
                     <button type="submit" 
                         class="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-primaryDark">
                         {{ isset($profilProdi) ? 'Simpan Perubahan' : 'Simpan' }}

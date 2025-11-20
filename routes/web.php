@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\AdminAuthController;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\Berita;
+use App\Models\KategoriBerita;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 if (!function_exists('beritaItems')) {
     function beritaItems(): array
@@ -167,9 +171,12 @@ Route::get('/', function () {
         return $item['type'] === 'photo';
     })->take(5)->values();
     
-    // Get latest 5 news items sorted by date (newest first)
-    $allNews = collect(beritaItems());
-    $latestNews = $allNews->sortByDesc('date')->take(5)->values();
+    // Get latest 5 published news items sorted by publication date (newest first)
+    $latestNews = Berita::where('status', 'published')
+        ->with('kategori')
+        ->orderBy('tanggal_publikasi', 'desc')
+        ->take(5)
+        ->get();
     
     return view('pages.beranda', [
         'latestGalleryPhotos' => $latestPhotos,
@@ -190,12 +197,15 @@ Route::get('/fasilitas', function () {
 
 // Route Kurikulum
 Route::get('/kurikulum', function () {
-    return view('pages.kurikulum');
+    $deskripsiKurikulum = \App\Models\DeskripsiKurikulum::first() ?? new \App\Models\DeskripsiKurikulum();
+    return view('pages.kurikulum', compact('deskripsiKurikulum'));
 })->name('kurikulum');
 
 // Route Detail Kurikulum
 Route::get('/kurikulum/detail', function () {
-    return view('pages.kurikulum-detail');
+    $kurikulum = \App\Models\Kurikulum::orderBy('semester')->orderBy('kode_mata_kuliah')->get();
+    $kurikulumBySemester = $kurikulum->groupBy('semester');
+    return view('pages.kurikulum-detail', compact('kurikulumBySemester'));
 })->name('kurikulum.detail');
 
 // Route Dosen
@@ -265,32 +275,38 @@ Route::get('/dosen/{slug}', function ($slug) {
 
 Route::get('/berita', function () {
     $perPage = 9;
-    $currentPage = request()->get('page', 1);
-    $items = collect(beritaItems());
-    $currentItems = $items->forPage($currentPage, $perPage)->values();
+    $selectedCategory = request()->get('kategori');
+    
+    // Query berita yang sudah dipublikasikan
+    $query = Berita::where('status', 'published')
+        ->with('kategori')
+        ->orderBy('tanggal_publikasi', 'desc');
+    
+    // Filter by category if selected
+    if ($selectedCategory) {
+        $query->whereHas('kategori', function($q) use ($selectedCategory) {
+            $q->where('nama', $selectedCategory);
+        });
+    }
+    
+    // Get unique categories from published berita
+    $categories = KategoriBerita::whereHas('berita', function($q) {
+        $q->where('status', 'published');
+    })->orderBy('nama')->pluck('nama')->toArray();
+    
+    // Paginate results
+    $news = $query->paginate($perPage)->withQueryString();
 
-    $news = new LengthAwarePaginator(
-        $currentItems,
-        $items->count(),
-        $perPage,
-        $currentPage,
-        [
-            'path' => request()->url(),
-            'query' => request()->query(),
-        ]
-    );
-
-    return view('pages.berita', ['news' => $news]);
+    return view('pages.berita', compact('news', 'categories'));
 })->name('berita');
 
 Route::get('/berita/{slug}', function (string $slug) {
-    $newsItem = collect(beritaItems())->firstWhere('slug', $slug);
+    $berita = Berita::where('slug', $slug)
+        ->where('status', 'published')
+        ->with('kategori')
+        ->firstOrFail();
 
-    if (!$newsItem) {
-        abort(404);
-    }
-
-    return view('pages.berita-detail', ['item' => $newsItem]);
+    return view('pages.berita-detail', compact('berita'));
 })->name('berita.detail');
 
 if (!function_exists('galeriItems')) {
@@ -475,4 +491,16 @@ Route::middleware('admin.auth')->group(function () {
     ]);
     
     Route::post('admin/kurikulum/update-deskripsi', [\App\Http\Controllers\KurikulumController::class, 'updateDeskripsi'])->name('admin.kurikulum.updateDeskripsi');
+    
+    // Routes Admin Berita
+    Route::get('admin/berita', [\App\Http\Controllers\AdminBeritaController::class, 'index'])->name('admin.berita.index');
+    Route::post('admin/berita/kategori', [\App\Http\Controllers\AdminBeritaController::class, 'storeKategori'])->name('admin.berita.storeKategori');
+    Route::delete('admin/berita/kategori/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'deleteKategori'])->name('admin.berita.deleteKategori');
+    Route::post('admin/berita', [\App\Http\Controllers\AdminBeritaController::class, 'storeBerita'])->name('admin.berita.storeBerita');
+    Route::get('admin/berita/draft', [\App\Http\Controllers\AdminBeritaController::class, 'draft'])->name('admin.berita.draft');
+    Route::get('admin/berita/draft/{id}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editDraft'])->name('admin.berita.editDraft');
+    Route::put('admin/berita/draft/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'updateDraft'])->name('admin.berita.updateDraft');
+    Route::get('admin/berita/{id}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editBerita'])->name('admin.berita.editBerita');
+    Route::put('admin/berita/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'updateBerita'])->name('admin.berita.updateBerita');
+    Route::delete('admin/berita/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'destroyBerita'])->name('admin.berita.destroyBerita');
 });
