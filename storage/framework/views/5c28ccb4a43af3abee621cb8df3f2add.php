@@ -1,17 +1,15 @@
-@extends('layouts.main')
+<?php $__env->startSection('title', 'Kurikulum'); ?>
 
-@section('title', 'Kurikulum')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
     <!-- Breadcrumb -->
     <nav class="mb-6 flex items-center gap-2 text-sm text-textMuted">
-        <a href="{{ route('beranda') }}" class="transition hover:text-primary">Beranda</a>
+        <a href="<?php echo e(route('beranda')); ?>" class="transition hover:text-primary">Beranda</a>
         <span> > </span>
-        <a href="{{ route('kurikulum') }}" class="transition hover:text-primary text-primaryDark">Kurikulum</a>
+        <a href="<?php echo e(route('kurikulum')); ?>" class="transition hover:text-primary text-primaryDark">Kurikulum</a>
     </nav>
 
 
-    {{-- Hero Section --}}
+    
     <section
         class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
         style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1529400971008-f566de0e6dfc?auto=format&fit=crop&w=1400&q=80');">
@@ -22,14 +20,14 @@
         </div>
     </section>
 
-    {{-- Struktur Kurikulum --}}
+    
     <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="space-y-6">
             <div class="flex items-center justify-between gap-4">
                 <h2 class="text-3xl font-semibold text-secondary md:text-4xl">
                     Struktur Perkuliahan per Semester
                 </h2>
-                <a href="{{ route('kurikulum.detail') }}"
+                <a href="<?php echo e(route('kurikulum.detail')); ?>"
                    class="hidden items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark md:inline-flex">
                     <span>Detail Kurikulum</span>
                     <span class="text-sm">></span>
@@ -54,7 +52,7 @@
                 </div>
             </div>
             <div class="mt-4 flex justify-end md:hidden">
-                <a href="{{ route('kurikulum.detail') }}"
+                <a href="<?php echo e(route('kurikulum.detail')); ?>"
                    class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
                     <span>Detail Kurikulum</span>
                     <span class="text-sm">></span>
@@ -63,7 +61,7 @@
         </div>
     </section>
 
-    {{-- Fokus Pembelajaran --}}
+    
     <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
         <div class="space-y-6">
             <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Fokus dan Keunggulan Program</h2>
@@ -83,4 +81,6 @@
             </div>
         </div>
     </section>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web-portal-ptb\resources\views/pages/kurikulum.blade.php ENDPATH**/ ?>

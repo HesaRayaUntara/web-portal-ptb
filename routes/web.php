@@ -464,4 +464,15 @@ Route::middleware('admin.auth')->group(function () {
         'update' => 'admin.profil.update',
         'destroy' => 'admin.profil.destroy',
     ]);
+
+    Route::resource('admin/kurikulum', \App\Http\Controllers\KurikulumController::class)->names([
+        'index' => 'admin.kurikulum.index',
+        'create' => 'admin.kurikulum.create',
+        'store' => 'admin.kurikulum.store',
+        'edit' => 'admin.kurikulum.edit',
+        'update' => 'admin.kurikulum.update',
+        'destroy' => 'admin.kurikulum.destroy',
+    ]);
+    
+    Route::post('admin/kurikulum/update-deskripsi', [\App\Http\Controllers\KurikulumController::class, 'updateDeskripsi'])->name('admin.kurikulum.updateDeskripsi');
 });

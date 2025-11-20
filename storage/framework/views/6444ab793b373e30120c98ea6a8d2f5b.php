@@ -1,17 +1,15 @@
-@extends('layouts.main')
+<?php $__env->startSection('title', 'Profil Program Studi'); ?>
 
-@section('title', 'Profil Program Studi')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!-- Breadcrumb -->
 <nav class="mb-4 flex items-center gap-2 text-xs text-textMuted md:mb-6 md:text-sm">
-    <a href="{{ route('beranda') }}" class="transition hover:text-primary">Beranda</a>
+    <a href="<?php echo e(route('beranda')); ?>" class="transition hover:text-primary">Beranda</a>
     <span> > </span>
-    <a href="{{ route('profil') }}" class="transition hover:text-primary text-primaryDark">Profil Prodi</a>
+    <a href="<?php echo e(route('profil')); ?>" class="transition hover:text-primary text-primaryDark">Profil Prodi</a>
 </nav>
 
 
-{{-- Hero Section --}}
+
 <section
     class="relative overflow-hidden rounded-section bg-cover bg-center text-white shadow-soft"
     style="background-image: linear-gradient(135deg, rgba(5, 86, 49, 0.92), rgba(12, 139, 76, 0.88)), url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80');">
@@ -22,79 +20,82 @@
     </div>
 </section>
 
-<!-- {{-- Visi, Misi, Akreditasi, Mitra --}} -->
+<!--  -->
 <section class="mt-6 rounded-section bg-white p-4 shadow-soft md:mt-8 md:p-6 lg:p-8">
     <!-- Deskripsi Singkat Prodi -->
-    @if(isset($profilProdi) && $profilProdi->deskripsi)
+    <?php if(isset($profilProdi) && $profilProdi->deskripsi): ?>
     <div class="mb-5 rounded-card border border-primary/15 bg-white/90 p-5 md:mb-6">
         <h2 class="text-xl uppercase tracking-wide4 font-semibold text-secondary md:text-2xl">Pemuliaan Tanaman dan Teknologi Benih</h2>
         <p class="mt-3 text-sm leading-relaxed text-textMuted whitespace-pre-line">
-            {{ $profilProdi->deskripsi }}
+            <?php echo e($profilProdi->deskripsi); ?>
+
         </p>
     </div>
-    @endif
+    <?php endif; ?>
     
     <div class="grid gap-4 md:gap-5 lg:grid-cols-2">
-        {{-- Visi --}}
-        @if(isset($profilProdi) && $profilProdi->visi)
+        
+        <?php if(isset($profilProdi) && $profilProdi->visi): ?>
         <div class="rounded-card border border-primary/15 bg-white/90 p-5">
             <h2 class="mt-2 text-xl uppercase tracking-wide4 font-semibold text-secondary md:text-2xl">Visi</h2>
             <p class="mt-3 text-sm leading-relaxed text-textMuted whitespace-pre-line">
-                {{ $profilProdi->visi }}
+                <?php echo e($profilProdi->visi); ?>
+
             </p>
         </div>
-        @endif
+        <?php endif; ?>
 
-        {{-- Misi --}}
-        @if(isset($profilProdi) && $profilProdi->misi)
+        
+        <?php if(isset($profilProdi) && $profilProdi->misi): ?>
         <div class="rounded-card border border-primary/15 bg-white/90 p-5">
             <h2 class="mt-2 uppercase tracking-wide4 text-xl font-semibold text-secondary md:text-2xl">Misi</h2>
             <ul class="mt-4 space-y-3 text-sm text-textMuted">
-                @php
+                <?php
                     $misiItems = explode("\n", $profilProdi->misi);
                     $misiItems = array_filter($misiItems, function($item) {
                         return trim($item) !== '';
                     });
-                @endphp
-                @foreach($misiItems as $index => $misi)
+                ?>
+                <?php $__currentLoopData = $misiItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $misi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <li class="flex items-start gap-2.5">
-                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary">{{ $index + 1 }}</span>
-                    {{ trim($misi) }}
+                    <span class="mt-0.5 inline-flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs font-semibold text-primary"><?php echo e($index + 1); ?></span>
+                    <?php echo e(trim($misi)); ?>
+
                 </li>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
             </ul>
         </div>
-        @endif
+        <?php endif; ?>
     </div>
 </section>
 
 <div class="mt-6 grid gap-4 md:mt-8 md:gap-5 lg:grid-cols-2 lg:gap-5">
-    <!-- {{-- Akreditasi --}} -->
-    @if(isset($profilProdi) && $profilProdi->akreditasi)
+    <!--  -->
+    <?php if(isset($profilProdi) && $profilProdi->akreditasi): ?>
     <div class="rounded-card border-secondary/20 bg-white p-5 shadow-card md:p-6 lg:p-8">
         <div class="flex items-center gap-3 md:gap-4">
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-secondary/10 md:h-14 md:w-14 lg:h-16 lg:w-16">
-                <span class="px-1 text-center text-[10px] font-bold uppercase leading-tight text-secondary md:text-xs lg:text-sm">{{ substr($profilProdi->akreditasi, 0, 1) }}</span>
+                <span class="px-1 text-center text-[10px] font-bold uppercase leading-tight text-secondary md:text-xs lg:text-sm"><?php echo e(substr($profilProdi->akreditasi, 0, 1)); ?></span>
             </div>
             <div>
                 <p class="text-[10px] font-semibold uppercase tracking-wide4 text-secondary md:text-xs">Akreditasi BAN-PT</p>
-                @if($profilProdi->no_sk)
-                <p class="text-xs mt-1 text-textMuted md:text-sm">{{ $profilProdi->no_sk }}</p>
-                @endif
+                <?php if($profilProdi->no_sk): ?>
+                <p class="text-xs mt-1 text-textMuted md:text-sm"><?php echo e($profilProdi->no_sk); ?></p>
+                <?php endif; ?>
             </div>
         </div>
-        @if($profilProdi->foto_akreditasi)
+        <?php if($profilProdi->foto_akreditasi): ?>
         <div class="mt-4 overflow-hidden rounded-card aspect-[16/9] md:mt-6">
-            <a href="{{ asset('storage/' . $profilProdi->foto_akreditasi) }}" target="_blank"><img src="{{ asset('storage/' . $profilProdi->foto_akreditasi) }}" alt="Akreditasi BAN-PT" class="h-full w-full object-cover"></a>
+            <a href="<?php echo e(asset('storage/' . $profilProdi->foto_akreditasi)); ?>" target="_blank"><img src="<?php echo e(asset('storage/' . $profilProdi->foto_akreditasi)); ?>" alt="Akreditasi BAN-PT" class="h-full w-full object-cover"></a>
         </div>
-        @endif
+        <?php endif; ?>
     </div>
-    @endif
+    <?php endif; ?>
 
-    <!-- {{-- Informasi Program Studi --}} -->
+    <!--  -->
     <div class="grid grid-cols-2 gap-2.5 md:gap-3">
         <!-- Lama Studi -->
-        @if(isset($profilProdi) && $profilProdi->lama_studi)
+        <?php if(isset($profilProdi) && $profilProdi->lama_studi): ?>
         <div class="group relative overflow-hidden rounded-card bg-white p-4 shadow-card">
             <div class="absolute right-0 top-0 h-16 w-16 rounded-bl-full bg-primary/5"></div>
             <div class="relative">
@@ -104,14 +105,14 @@
                     </svg>
                 </div>
                 <p class="text-[10px] font-semibold uppercase tracking-wide4 text-secondary/70">Lama Studi</p>
-                <h3 class="mt-1.5 text-2xl font-bold text-secondary">{{ $profilProdi->lama_studi }}</h3>
+                <h3 class="mt-1.5 text-2xl font-bold text-secondary"><?php echo e($profilProdi->lama_studi); ?></h3>
                 <p class="mt-0.5 text-xs font-semibold text-textMuted">Semester</p>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
 
         <!-- Gelar Lulusan -->
-        @if(isset($profilProdi) && $profilProdi->gelar_lulusan)
+        <?php if(isset($profilProdi) && $profilProdi->gelar_lulusan): ?>
         <div class="group relative overflow-hidden rounded-card bg-white p-4 shadow-card">
             <div class="absolute right-0 top-0 h-16 w-16 rounded-bl-full bg-secondary/5"></div>
             <div class="relative">
@@ -121,16 +122,16 @@
                     </svg>
                 </div>
                 <p class="text-[10px] font-semibold uppercase tracking-wide4 text-secondary/70">Gelar Lulusan</p>
-                <h3 class="mt-1.5 text-2xl font-bold text-secondary">{{ $profilProdi->gelar_lulusan }}</h3>
-                @if($profilProdi->kepanjangan_gelar)
-                <p class="mt-0.5 text-xs font-semibold text-textMuted">{{ $profilProdi->kepanjangan_gelar }}</p>
-                @endif
+                <h3 class="mt-1.5 text-2xl font-bold text-secondary"><?php echo e($profilProdi->gelar_lulusan); ?></h3>
+                <?php if($profilProdi->kepanjangan_gelar): ?>
+                <p class="mt-0.5 text-xs font-semibold text-textMuted"><?php echo e($profilProdi->kepanjangan_gelar); ?></p>
+                <?php endif; ?>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
 
         <!-- SNBP 2025 -->
-        @if(isset($profilProdi) && $profilProdi->snbp_pelamar)
+        <?php if(isset($profilProdi) && $profilProdi->snbp_pelamar): ?>
         <div class="group relative overflow-hidden rounded-card bg-gradient-to-br from-blue-50 to-blue-100/50 p-4 shadow-card">
             <div class="absolute right-0 top-0 h-16 w-16 rounded-bl-full bg-blue-200/30"></div>
             <div class="relative">
@@ -145,23 +146,23 @@
                 <div class="space-y-2 text-xs">
                     <div class="flex items-center justify-between rounded-lg bg-white/60 px-2.5 py-1.5">
                         <span class="text-textMuted">Jumlah pelamar</span>
-                        <span class="font-bold text-blue-600">{{ number_format($profilProdi->snbp_pelamar, 0, ',', '.') }}</span>
+                        <span class="font-bold text-blue-600"><?php echo e(number_format($profilProdi->snbp_pelamar, 0, ',', '.')); ?></span>
                     </div>
                     <div class="flex items-center justify-between rounded-lg bg-white/60 px-2.5 py-1.5">
                         <span class="text-textMuted">Diterima</span>
-                        <span class="font-bold text-blue-600">{{ number_format($profilProdi->snbp_diterima, 0, ',', '.') }}</span>
+                        <span class="font-bold text-blue-600"><?php echo e(number_format($profilProdi->snbp_diterima, 0, ',', '.')); ?></span>
                     </div>
                     <div class="flex items-center justify-between rounded-lg bg-blue-500/10 px-2.5 py-1.5">
                         <span class="font-semibold text-blue-700">Keketatan</span>
-                        <span class="font-bold text-blue-600">{{ number_format($profilProdi->snbp_keketatan, 2, ',', '.') }}%</span>
+                        <span class="font-bold text-blue-600"><?php echo e(number_format($profilProdi->snbp_keketatan, 2, ',', '.')); ?>%</span>
                     </div>
                 </div>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
 
         <!-- SNBT 2025 -->
-        @if(isset($profilProdi) && $profilProdi->snbt_pelamar)
+        <?php if(isset($profilProdi) && $profilProdi->snbt_pelamar): ?>
         <div class="group relative overflow-hidden rounded-card bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-4 shadow-card">
             <div class="absolute right-0 top-0 h-16 w-16 rounded-bl-full bg-emerald-200/30"></div>
             <div class="relative">
@@ -176,25 +177,25 @@
                 <div class="space-y-2 text-xs">
                     <div class="flex items-center justify-between rounded-lg bg-white/60 px-2.5 py-1.5">
                         <span class="text-textMuted">Jumlah pelamar</span>
-                        <span class="font-bold text-emerald-600">{{ number_format($profilProdi->snbt_pelamar, 0, ',', '.') }}</span>
+                        <span class="font-bold text-emerald-600"><?php echo e(number_format($profilProdi->snbt_pelamar, 0, ',', '.')); ?></span>
                     </div>
                     <div class="flex items-center justify-between rounded-lg bg-white/60 px-2.5 py-1.5">
                         <span class="text-textMuted">Diterima</span>
-                        <span class="font-bold text-emerald-600">{{ number_format($profilProdi->snbt_diterima, 0, ',', '.') }}</span>
+                        <span class="font-bold text-emerald-600"><?php echo e(number_format($profilProdi->snbt_diterima, 0, ',', '.')); ?></span>
                     </div>
                     <div class="flex items-center justify-between rounded-lg bg-emerald-500/10 px-2.5 py-1.5">
                         <span class="font-semibold text-emerald-700">Keketatan</span>
-                        <span class="font-bold text-emerald-600">{{ number_format($profilProdi->snbt_keketatan, 2, ',', '.') }}%</span>
+                        <span class="font-bold text-emerald-600"><?php echo e(number_format($profilProdi->snbt_keketatan, 2, ',', '.')); ?>%</span>
                     </div>
                 </div>
             </div>
         </div>
-        @endif
+        <?php endif; ?>
     </div>
 </div>
 
-{{-- Prospek Karir --}}
-@if(isset($profilProdi) && ($profilProdi->industri_tempat_bekerja || $profilProdi->posisi_banyak_dicari))
+
+<?php if(isset($profilProdi) && ($profilProdi->industri_tempat_bekerja || $profilProdi->posisi_banyak_dicari)): ?>
 <section class="mt-6 rounded-3xl border border-primary/10 bg-white p-4 shadow-soft md:mt-8 md:p-5 lg:p-6">
     <div class="text-center">
         <span class="text-[10px] font-semibold uppercase tracking-wide4 text-secondary/80 md:text-xs">Prospek Karier</span>
@@ -214,20 +215,21 @@
                 </div>
             </div>
             <ul class="mt-3 space-y-1.5 text-xs font-semibold text-textDark md:mt-4 md:space-y-2 md:text-sm">
-                @if(isset($profilProdi) && $profilProdi->industri_tempat_bekerja)
-                    @php
+                <?php if(isset($profilProdi) && $profilProdi->industri_tempat_bekerja): ?>
+                    <?php
                         $industriItems = explode("\n", $profilProdi->industri_tempat_bekerja);
                         $industriItems = array_filter($industriItems, function($item) {
                             return trim($item) !== '';
                         });
-                    @endphp
-                    @foreach($industriItems as $industri)
+                    ?>
+                    <?php $__currentLoopData = $industriItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $industri): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="flex items-start gap-3">
                         <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary"></span>
-                        {{ trim($industri) }}
+                        <?php echo e(trim($industri)); ?>
+
                     </li>
-                    @endforeach
-                @endif
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
             </ul>
         </article>
         <article class="rounded-2xl border border-secondary/10 bg-white p-4 md:p-5">
@@ -243,56 +245,57 @@
                 </div>
             </div>
             <ul class="mt-3 space-y-1.5 text-xs font-semibold text-textDark md:mt-4 md:space-y-2 md:text-sm">
-                @if(isset($profilProdi) && $profilProdi->posisi_banyak_dicari)
-                    @php
+                <?php if(isset($profilProdi) && $profilProdi->posisi_banyak_dicari): ?>
+                    <?php
                         $posisiItems = explode("\n", $profilProdi->posisi_banyak_dicari);
                         $posisiItems = array_filter($posisiItems, function($item) {
                             return trim($item) !== '';
                         });
-                    @endphp
-                    @foreach($posisiItems as $posisi)
+                    ?>
+                    <?php $__currentLoopData = $posisiItems; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $posisi): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <li class="flex items-start gap-3">
                         <span class="mt-1 h-2.5 w-2.5 rounded-full bg-secondary"></span>
-                        {{ trim($posisi) }}
+                        <?php echo e(trim($posisi)); ?>
+
                     </li>
-                    @endforeach
-                @endif
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                <?php endif; ?>
             </ul>
         </article>
     </div>
 </section>
-@endif
+<?php endif; ?>
 
-{{-- Filosofi dan Nilai Dasar --}}
-@if(isset($profilProdi) && ($profilProdi->nilai_etika || $profilProdi->pendekatan_pembelajaran || $profilProdi->kompetensi_lulusan))
+
+<?php if(isset($profilProdi) && ($profilProdi->nilai_etika || $profilProdi->pendekatan_pembelajaran || $profilProdi->kompetensi_lulusan)): ?>
 <section class="mt-6 rounded-section bg-white p-5 shadow-soft md:mt-8 md:p-8 lg:p-10 xl:p-12">
     <div class="space-y-4 md:space-y-6">
         <h2 class="text-2xl font-semibold text-secondary md:text-3xl lg:text-4xl">Filosofi dan Nilai Dasar</h2>
         <div class="mt-4 grid gap-4 md:mt-6 md:grid-cols-2 md:gap-6 lg:grid-cols-3">
-            @if(isset($profilProdi) && $profilProdi->nilai_etika)
+            <?php if(isset($profilProdi) && $profilProdi->nilai_etika): ?>
             <div class="rounded-card border-t-4 border-primary bg-white/60 p-5 text-center shadow-soft md:p-6 lg:p-8">
                 <h3 class="text-lg font-semibold text-primary md:text-xl">Nilai dan Etika</h3>
-                <p class="mt-2 text-xs text-textMuted md:mt-3 md:text-sm whitespace-pre-line">{{ $profilProdi->nilai_etika }}</p>
+                <p class="mt-2 text-xs text-textMuted md:mt-3 md:text-sm whitespace-pre-line"><?php echo e($profilProdi->nilai_etika); ?></p>
             </div>
-            @endif
-            @if(isset($profilProdi) && $profilProdi->pendekatan_pembelajaran)
+            <?php endif; ?>
+            <?php if(isset($profilProdi) && $profilProdi->pendekatan_pembelajaran): ?>
             <div class="rounded-card border-t-4 border-primary bg-white/60 p-5 text-center shadow-soft md:p-6 lg:p-8">
                 <h3 class="text-lg font-semibold text-primary md:text-xl">Pendekatan Pembelajaran</h3>
-                <p class="mt-2 text-xs text-textMuted md:mt-3 md:text-sm whitespace-pre-line">{{ $profilProdi->pendekatan_pembelajaran }}</p>
+                <p class="mt-2 text-xs text-textMuted md:mt-3 md:text-sm whitespace-pre-line"><?php echo e($profilProdi->pendekatan_pembelajaran); ?></p>
             </div>
-            @endif
-            @if(isset($profilProdi) && $profilProdi->kompetensi_lulusan)
+            <?php endif; ?>
+            <?php if(isset($profilProdi) && $profilProdi->kompetensi_lulusan): ?>
             <div class="rounded-card border-t-4 border-primary bg-white/60 p-5 text-center shadow-soft md:col-span-2 md:p-6 lg:col-span-1 lg:p-8">
                 <h3 class="text-lg font-semibold text-primary md:text-xl">Kompetensi Lulusan</h3>
-                <p class="mt-2 text-xs text-textMuted md:mt-3 md:text-sm whitespace-pre-line">{{ $profilProdi->kompetensi_lulusan }}</p>
+                <p class="mt-2 text-xs text-textMuted md:mt-3 md:text-sm whitespace-pre-line"><?php echo e($profilProdi->kompetensi_lulusan); ?></p>
             </div>
-            @endif
+            <?php endif; ?>
         </div>
     </div>
 </section>
-@endif
+<?php endif; ?>
 
-{{-- Fasilitas Pembelajaran --}}
+
 <section class="mt-6 rounded-section bg-white p-4 shadow-soft md:mt-8 md:p-6 lg:p-8">
     <div class="space-y-4 md:space-y-5">
         <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -300,7 +303,7 @@
                 <span class="text-[10px] font-semibold uppercase tracking-wide4 text-primary/80 md:text-xs">Fasilitas Pembelajaran</span>
                 <h2 class="mt-1 text-xl font-semibold text-secondary md:text-2xl lg:text-3xl">Lingkungan Belajar Modern</h2>
             </div>
-            <a href="{{ route('fasilitas') }}"
+            <a href="<?php echo e(route('fasilitas')); ?>"
                 class="hidden items-center gap-2 rounded-full border border-primary/20 px-4 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:shadow-soft md:inline-flex">
                 Selengkapnya
                 <span aria-hidden="true">></span>
@@ -330,7 +333,7 @@
             </article>
         </div>
         <div class="mt-4 flex justify-end md:hidden">
-            <a href="{{ route('fasilitas') }}"
+            <a href="<?php echo e(route('fasilitas')); ?>"
                 class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-4 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:shadow-soft">
                 Selengkapnya
                 <span aria-hidden="true">></span>
@@ -339,21 +342,22 @@
     </div>
 </section>
 
-{{-- Mitra Strategis --}}
-@if(isset($profilProdi) && $profilProdi->mitra_logo && is_array($profilProdi->mitra_logo) && count($profilProdi->mitra_logo) > 0)
+
+<?php if(isset($profilProdi) && $profilProdi->mitra_logo && is_array($profilProdi->mitra_logo) && count($profilProdi->mitra_logo) > 0): ?>
 <section class="mt-6 rounded-section bg-white p-4 shadow-soft md:mt-6 md:p-5 lg:p-6">
     <div class="text-center">
         <span class="text-[10px] font-semibold uppercase tracking-wide4 text-secondary md:text-xs">Mitra Prodi PTB</span>
     </div>
     <div class="mt-4 grid grid-cols-3 gap-2 md:grid-cols-6 lg:grid-cols-9 md:gap-3">
-        @if(isset($profilProdi) && $profilProdi->mitra_logo && is_array($profilProdi->mitra_logo))
-            @foreach($profilProdi->mitra_logo as $logo)
+        <?php if(isset($profilProdi) && $profilProdi->mitra_logo && is_array($profilProdi->mitra_logo)): ?>
+            <?php $__currentLoopData = $profilProdi->mitra_logo; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $logo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="flex items-center justify-center overflow-hidden rounded-lg bg-white p-2 transition hover:border-primary/20 hover:shadow-soft md:p-2.5">
-                <img src="{{ asset('storage/' . $logo) }}" alt="Mitra Logo" class="h-auto max-h-8 w-full object-contain md:max-h-10">
+                <img src="<?php echo e(asset('storage/' . $logo)); ?>" alt="Mitra Logo" class="h-auto max-h-8 w-full object-contain md:max-h-10">
             </div>
-            @endforeach
-        @endif
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+        <?php endif; ?>
     </div>
 </section>
-@endif
-@endsection
+<?php endif; ?>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web-portal-ptb\resources\views/pages/profil.blade.php ENDPATH**/ ?>
