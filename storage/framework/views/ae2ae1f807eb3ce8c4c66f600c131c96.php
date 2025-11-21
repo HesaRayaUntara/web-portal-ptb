@@ -1,3 +1,7 @@
+<?php
+    use Illuminate\Support\Facades\Storage;
+?>
+
 <?php $__env->startSection('title', 'Galeri'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -24,17 +28,43 @@
                 <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">Sorotan</span>
                 <h2 class="mt-2 text-3xl font-semibold text-secondary md:text-4xl">Momen Terbaik</h2>
             </div>
+            <?php if(isset($categories) && count($categories) > 0): ?>
+            <div class="relative">
+                <div class="group inline-flex w-full items-center justify-end md:justify-start">
+                    <button type="button"
+                        class="flex w-full items-center justify-center gap-2 rounded-badge border border-primary/15 bg-white px-4 py-2 text-sm font-medium text-textDark shadow-soft transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40 md:w-auto">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                        </svg>
+                        <span id="selected-category"><?php echo e(request('kategori') ?: 'Semua Kategori'); ?></span>
+                        <span class="text-xs" aria-hidden="true">&#x25BE;</span>
+                    </button>
+                    <div class="absolute right-0 top-full z-50 mt-2 hidden min-w-[180px] flex-col rounded-badge border border-primary/10 bg-white text-sm text-textDark shadow-soft transition group-hover:flex group-focus-within:flex">
+                        <a href="<?php echo e(route('galeri')); ?>"
+                           class="flex items-center gap-3 rounded-badge px-4 py-2 transition hover:bg-primary/10 hover:text-primary <?php echo e(!request('kategori') ? 'bg-primary/10 text-primary font-semibold' : ''); ?>">
+                            <span>Semua Kategori</span>
+                        </a>
+                        <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $category): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <a href="<?php echo e(route('galeri', ['kategori' => $category])); ?>"
+                               class="flex items-center gap-3 rounded-badge px-4 py-2 transition hover:bg-primary/10 hover:text-primary <?php echo e(request('kategori') === $category ? 'bg-primary/10 text-primary font-semibold' : ''); ?>">
+                                <span><?php echo e($category); ?></span>
+                            </a>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
 
-        <div class="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div class="mt-8 grid grid-cols-2 gap-4 md:grid-cols-2 lg:grid-cols-4">
             <?php $__currentLoopData = $gallery; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <?php
-                    $displayImage = $item['image'];
-                    if ($item['type'] === 'video' && isset($item['youtube_url'])) {
+                    $displayImage = $item->foto ? Storage::url($item->foto) : '';
+                    if ($item->tipe === 'video' && $item->youtube_url) {
                         $videoId = null;
-                        if (preg_match('/(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/)([^\s&]+)/', $item['youtube_url'], $matches)) {
+                        if (preg_match('/(?:youtube\.com\/watch\?v=|youtube\.com\/embed\/)([^\s&]+)/', $item->youtube_url, $matches)) {
                             $videoId = $matches[1];
-                        } elseif (preg_match('/youtu\.be\/([^\s?&]+)/', $item['youtube_url'], $matches)) {
+                        } elseif (preg_match('/youtu\.be\/([^\s?&]+)/', $item->youtube_url, $matches)) {
                             $videoId = $matches[1];
                         }
                         if ($videoId) {
@@ -43,39 +73,35 @@
                     }
                 ?>
                 <article class="gallery-item group relative overflow-hidden rounded-card cursor-pointer" 
-                         data-type="<?php echo e($item['type']); ?>"
+                         data-type="<?php echo e($item->tipe); ?>"
                          data-image="<?php echo e($displayImage); ?>"
-                         data-title="<?php echo e($item['title']); ?>"
-                         data-desc="<?php echo e($item['desc']); ?>"
-                         <?php if(isset($item['youtube_url'])): ?> data-youtube-url="<?php echo e($item['youtube_url']); ?>" <?php endif; ?>>
+                         data-title="<?php echo e($item->judul); ?>"
+                         data-desc="<?php echo e($item->deskripsi); ?>"
+                         <?php if($item->youtube_url): ?> data-youtube-url="<?php echo e($item->youtube_url); ?>" <?php endif; ?>>
                     <div class="relative overflow-hidden aspect-video">
-                        <img src="<?php echo e($displayImage); ?>" alt="<?php echo e($item['title']); ?>" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
-                        <div class="absolute top-3 left-3 flex gap-2">
-                            <span class="rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primary shadow-soft">
-                                <?php echo e($item['category']); ?>
+                        <img src="<?php echo e($displayImage); ?>" alt="<?php echo e($item->judul); ?>" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent"></div>
+                        <div class="absolute top-1.5 left-1.5 flex gap-1 md:top-3 md:left-3 md:gap-2">
+                            <span class="rounded-full bg-white/90 px-1.5 py-0.5 text-[9px] font-semibold text-primary shadow-soft md:px-3 md:py-1 md:text-xs">
+                                <?php echo e($item->kategori ? $item->kategori->nama : 'Umum'); ?>
 
                             </span>
-                            <?php if($item['type'] === 'video'): ?>
-                                <span class="flex items-center justify-center rounded-full bg-primary/90 px-2.5 py-1 text-white shadow-soft">
-                                    <svg class="h-3.5 w-3.5" fill="currentColor" viewBox="0 0 20 20">
+                            <?php if($item->tipe === 'video'): ?>
+                                <span class="flex items-center justify-center rounded-full bg-primary/90 px-1 py-0.5 text-white shadow-soft md:px-2.5 md:py-1">
+                                    <svg class="h-2 w-2 md:h-3.5 md:w-3.5" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
                                     </svg>
                                 </span>
                             <?php endif; ?>
                         </div>
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent p-3 text-white">
-                            <h3 class="text-base font-semibold leading-tight line-clamp-1">
-                                <?php echo e($item['title']); ?>
+                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent p-1.5 text-white md:p-3">
+                            <h3 class="text-[10px] font-semibold leading-tight line-clamp-1 md:text-base">
+                                <?php echo e($item->judul); ?>
 
                             </h3>
-                            <p class="mt-1 line-clamp-1 text-[11px] text-white/90 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                                <?php echo e($item['desc']); ?>
-
-                            </p>
                         </div>
                         <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                            <?php if($item['type'] === 'video'): ?>
+                            <?php if($item->tipe === 'video'): ?>
                                 <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg">
                                     <svg class="ml-1 h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"></path>
@@ -128,20 +154,28 @@
 
     <!-- Media Modal -->
     <div id="mediaModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
-        <div class="relative w-full max-w-2xl">
+        <div class="relative max-w-full max-h-full">
             <button id="closeModal" class="absolute -right-2 -top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-textDark shadow-lg transition hover:bg-gray-100">
                 <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                 </svg>
             </button>
-            <div class="relative w-full overflow-hidden rounded-lg bg-white shadow-xl">
-                <div class="relative w-full bg-black" style="padding-bottom: 56.25%;">
-                    <img id="modalImage" src="" alt="" class="absolute inset-0 h-full w-full object-cover hidden">
-                    <iframe id="modalVideo" class="absolute inset-0 h-full w-full hidden" src="" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <!-- Video Container -->
+            <div id="videoContainer" class="relative w-full bg-black hidden" style="padding-bottom: 56.25%; min-width: 640px;">
+                <iframe id="modalVideo" class="absolute inset-0 h-full w-full" src="" title="Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <!-- Title and Description for Video -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4 text-white">
+                    <h3 id="modalTitle" class="text-sm font-bold md:text-base"></h3>
+                    <p id="modalDesc" class="mt-1 text-xs text-white/80 md:text-sm"></p>
                 </div>
-                <div class="bg-white p-4 text-center">
-                    <h3 id="modalTitle" class="text-sm font-bold text-textDark md:text-base"></h3>
-                    <p id="modalDesc" class="mt-1 text-xs text-textMuted md:text-sm"></p>
+            </div>
+            <!-- Image Container -->
+            <div id="imageContainer" class="relative hidden">
+                <img id="modalImage" src="" alt="" class="max-w-full max-h-[90vh] w-auto h-auto object-contain">
+                <!-- Title and Description for Image -->
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-4 text-white">
+                    <h3 id="modalTitleImage" class="text-xs font-bold md:text-sm"></h3>
+                    <p id="modalDescImage" class="mt-1 text-[10px] text-white/90 md:text-xs"></p>
                 </div>
             </div>
         </div>
@@ -164,14 +198,28 @@
             }
 
             function showImage({ image, title, desc }) {
-                modalVideo.classList.add('hidden');
+                // Hide video container
+                const videoContainer = document.getElementById('videoContainer');
+                const imageContainer = document.getElementById('imageContainer');
+                const modalTitleImage = document.getElementById('modalTitleImage');
+                const modalDescImage = document.getElementById('modalDescImage');
+                
+                videoContainer.classList.add('hidden');
                 modalVideo.src = '';
-                modalImage.classList.remove('hidden');
-                modalImage.src = image;
-                modalImage.alt = title;
-                modalTitle.textContent = title;
-                modalDesc.textContent = desc;
-                openModal();
+                
+                // Show image container
+                imageContainer.classList.remove('hidden');
+                
+                // Load image first to get natural dimensions
+                const img = new Image();
+                img.onload = function() {
+                    modalImage.src = image;
+                    modalImage.alt = title;
+                    modalTitleImage.textContent = title;
+                    modalDescImage.textContent = desc;
+                    openModal();
+                };
+                img.src = image;
             }
 
             function getYoutubeEmbedUrl(url) {
@@ -188,10 +236,18 @@
                     window.open(youtubeUrl, '_blank');
                     return;
                 }
-                modalImage.classList.add('hidden');
+                
+                // Hide image container
+                const videoContainer = document.getElementById('videoContainer');
+                const imageContainer = document.getElementById('imageContainer');
+                
+                imageContainer.classList.add('hidden');
                 modalImage.src = '';
-                modalVideo.classList.remove('hidden');
+                
+                // Show video container
+                videoContainer.classList.remove('hidden');
                 modalVideo.src = `${embedUrl}?autoplay=1&rel=0`;
+                
                 modalTitle.textContent = title;
                 modalDesc.textContent = desc;
                 openModal();
@@ -218,10 +274,16 @@
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
                 document.body.style.overflow = '';
+                
+                // Reset image
                 modalImage.src = '';
+                const imageContainer = document.getElementById('imageContainer');
+                imageContainer.classList.add('hidden');
+                
+                // Reset video
                 modalVideo.src = '';
-                modalImage.classList.add('hidden');
-                modalVideo.classList.add('hidden');
+                const videoContainer = document.getElementById('videoContainer');
+                videoContainer.classList.add('hidden');
             }
 
             closeModal.addEventListener('click', closeImageModal);

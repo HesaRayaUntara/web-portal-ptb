@@ -18,7 +18,7 @@
 
     <article class="overflow-hidden rounded-section bg-white shadow-soft">
         <div class="relative">
-            <img src="<?php echo e($berita->image ? Storage::url($berita->image) : 'https://via.placeholder.com/800x600'); ?>" alt="<?php echo e($berita->judul); ?>" class="h-80 w-full object-cover">
+            <img src="<?php echo e($berita->image ? Storage::url($berita->image) : 'https://via.placeholder.com/800x600'); ?>" alt="<?php echo e($berita->judul); ?>" class="h-80 w-full object-cover" loading="eager">
             <div class="absolute inset-x-0 bottom-0 bg-black/70 p-6 text-white">
                 <?php if($berita->kategori): ?>
                     <div class="inline-block rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primaryDark shadow-soft">
@@ -48,7 +48,7 @@
         <div class="space-y-6 p-8 md:p-12">
             <!-- Foto Sampul -->
             <div class="news-image-container flex justify-center" data-image="<?php echo e($berita->image ? Storage::url($berita->image) : 'https://via.placeholder.com/800x600'); ?>" data-alt="<?php echo e($berita->judul); ?>" style="max-width: 600px;">
-                <img src="<?php echo e($berita->image ? Storage::url($berita->image) : 'https://via.placeholder.com/800x600'); ?>" alt="<?php echo e($berita->judul); ?>" class="max-w-full h-auto cursor-pointer" style="max-width: 300px; width: auto; height: auto;">
+                <img src="<?php echo e($berita->image ? Storage::url($berita->image) : 'https://via.placeholder.com/800x600'); ?>" alt="<?php echo e($berita->judul); ?>" class="max-w-full h-auto cursor-pointer" style="max-width: 300px; width: auto; height: auto;" loading="lazy">
             </div>
 
             <!-- Isi Berita -->

@@ -20,7 +20,7 @@
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
                     <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
                     <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Berita</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</button>
+                    <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
                 <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
                     <?php echo csrf_field(); ?>
@@ -188,7 +188,7 @@
                             <select name="kategori_berita_id" id="kategori_berita_id" 
                                 class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:px-4" 
                                 required>
-                                <option value="">Pilih Kategori</option>
+                                <option value="" disabled selected>Pilih Kategori</option>
                                 <?php $__currentLoopData = $kategoris; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kategori): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <option value="<?php echo e($kategori->id); ?>" <?php echo e(old('kategori_berita_id') == $kategori->id ? 'selected' : ''); ?>>
                                         <?php echo e($kategori->nama); ?>

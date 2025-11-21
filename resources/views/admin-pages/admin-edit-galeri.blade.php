@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin - Edit Berita')
+@section('title', 'Admin - Edit Galeri')
 
 @php
     use Illuminate\Support\Facades\Storage;
@@ -23,8 +23,8 @@
                     <a href="{{ route('admin.profil.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
                     <a href="{{ route('admin.kurikulum.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
                     <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
-                    <a href="{{ route('admin.berita.index') }}" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Berita</a>
-                    <a href="{{ route('admin.galeri.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
+                    <a href="{{ route('admin.berita.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
+                    <a href="{{ route('admin.galeri.index') }}" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Galeri</a>
                 </nav>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
@@ -38,8 +38,8 @@
 
         <main class="flex-1 p-4 md:p-6 lg:p-8">
             <div class="mb-6">
-                <h1 class="text-xl font-bold text-textDark sm:text-2xl">{{ $berita->status === 'draft' ? 'Edit Draft Berita' : 'Edit Berita' }}</h1>
-                <p class="mt-1 text-xs text-textMuted sm:text-sm">{{ $berita->status === 'draft' ? 'Edit berita yang masih dalam status draft' : 'Edit berita yang sudah dipublikasikan' }}</p>
+                <h1 class="text-xl font-bold text-textDark sm:text-2xl">Edit Galeri</h1>
+                <p class="mt-1 text-xs text-textMuted sm:text-sm">Edit galeri yang sudah dipublikasikan</p>
             </div>
 
             {{-- Success Alert --}}
@@ -100,39 +100,33 @@
                 </div>
             @endif
 
-            {{-- Form Edit Berita --}}
-            @if($berita->status === 'draft')
-                <form method="POST" action="{{ route('admin.berita.updateDraft', $berita->id) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
-                    @csrf
-                    @method('PUT')
-            @else
-                <form method="POST" action="{{ route('admin.berita.updateBerita', $berita->id) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
-                    @csrf
-                    @method('PUT')
-            @endif
+            {{-- Form Edit Galeri --}}
+            <form method="POST" action="{{ route('admin.galeri.updateGaleri', $galeri->id) }}" enctype="multipart/form-data" id="galeriForm" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
+                @csrf
+                @method('PUT')
                 <div class="space-y-4">
                     <div>
-                        <label for="judul" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Judul Berita</label>
-                        <input type="text" name="judul" id="judul" value="{{ old('judul', $berita->judul) }}" 
+                        <label for="judul" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Judul</label>
+                        <input type="text" name="judul" id="judul" value="{{ old('judul', $galeri->judul) }}" 
                             class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:px-4" 
                             required>
                     </div>
 
                     <div>
-                        <label for="isi" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Isi Berita</label>
-                        <textarea name="isi" id="isi" rows="8" 
-                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:rows-10 sm:px-4" 
-                            required>{{ old('isi', $berita->isi) }}</textarea>
+                        <label for="deskripsi" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Deskripsi Singkat</label>
+                        <textarea name="deskripsi" id="deskripsi" rows="4" 
+                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:px-4" 
+                            required>{{ old('deskripsi', $galeri->deskripsi) }}</textarea>
                     </div>
 
                     <div>
-                        <label for="kategori_berita_id" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Kategori</label>
-                        <select name="kategori_berita_id" id="kategori_berita_id" 
+                        <label for="kategori_galeri_id" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Kategori</label>
+                        <select name="kategori_galeri_id" id="kategori_galeri_id" 
                             class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:px-4" 
                             required>
                             <option value="" disabled selected>Pilih Kategori</option>
                             @foreach($kategoris as $kategori)
-                                <option value="{{ $kategori->id }}" {{ old('kategori_berita_id', $berita->kategori_berita_id) == $kategori->id ? 'selected' : '' }}>
+                                <option value="{{ $kategori->id }}" {{ old('kategori_galeri_id', $galeri->kategori_galeri_id) == $kategori->id ? 'selected' : '' }}>
                                     {{ $kategori->nama }}
                                 </option>
                             @endforeach
@@ -140,50 +134,47 @@
                     </div>
 
                     <div>
-                        <label for="penulis" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Penulis</label>
-                        <input type="text" name="penulis" id="penulis" value="{{ old('penulis', $berita->penulis) }}" 
+                        <label for="tipe" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Tipe</label>
+                        <select name="tipe" id="tipe" 
                             class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:px-4" 
                             required>
+                            <option value="">Pilih Tipe</option>
+                            <option value="photo" {{ old('tipe', $galeri->tipe) == 'photo' ? 'selected' : '' }}>Foto</option>
+                            <option value="video" {{ old('tipe', $galeri->tipe) == 'video' ? 'selected' : '' }}>Video</option>
+                        </select>
                     </div>
 
-                    <div>
-                        <label for="image" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Gambar</label>
-                        @if($berita->image)
+                    {{-- Photo Input --}}
+                    <div id="photo-input" style="display: {{ old('tipe', $galeri->tipe) == 'photo' ? 'block' : 'none' }};">
+                        <label for="foto" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Gambar</label>
+                        @if($galeri->tipe === 'photo' && $galeri->foto)
                             <div class="mb-2">
-                                <img src="{{ Storage::url($berita->image) }}" alt="Current image" class="h-24 w-auto rounded-lg border border-borderSoft object-cover sm:h-32">
+                                <img src="{{ Storage::url($galeri->foto) }}" alt="Current image" class="h-24 w-auto rounded-lg border border-borderSoft object-cover sm:h-32">
                                 <p class="mt-1 text-xs text-textMuted">Gambar saat ini</p>
                             </div>
                         @endif
-                        <input type="file" name="image" id="image" accept="image/jpeg,image/jpg,image/png" 
+                        <input type="file" name="foto" id="foto" accept="image/jpeg,image/jpg,image/png" 
                             class="w-full rounded-lg border border-borderSoft px-3 py-2 text-xs focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:px-4 sm:text-sm">
                         <p class="mt-1 text-xs text-textMuted">Format: JPG, JPEG, PNG (Maks: 10MB). Kosongkan jika tidak ingin mengubah gambar.</p>
                     </div>
 
+                    {{-- Video Input --}}
+                    <div id="video-input" style="display: {{ old('tipe', $galeri->tipe) == 'video' ? 'block' : 'none' }};">
+                        <label for="youtube_url" class="mb-2 block text-xs font-semibold text-textDark sm:text-sm">Link YouTube</label>
+                        <input type="url" name="youtube_url" id="youtube_url" value="{{ old('youtube_url', $galeri->youtube_url) }}" 
+                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 sm:px-4" 
+                            placeholder="Masukkan link YouTube">
+                    </div>
+
                     <div class="flex flex-col gap-2 pt-4 sm:flex-row">
-                        @if($berita->status === 'draft')
-                            <a href="{{ route('admin.berita.draft') }}" 
-                                class="w-full rounded-lg border border-primary bg-white px-4 py-2 text-center text-xs font-semibold text-primary shadow-soft transition hover:bg-primary/5 sm:flex-1 sm:text-sm sm:py-3">
-                                < Kembali ke Draft
-                            </a>
-                            <button type="submit" name="action" value="simpan" 
-                                class="w-full rounded-lg border border-borderSoft bg-white px-4 py-2 text-xs font-semibold text-textDark shadow-soft transition hover:bg-gray-100 sm:flex-1 sm:text-sm sm:py-3">
-                                Simpan
-                            </button>
-                            <button type="submit" name="action" value="publikasikan" 
-                                onclick="return confirm('Apakah anda yakin untuk memublikasikan berita ini?');"
-                                class="w-full rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:bg-primaryDark sm:flex-1 sm:text-sm sm:py-3">
-                                Publikasikan
-                            </button>
-                        @else
-                            <a href="{{ route('admin.berita.index') }}" 
-                                class="w-full rounded-lg border border-primary bg-white px-4 py-2 text-center text-xs font-semibold text-primary shadow-soft transition hover:bg-primary/5 sm:flex-1 sm:text-sm sm:py-3">
-                                < Kembali ke Berita
-                            </a>
-                            <button type="submit" 
-                                class="w-full rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:bg-primaryDark sm:flex-1 sm:text-sm sm:py-3">
-                                Simpan Perubahan
-                            </button>
-                        @endif
+                        <a href="{{ route('admin.galeri.index') }}" 
+                            class="w-full rounded-lg border border-primary bg-white px-4 py-2 text-center text-xs font-semibold text-primary shadow-soft transition hover:bg-primary/5 sm:flex-1 sm:text-sm sm:py-3">
+                            < Kembali ke Galeri
+                        </a>
+                        <button type="submit" 
+                            class="w-full rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:bg-primaryDark sm:flex-1 sm:text-sm sm:py-3">
+                            Simpan Perubahan
+                        </button>
                     </div>
                 </div>
             </form>
@@ -192,6 +183,37 @@
 </div>
 
 <script>
+    // Toggle input berdasarkan tipe
+    document.addEventListener('DOMContentLoaded', function() {
+        const typeSelect = document.getElementById('tipe');
+        const photoInput = document.getElementById('photo-input');
+        const videoInput = document.getElementById('video-input');
+        const imageInput = document.getElementById('foto');
+        const youtubeInput = document.getElementById('youtube_url');
+
+        function toggleInputs() {
+            const selectedType = typeSelect.value;
+            
+            if (selectedType === 'photo') {
+                photoInput.style.display = 'block';
+                videoInput.style.display = 'none';
+                youtubeInput.removeAttribute('required');
+            } else if (selectedType === 'video') {
+                photoInput.style.display = 'none';
+                videoInput.style.display = 'block';
+                imageInput.removeAttribute('required');
+                youtubeInput.setAttribute('required', 'required');
+            } else {
+                photoInput.style.display = 'none';
+                videoInput.style.display = 'none';
+                imageInput.removeAttribute('required');
+                youtubeInput.removeAttribute('required');
+            }
+        }
+
+        typeSelect.addEventListener('change', toggleInputs);
+    });
+
     // Auto-hide alerts after 5 seconds
     document.addEventListener('DOMContentLoaded', function() {
         const successAlert = document.getElementById('success-alert');

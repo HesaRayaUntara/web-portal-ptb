@@ -214,7 +214,7 @@
                     <?php $__currentLoopData = $latestGalleryPhotos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $photo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <div class="carousel-slide min-w-full flex-shrink-0" data-index="<?php echo e($index); ?>">
                         <div class="relative h-48 md:h-64 overflow-hidden rounded-card">
-                            <img src="<?php echo e($photo['image']); ?>" alt="<?php echo e($photo['title']); ?>" class="h-full w-full object-cover">
+                            <img src="<?php echo e($photo['image']); ?>" alt="<?php echo e($photo['title']); ?>" class="h-full w-full object-cover" loading="<?php echo e($index === 0 ? 'eager' : 'lazy'); ?>">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                             <div class="absolute bottom-0 left-0 right-0 p-3 md:p-4 text-white">
                                 <span class="inline-block rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold text-white mb-1.5">
@@ -274,7 +274,7 @@
         <a href="<?php echo e(route('berita.detail', $item->slug)); ?>" class="group block">
             <article class="flex flex-col overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-0.5 hover:border-primary/30 hover:shadow-card md:flex-row">
                 <div class="relative h-28 w-full flex-shrink-0 md:h-40 md:w-36">
-                    <img src="<?php echo e($item->image ? Storage::url($item->image) : 'https://via.placeholder.com/800x600'); ?>" alt="<?php echo e($item->judul); ?>" class="h-full w-full object-cover transition duration-300 group-hover:scale-105">
+                    <img src="<?php echo e($item->image ? Storage::url($item->image) : 'https://via.placeholder.com/800x600'); ?>" alt="<?php echo e($item->judul); ?>" class="h-full w-full object-cover transition duration-300 group-hover:scale-105" loading="lazy">
                     <div class="absolute right-1.5 top-1.5 rounded-full bg-white/90 px-1.5 py-0.5 text-[9px] font-semibold text-primaryDark shadow-soft">
                         <?php echo e(($item->kategori) ? $item->kategori->nama : 'Umum'); ?>
 

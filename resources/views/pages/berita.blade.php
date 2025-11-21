@@ -72,7 +72,7 @@
                 <a href="{{ route('berita.detail', $item->slug) }}" class="group block h-full">
                     <article class="flex h-full flex-col overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:border-primary/30 hover:shadow-card">
                         <div class="relative">
-                            <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/800x600' }}" alt="{{ $item->judul }}" class="h-44 w-full object-cover">
+                            <img src="{{ $item->image ? Storage::url($item->image) : 'https://via.placeholder.com/800x600' }}" alt="{{ $item->judul }}" class="h-44 w-full object-cover" loading="lazy">
                             @if($item->kategori)
                                 <div class="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-primaryDark shadow-soft">
                                     {{ $item->kategori->nama }}

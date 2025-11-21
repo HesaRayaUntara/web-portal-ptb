@@ -6,6 +6,8 @@ use App\Http\Controllers\AdminAuthController;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Models\Berita;
 use App\Models\KategoriBerita;
+use App\Models\Galeri;
+use App\Models\KategoriGaleri;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -166,10 +168,19 @@ Route::get('/lang/{locale}', [LanguageController::class, 'switch'])->name('lang.
 // Route Beranda (Home)
 Route::get('/', function () {
     // Get latest 5 photos from gallery (only photos, not videos)
-    $allItems = collect(galeriItems());
-    $latestPhotos = $allItems->filter(function ($item) {
-        return $item['type'] === 'photo';
-    })->take(5)->values();
+    $latestPhotos = Galeri::where('tipe', 'photo')
+        ->with('kategori')
+        ->orderBy('created_at', 'desc')
+        ->take(5)
+        ->get()
+        ->map(function ($item) {
+            return [
+                'title' => $item->title,
+                'desc' => $item->desc,
+                'image' => $item->image ? Storage::url($item->image) : '',
+                'category' => $item->kategori ? $item->kategori->nama : 'Umum',
+            ];
+        });
     
     // Get latest 5 published news items sorted by publication date (newest first)
     $latestNews = Berita::where('status', 'published')
@@ -438,22 +449,26 @@ if (!function_exists('galeriItems')) {
 // Route Galeri
 Route::get('/galeri', function () {
     $perPage = 12;
-    $currentPage = request()->get('page', 1);
-    $items = collect(galeriItems());
-    $currentItems = $items->forPage($currentPage, $perPage)->values();
+    $selectedCategory = request()->get('kategori');
+    
+    // Query galeri
+    $query = Galeri::with('kategori')
+        ->orderBy('created_at', 'desc');
+    
+    // Filter by category if selected
+    if ($selectedCategory) {
+        $query->whereHas('kategori', function($q) use ($selectedCategory) {
+            $q->where('nama', $selectedCategory);
+        });
+    }
+    
+    // Get unique categories from galeri
+    $categories = KategoriGaleri::whereHas('galeri')->orderBy('nama')->pluck('nama')->toArray();
+    
+    // Paginate results
+    $gallery = $query->paginate($perPage)->withQueryString();
 
-    $gallery = new LengthAwarePaginator(
-        $currentItems,
-        $items->count(),
-        $perPage,
-        $currentPage,
-        [
-            'path' => request()->url(),
-            'query' => request()->query(),
-        ]
-    );
-
-    return view('pages.galeri', ['gallery' => $gallery]);
+    return view('pages.galeri', ['gallery' => $gallery, 'categories' => $categories]);
 })->name('galeri');
 
 // Route Kontak (jika ada linknya di menu/footer)
@@ -503,4 +518,13 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('admin/berita/{id}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editBerita'])->name('admin.berita.editBerita');
     Route::put('admin/berita/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'updateBerita'])->name('admin.berita.updateBerita');
     Route::delete('admin/berita/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'destroyBerita'])->name('admin.berita.destroyBerita');
+    
+    // Routes Admin Galeri
+    Route::get('admin/galeri', [\App\Http\Controllers\AdminGaleriController::class, 'index'])->name('admin.galeri.index');
+    Route::post('admin/galeri/kategori', [\App\Http\Controllers\AdminGaleriController::class, 'storeKategori'])->name('admin.galeri.storeKategori');
+    Route::delete('admin/galeri/kategori/{id}', [\App\Http\Controllers\AdminGaleriController::class, 'deleteKategori'])->name('admin.galeri.deleteKategori');
+    Route::post('admin/galeri', [\App\Http\Controllers\AdminGaleriController::class, 'storeGaleri'])->name('admin.galeri.storeGaleri');
+    Route::get('admin/galeri/{id}/edit', [\App\Http\Controllers\AdminGaleriController::class, 'editGaleri'])->name('admin.galeri.editGaleri');
+    Route::put('admin/galeri/{id}', [\App\Http\Controllers\AdminGaleriController::class, 'updateGaleri'])->name('admin.galeri.updateGaleri');
+    Route::delete('admin/galeri/{id}', [\App\Http\Controllers\AdminGaleriController::class, 'destroyGaleri'])->name('admin.galeri.destroyGaleri');
 });
