@@ -15,6 +15,7 @@ class ProfilProdi extends Model
         'deskripsi',
         'visi',
         'misi',
+        'tujuan',
         'lama_studi',
         'gelar_lulusan',
         'kepanjangan_gelar',
@@ -28,10 +29,6 @@ class ProfilProdi extends Model
         'no_sk',
         'foto_akreditasi',
         'industri_tempat_bekerja',
-        'posisi_banyak_dicari',
-        'nilai_etika',
-        'pendekatan_pembelajaran',
-        'kompetensi_lulusan',
         'mitra_logo',
     ];
 
@@ -40,4 +37,9 @@ class ProfilProdi extends Model
         'snbp_keketatan' => 'decimal:2',
         'snbt_keketatan' => 'decimal:2',
     ];
+
+    public function profilLulusan()
+    {
+        return $this->hasMany(ProfilLulusan::class, 'profil_prodi_id');
+    }
 }

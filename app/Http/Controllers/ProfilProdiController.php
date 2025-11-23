@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ProfilProdi;
+use App\Models\ProfilLulusan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -40,6 +41,7 @@ class ProfilProdiController extends Controller
                 'deskripsi' => 'required|string',
                 'visi' => 'required|string',
                 'misi' => 'required|string',
+                'tujuan' => 'required|string',
                 'lama_studi' => 'required|string|max:255',
                 'gelar_lulusan' => 'required|string|max:255',
                 'kepanjangan_gelar' => 'required|string|max:255',
@@ -51,12 +53,11 @@ class ProfilProdiController extends Controller
                 'no_sk' => 'required|string|max:255',
                 'foto_akreditasi' => 'nullable|image|mimes:jpeg,jpg,png|max:5120',
                 'industri_tempat_bekerja' => 'required|string',
-                'posisi_banyak_dicari' => 'required|string',
-                'nilai_etika' => 'required|string',
-                'pendekatan_pembelajaran' => 'required|string',
-                'kompetensi_lulusan' => 'required|string',
                 'mitra_logo' => 'nullable|array',
                 'mitra_logo.*' => 'image|mimes:jpeg,jpg,png|max:5120',
+                'profil_lulusan' => 'nullable|array',
+                'profil_lulusan.*.peran' => 'required|string|max:255',
+                'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
             ]);
 
             // Calculate keketatan automatically
@@ -94,6 +95,19 @@ class ProfilProdiController extends Controller
 
             $profilProdi = ProfilProdi::create($validated);
 
+            // Handle profil lulusan
+            if ($request->has('profil_lulusan') && is_array($request->profil_lulusan)) {
+                foreach ($request->profil_lulusan as $lulusan) {
+                    if (!empty($lulusan['peran']) && !empty($lulusan['deskripsi_kemampuan'])) {
+                        ProfilLulusan::create([
+                            'profil_prodi_id' => $profilProdi->id,
+                            'peran' => $lulusan['peran'],
+                            'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
+                        ]);
+                    }
+                }
+            }
+
             return redirect()->route('admin.profil.edit', $profilProdi->id)
                 ->with('success', 'Profil Program Studi berhasil dibuat.');
         } catch (\Exception $e) {
@@ -116,7 +130,7 @@ class ProfilProdiController extends Controller
      */
     public function edit(string $id)
     {
-        $profilProdi = ProfilProdi::findOrFail($id);
+        $profilProdi = ProfilProdi::with('profilLulusan')->findOrFail($id);
         return view('admin-pages.admin-profil-prodi', compact('profilProdi'));
     }
 
@@ -132,6 +146,7 @@ class ProfilProdiController extends Controller
                 'deskripsi' => 'required|string',
                 'visi' => 'required|string',
                 'misi' => 'required|string',
+                'tujuan' => 'required|string',
                 'lama_studi' => 'required|string|max:255',
                 'gelar_lulusan' => 'required|string|max:255',
                 'kepanjangan_gelar' => 'required|string|max:255',
@@ -143,12 +158,12 @@ class ProfilProdiController extends Controller
                 'no_sk' => 'required|string|max:255',
                 'foto_akreditasi' => 'nullable|image|mimes:jpeg,jpg,png|max:5120',
                 'industri_tempat_bekerja' => 'required|string',
-                'posisi_banyak_dicari' => 'required|string',
-                'nilai_etika' => 'required|string',
-                'pendekatan_pembelajaran' => 'required|string',
-                'kompetensi_lulusan' => 'required|string',
                 'mitra_logo' => 'nullable|array',
                 'mitra_logo.*' => 'image|mimes:jpeg,jpg,png|max:5120',
+                'profil_lulusan' => 'nullable|array',
+                'profil_lulusan.*.id' => 'nullable|exists:profil_lulusan,id',
+                'profil_lulusan.*.peran' => 'required|string|max:255',
+                'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
             ]);
 
             // Calculate keketatan automatically
@@ -194,7 +209,43 @@ class ProfilProdiController extends Controller
 
             $profilProdi->update($validated);
 
-            return redirect()->route('admin.profil.index')
+            // Handle profil lulusan
+            if ($request->has('profil_lulusan') && is_array($request->profil_lulusan)) {
+                // Get existing IDs
+                $existingIds = collect($request->profil_lulusan)->pluck('id')->filter()->toArray();
+                
+                // Delete removed items
+                ProfilLulusan::where('profil_prodi_id', $profilProdi->id)
+                    ->whereNotIn('id', $existingIds)
+                    ->delete();
+
+                // Update or create items
+                foreach ($request->profil_lulusan as $lulusan) {
+                    if (!empty($lulusan['peran']) && !empty($lulusan['deskripsi_kemampuan'])) {
+                        if (isset($lulusan['id']) && $lulusan['id']) {
+                            // Update existing
+                            ProfilLulusan::where('id', $lulusan['id'])
+                                ->where('profil_prodi_id', $profilProdi->id)
+                                ->update([
+                                    'peran' => $lulusan['peran'],
+                                    'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
+                                ]);
+                        } else {
+                            // Create new
+                            ProfilLulusan::create([
+                                'profil_prodi_id' => $profilProdi->id,
+                                'peran' => $lulusan['peran'],
+                                'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
+                            ]);
+                        }
+                    }
+                }
+            } else {
+                // If no profil_lulusan data, delete all
+                ProfilLulusan::where('profil_prodi_id', $profilProdi->id)->delete();
+            }
+
+            return redirect()->route('admin.profil.edit', $profilProdi->id)
                 ->with('success', 'Profil Program Studi berhasil diperbarui.');
         } catch (\Exception $e) {
             return redirect()->back()

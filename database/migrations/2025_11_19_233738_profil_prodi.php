@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        if (Schema::hasTable('profil_prodi')) {
-            return;
-        }
-        
         Schema::create('profil_prodi', function (Blueprint $table) {
             $table->id();
             $table->text('deskripsi')->nullable();
             $table->text('visi')->nullable();
             $table->text('misi')->nullable();
+            $table->text('tujuan')->nullable();
             $table->string('lama_studi')->nullable();
             $table->string('gelar_lulusan')->nullable();
             $table->string('kepanjangan_gelar')->nullable();
@@ -33,10 +30,6 @@ return new class extends Migration
             $table->string('no_sk')->nullable();
             $table->string('foto_akreditasi')->nullable();
             $table->text('industri_tempat_bekerja')->nullable();
-            $table->text('posisi_banyak_dicari')->nullable();
-            $table->text('nilai_etika')->nullable();
-            $table->text('pendekatan_pembelajaran')->nullable();
-            $table->text('kompetensi_lulusan')->nullable();
             $table->json('mitra_logo')->nullable();
             $table->timestamps();
         });

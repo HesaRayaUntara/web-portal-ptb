@@ -2,6 +2,7 @@
 
 <?php
     use Illuminate\Support\Facades\Storage;
+    $profilLulusanCount = isset($profilProdi) && isset($profilProdi->profilLulusan) && $profilProdi->profilLulusan ? $profilProdi->profilLulusan->count() : 0;
 ?>
 
 <?php $__env->startSection('content'); ?>
@@ -43,15 +44,15 @@
 
             
             <?php if(session('success')): ?>
-                <div id="success-alert" class="mb-6 flex items-center justify-between rounded-xl border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-800 shadow-soft animate-slide-down">
-                    <div class="flex items-center gap-3">
-                        <svg class="h-5 w-5 flex-shrink-0 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <div id="success-alert" class="mb-6 flex items-center justify-between rounded-xl border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-800 shadow-soft animate-slide-down sm:px-4 sm:py-3 sm:text-sm">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <svg class="h-4 w-4 flex-shrink-0 text-green-600 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="font-semibold"><?php echo e(session('success')); ?></span>
+                        <span class="font-semibold break-words"><?php echo e(session('success')); ?></span>
                     </div>
-                    <button type="button" onclick="document.getElementById('success-alert').remove()" class="text-green-600 hover:text-green-800">
-                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <button type="button" onclick="document.getElementById('success-alert').remove()" class="ml-2 flex-shrink-0 text-green-600 hover:text-green-800 sm:ml-0">
+                        <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
@@ -60,15 +61,15 @@
 
             
             <?php if(session('error')): ?>
-                <div id="error-alert" class="mb-6 flex items-center justify-between rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 shadow-soft animate-slide-down">
-                    <div class="flex items-center gap-3">
-                        <svg class="h-5 w-5 flex-shrink-0 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                <div id="error-alert" class="mb-6 flex items-center justify-between rounded-xl border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-800 shadow-soft animate-slide-down sm:px-4 sm:py-3 sm:text-sm">
+                    <div class="flex items-center gap-2 sm:gap-3">
+                        <svg class="h-4 w-4 flex-shrink-0 text-red-600 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="font-semibold"><?php echo e(session('error')); ?></span>
+                        <span class="font-semibold break-words"><?php echo e(session('error')); ?></span>
                     </div>
-                    <button type="button" onclick="document.getElementById('error-alert').remove()" class="text-red-600 hover:text-red-800">
-                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <button type="button" onclick="document.getElementById('error-alert').remove()" class="ml-2 flex-shrink-0 text-red-600 hover:text-red-800 sm:ml-0">
+                        <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
@@ -77,21 +78,21 @@
 
             
             <?php if($errors->any()): ?>
-                <div id="validation-alert" class="mb-6 rounded-xl border border-red-300 bg-red-50 px-4 py-3 shadow-soft animate-slide-down">
-                    <div class="flex items-start gap-3">
-                        <svg class="h-5 w-5 flex-shrink-0 text-red-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <div id="validation-alert" class="mb-6 rounded-xl border border-red-300 bg-red-50 px-3 py-2 text-xs shadow-soft animate-slide-down sm:px-4 sm:py-3 sm:text-sm">
+                    <div class="flex items-start gap-2 sm:gap-3">
+                        <svg class="h-4 w-4 flex-shrink-0 text-red-600 mt-0.5 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                         </svg>
                         <div class="flex-1">
                             <h3 class="mb-2 font-semibold text-red-800">Terjadi kesalahan validasi:</h3>
-                            <ul class="list-inside list-disc space-y-1 text-sm text-red-700">
+                            <ul class="list-inside list-disc space-y-1 text-xs text-red-700 sm:text-sm">
                                 <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <li><?php echo e($error); ?></li>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
                         </div>
-                        <button type="button" onclick="document.getElementById('validation-alert').remove()" class="text-red-600 hover:text-red-800">
-                            <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                        <button type="button" onclick="document.getElementById('validation-alert').remove()" class="ml-2 flex-shrink-0 text-red-600 hover:text-red-800 sm:ml-0">
+                            <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                             </svg>
                         </button>
@@ -134,6 +135,13 @@
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan misi program studi (pisahkan dengan baris baru)"><?php echo e(old('misi', $profilProdi->misi ?? '')); ?></textarea>
                             <p class="mt-1 text-xs text-textMuted">Pisahkan setiap poin misi dengan baris baru</p>
+                        </div>
+                        <div>
+                            <label for="tujuan" class="mb-2 block text-sm font-semibold text-textDark">Tujuan</label>
+                            <textarea id="tujuan" name="tujuan" rows="5" required
+                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
+                                placeholder="Masukkan tujuan program studi (pisahkan dengan baris baru)"><?php echo e(old('tujuan', $profilProdi->tujuan ?? '')); ?></textarea>
+                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap poin tujuan dengan baris baru</p>
                         </div>
                     </div>
                 </section>
@@ -256,38 +264,45 @@
                                 placeholder="Masukkan industri atau tempat bekerja (pisahkan dengan baris baru)"><?php echo e(old('industri_tempat_bekerja', $profilProdi->industri_tempat_bekerja ?? '')); ?></textarea>
                             <p class="mt-1 text-xs text-textMuted">Pisahkan setiap item dengan baris baru</p>
                         </div>
-                        <div>
-                            <label for="posisi_banyak_dicari" class="mb-2 block text-sm font-semibold text-textDark">Posisi yang Banyak Dicari</label>
-                            <textarea id="posisi_banyak_dicari" name="posisi_banyak_dicari" rows="4" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan posisi yang banyak dicari (pisahkan dengan baris baru)"><?php echo e(old('posisi_banyak_dicari', $profilProdi->posisi_banyak_dicari ?? '')); ?></textarea>
-                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap item dengan baris baru</p>
-                        </div>
                     </div>
                 </section>
 
                 
                 <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Filosofi dan Nilai Dasar</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="nilai_etika" class="mb-2 block text-sm font-semibold text-textDark">Nilai dan Etika</label>
-                            <textarea id="nilai_etika" name="nilai_etika" rows="4" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan nilai dan etika"><?php echo e(old('nilai_etika', $profilProdi->nilai_etika ?? '')); ?></textarea>
-                        </div>
-                        <div>
-                            <label for="pendekatan_pembelajaran" class="mb-2 block text-sm font-semibold text-textDark">Pendekatan Pembelajaran</label>
-                            <textarea id="pendekatan_pembelajaran" name="pendekatan_pembelajaran" rows="4" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan pendekatan pembelajaran"><?php echo e(old('pendekatan_pembelajaran', $profilProdi->pendekatan_pembelajaran ?? '')); ?></textarea>
-                        </div>
-                        <div>
-                            <label for="kompetensi_lulusan" class="mb-2 block text-sm font-semibold text-textDark">Kompetensi Lulusan</label>
-                            <textarea id="kompetensi_lulusan" name="kompetensi_lulusan" rows="4" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan kompetensi lulusan"><?php echo e(old('kompetensi_lulusan', $profilProdi->kompetensi_lulusan ?? '')); ?></textarea>
-                        </div>
+                    <div class="mb-4 flex items-center justify-between">
+                        <h2 class="text-lg font-semibold text-textDark">Profil Lulusan</h2>
+                        <button type="button" onclick="addProfilLulusan()" class="rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primaryDark">
+                            + Tambah Profil
+                        </button>
+                    </div>
+                    <div id="profil-lulusan-container" class="space-y-4" data-initial-count="<?php echo e($profilLulusanCount); ?>">
+                        <?php if(isset($profilProdi) && $profilProdi->profilLulusan && $profilProdi->profilLulusan->count() > 0): ?>
+                            <?php $__currentLoopData = $profilProdi->profilLulusan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $lulusan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <div class="profil-lulusan-item rounded-xl border border-borderSoft bg-gray-50 p-4">
+                                <div class="mb-3 flex items-center justify-between">
+                                    <h3 class="text-sm font-semibold text-textDark">Profil Lulusan #<?php echo e($index + 1); ?></h3>
+                                    <button type="button" onclick="removeProfilLulusan(this)" class="rounded-lg bg-red-100 px-3 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-200">
+                                        Hapus
+                                    </button>
+                                </div>
+                                <input type="hidden" name="profil_lulusan[<?php echo e($index); ?>][id]" value="<?php echo e($lulusan->id); ?>">
+                                <div class="space-y-3">
+                                    <div>
+                                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>
+                                        <input type="text" name="profil_lulusan[<?php echo e($index); ?>][peran]" value="<?php echo e(old('profil_lulusan.'.$index.'.peran', $lulusan->peran)); ?>" required
+                                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
+                                            placeholder="cth. Peneliti Pemuliaan Tanaman">
+                                    </div>
+                                    <div>
+                                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Deskripsi Kemampuan</label>
+                                        <textarea name="profil_lulusan[<?php echo e($index); ?>][deskripsi_kemampuan]" rows="3" required
+                                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
+                                            placeholder="Masukkan deskripsi kemampuan"><?php echo e(old('profil_lulusan.'.$index.'.deskripsi_kemampuan', $lulusan->deskripsi_kemampuan)); ?></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endif; ?>
                     </div>
                 </section>
 
@@ -405,6 +420,50 @@
         calculateKeketatan('snbp');
         calculateKeketatan('snbt');
     });
+
+    // Profil Lulusan Management
+    const container = document.getElementById('profil-lulusan-container');
+    let profilLulusanIndex = parseInt(container.getAttribute('data-initial-count')) || 0;
+
+    function addProfilLulusan() {
+        const container = document.getElementById('profil-lulusan-container');
+        const item = document.createElement('div');
+        item.className = 'profil-lulusan-item rounded-xl border border-borderSoft bg-gray-50 p-4';
+        const index = profilLulusanIndex;
+        item.innerHTML = '<div class="mb-3 flex items-center justify-between">' +
+            '<h3 class="text-sm font-semibold text-textDark">Profil Lulusan #' + (index + 1) + '</h3>' +
+            '<button type="button" onclick="removeProfilLulusan(this)" class="rounded-lg bg-red-100 px-3 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-200">Hapus</button>' +
+            '</div>' +
+            '<div class="space-y-3">' +
+            '<div><label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>' +
+            '<input type="text" name="profil_lulusan[' + index + '][peran]" required ' +
+            'class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15" ' +
+            'placeholder="cth. Peneliti Pemuliaan Tanaman"></div>' +
+            '<div><label class="mb-1.5 block text-xs font-semibold text-textDark">Deskripsi Kemampuan</label>' +
+            '<textarea name="profil_lulusan[' + index + '][deskripsi_kemampuan]" rows="3" required ' +
+            'class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15" ' +
+            'placeholder="Masukkan deskripsi kemampuan"></textarea></div>' +
+            '</div>';
+        container.appendChild(item);
+        profilLulusanIndex++;
+        updateProfilLulusanNumbers();
+    }
+
+    function removeProfilLulusan(button) {
+        const item = button.closest('.profil-lulusan-item');
+        item.remove();
+        updateProfilLulusanNumbers();
+    }
+
+    function updateProfilLulusanNumbers() {
+        const items = document.querySelectorAll('.profil-lulusan-item');
+        items.forEach((item, index) => {
+            const title = item.querySelector('h3');
+            if (title) {
+                title.textContent = `Profil Lulusan #${index + 1}`;
+            }
+        });
+    }
 </script>
 <?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>

@@ -197,7 +197,7 @@ Route::get('/', function () {
 
 // Route Profil
 Route::get('/profil', function () {
-    $profilProdi = \App\Models\ProfilProdi::first();
+    $profilProdi = \App\Models\ProfilProdi::with('profilLulusan')->first();
     return view('pages.profil', compact('profilProdi'));
 })->name('profil');
 
