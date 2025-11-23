@@ -28,7 +28,7 @@ class ProfilProdiController extends Controller
      */
     public function create()
     {
-        return view('admin-pages.admin-profil-prodi');
+        return view('halaman-admin.profil.index');
     }
 
     /**
@@ -131,7 +131,7 @@ class ProfilProdiController extends Controller
     public function edit(string $id)
     {
         $profilProdi = ProfilProdi::with('profilLulusan')->findOrFail($id);
-        return view('admin-pages.admin-profil-prodi', compact('profilProdi'));
+        return view('halaman-admin.profil.index', compact('profilProdi'));
     }
 
     /**

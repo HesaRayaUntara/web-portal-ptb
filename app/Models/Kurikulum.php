@@ -13,9 +13,9 @@ class Kurikulum extends Model
 
     protected $fillable = [
         'semester',
-        'kode_mata_kuliah',
-        'nama_mata_kuliah',
-        'status_mata_kuliah',
+        'kode_mk',
+        'nama_mk',
+        'jenis_mk',
         'sks_kuliah',
         'sks_praktikum',
     ];

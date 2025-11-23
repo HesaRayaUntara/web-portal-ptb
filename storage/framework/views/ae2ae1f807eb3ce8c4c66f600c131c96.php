@@ -30,8 +30,8 @@
             </div>
             <?php if(isset($categories) && count($categories) > 0): ?>
             <div class="relative">
-                <div class="group inline-flex w-full items-center justify-end md:justify-start">
-                    <button type="button"
+                <div class="inline-flex w-full items-center justify-end md:justify-start">
+                    <button type="button" id="categoryFilterBtn"
                         class="flex w-full items-center justify-center gap-2 rounded-badge border border-primary/15 bg-white px-4 py-2 text-sm font-medium text-textDark shadow-soft transition hover:border-primary hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary/40 md:w-auto">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
@@ -39,7 +39,7 @@
                         <span id="selected-category"><?php echo e(request('kategori') ?: 'Semua Kategori'); ?></span>
                         <span class="text-xs" aria-hidden="true">&#x25BE;</span>
                     </button>
-                    <div class="absolute right-0 top-full z-50 mt-2 hidden min-w-[180px] flex-col rounded-badge border border-primary/10 bg-white text-sm text-textDark shadow-soft transition group-hover:flex group-focus-within:flex">
+                    <div id="categoryDropdown" class="absolute right-0 top-full z-50 mt-2 hidden min-w-[180px] flex-col rounded-badge border border-primary/10 bg-white text-sm text-textDark shadow-soft">
                         <a href="<?php echo e(route('galeri')); ?>"
                            class="flex items-center gap-3 rounded-badge px-4 py-2 transition hover:bg-primary/10 hover:text-primary <?php echo e(!request('kategori') ? 'bg-primary/10 text-primary font-semibold' : ''); ?>">
                             <span>Semua Kategori</span>
@@ -144,10 +144,8 @@
                 Jelajahi lebih banyak dokumentasi kegiatan melalui kanal digital kami. Gunakan pencarian untuk menemukan kegiatan spesifik, lokasi riset, atau kolaborasi dengan mitra industri.
             </p>
             <div class="flex flex-wrap gap-4">
-                <a class="inline-flex items-center gap-2 rounded-badge bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark"
-                   href="https://maps.app.goo.gl/eNiDgAiGJYbsjy346" target="_blank">Kunjungi Galeri 360°</a>
-                <a class="inline-flex items-center gap-2 rounded-badge border border-primary/20 px-6 py-3 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-primary"
-                   href="#">Unduh Katalog</a>
+                <a class="inline-flex items-center gap-2 rounded-badge bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark" href="https://maps.app.goo.gl/osacNqb4hpuzyNzW9" target="_blank">Kunjungi Galeri 360°</a>
+                <a class="inline-flex items-center gap-2 rounded-badge border border-primary/20 px-6 py-3 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-primary" href="#">Unduh Katalog</a>
             </div>
         </div>
     </section>
@@ -183,6 +181,25 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Category filter dropdown
+            const categoryBtn = document.getElementById('categoryFilterBtn');
+            const categoryDropdown = document.getElementById('categoryDropdown');
+            
+            if (categoryBtn && categoryDropdown) {
+                categoryBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    categoryDropdown.classList.toggle('hidden');
+                });
+
+                // Close dropdown when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!categoryBtn.contains(e.target) && !categoryDropdown.contains(e.target)) {
+                        categoryDropdown.classList.add('hidden');
+                    }
+                });
+            }
+
+            // Gallery items functionality
             const galleryItems = document.querySelectorAll('.gallery-item');
             const modal = document.getElementById('mediaModal');
             const modalImage = document.getElementById('modalImage');

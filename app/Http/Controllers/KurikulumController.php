@@ -14,12 +14,12 @@ class KurikulumController extends Controller
     public function index()
     {
         $deskripsiKurikulum = DeskripsiKurikulum::first() ?? new DeskripsiKurikulum();
-        $kurikulum = Kurikulum::orderBy('semester')->orderBy('kode_mata_kuliah')->get();
+        $kurikulum = Kurikulum::orderBy('semester')->orderBy('kode_mk')->get();
         
         // Group by semester
         $kurikulumBySemester = $kurikulum->groupBy('semester');
         
-        return view('admin-pages.admin-kurikulum', compact('deskripsiKurikulum', 'kurikulumBySemester'));
+        return view('halaman-admin.kurikulum.index', compact('deskripsiKurikulum', 'kurikulumBySemester'));
     }
 
     /**
@@ -27,7 +27,7 @@ class KurikulumController extends Controller
      */
     public function create()
     {
-        return view('admin-pages.admin-tambah-kurikulum');
+        return view('halaman-admin.kurikulum.create');
     }
 
     /**
@@ -38,15 +38,15 @@ class KurikulumController extends Controller
         try {
             $validated = $request->validate([
                 'semester' => 'required|integer|between:1,8',
-                'kode_mata_kuliah' => 'required|string|max:255',
-                'nama_mata_kuliah' => 'required|string|max:255',
-                'status_mata_kuliah' => 'required|string|max:255',
+                'kode_mk' => 'required|string|max:255',
+                'nama_mk' => 'required|string|max:255',
+                'jenis_mk' => 'required|string|in:CCC,FC,FL,IC,ACC,EC,FYP',
                 'sks_kuliah' => 'required|integer|min:0',
                 'sks_praktikum' => 'required|integer|min:0',
             ]);
 
-            // Check if kode_mata_kuliah already exists
-            $existingKurikulum = Kurikulum::where('kode_mata_kuliah', $validated['kode_mata_kuliah'])->first();
+            // Check if kode_mk already exists
+            $existingKurikulum = Kurikulum::where('kode_mk', $validated['kode_mk'])->first();
             
             if ($existingKurikulum) {
                 return redirect()->back()
@@ -109,7 +109,7 @@ class KurikulumController extends Controller
     public function edit(string $id)
     {
         $kurikulum = Kurikulum::findOrFail($id);
-        return view('admin-pages.admin-edit-kurikulum', compact('kurikulum'));
+        return view('halaman-admin.kurikulum.edit', compact('kurikulum'));
     }
 
     /**
@@ -122,22 +122,22 @@ class KurikulumController extends Controller
 
             $validated = $request->validate([
                 'semester' => 'required|integer|between:1,8',
-                'kode_mata_kuliah' => 'required|string|max:255',
-                'nama_mata_kuliah' => 'required|string|max:255',
-                'status_mata_kuliah' => 'required|string|max:255',
+                'kode_mk' => 'required|string|max:255',
+                'nama_mk' => 'required|string|max:255',
+                'jenis_mk' => 'required|string|in:CCC,FC,FL,IC,ACC,EC,FYP',
                 'sks_kuliah' => 'required|integer|min:0',
                 'sks_praktikum' => 'required|integer|min:0',
             ]);
 
-            // Check if kode_mata_kuliah already exists in another record
-            $existingKurikulum = Kurikulum::where('kode_mata_kuliah', $validated['kode_mata_kuliah'])
+            // Check if kode_mk already exists in another record
+            $existingKurikulum = Kurikulum::where('kode_mk', $validated['kode_mk'])
                 ->where('id', '!=', $id)
                 ->first();
             
             if ($existingKurikulum) {
                 return redirect()->back()
                     ->withInput()
-                    ->with('error', 'Data ' . $validated['kode_mata_kuliah'] . ' sudah ada. coba lagi');
+                    ->with('error', 'Data ' . $validated['kode_mk'] . ' sudah ada. coba lagi');
             }
 
             $kurikulum->update($validated);

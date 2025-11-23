@@ -20,7 +20,7 @@ class AdminGaleriController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
         
-        return view('admin-pages.admin-galeri', compact('kategoris', 'galeriList'));
+        return view('halaman-admin.galeri.index', compact('kategoris', 'galeriList'));
     }
 
     /**
@@ -115,7 +115,7 @@ class AdminGaleriController extends Controller
         $galeri = Galeri::with('kategori')->findOrFail($id);
         $kategoris = KategoriGaleri::orderBy('nama')->get();
         
-        return view('admin-pages.admin-edit-galeri', compact('galeri', 'kategoris'));
+        return view('halaman-admin.galeri.edit', compact('galeri', 'kategoris'));
     }
 
     /**

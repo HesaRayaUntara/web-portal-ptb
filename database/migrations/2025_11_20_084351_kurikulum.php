@@ -18,9 +18,9 @@ return new class extends Migration
         Schema::create('kurikulum', function (Blueprint $table) {
             $table->id();
             $table->integer('semester');
-            $table->string('kode_mata_kuliah');
-            $table->string('nama_mata_kuliah');
-            $table->string('status_mata_kuliah');
+            $table->string('kode_mk');
+            $table->string('nama_mk');
+            $table->string('jenis_mk');
             $table->integer('sks_kuliah')->default(0);
             $table->integer('sks_praktikum')->default(0);
             $table->timestamps();

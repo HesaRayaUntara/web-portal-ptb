@@ -189,7 +189,7 @@ Route::get('/', function () {
         ->take(5)
         ->get();
     
-    return view('pages.beranda', [
+    return view('halaman-pengunjung.beranda', [
         'latestGalleryPhotos' => $latestPhotos,
         'latestNews' => $latestNews
     ]);
@@ -198,31 +198,38 @@ Route::get('/', function () {
 // Route Profil
 Route::get('/profil', function () {
     $profilProdi = \App\Models\ProfilProdi::with('profilLulusan')->first();
-    return view('pages.profil', compact('profilProdi'));
+    return view('halaman-pengunjung.profil.index', compact('profilProdi'));
 })->name('profil');
 
 // Route Fasilitas
 Route::get('/fasilitas', function () {
-    return view('pages.fasilitas');
+    $fasilitas = \App\Models\Fasilitas::orderBy('created_at', 'desc')->get();
+    return view('halaman-pengunjung.fasilitas.index', compact('fasilitas'));
 })->name('fasilitas');
 
 // Route Kurikulum
 Route::get('/kurikulum', function () {
     $deskripsiKurikulum = \App\Models\DeskripsiKurikulum::first() ?? new \App\Models\DeskripsiKurikulum();
-    return view('pages.kurikulum', compact('deskripsiKurikulum'));
+    return view('halaman-pengunjung.kurikulum.index', compact('deskripsiKurikulum'));
 })->name('kurikulum');
 
 // Route Detail Kurikulum
 Route::get('/kurikulum/detail', function () {
-    $kurikulum = \App\Models\Kurikulum::orderBy('semester')->orderBy('kode_mata_kuliah')->get();
+    $kurikulum = \App\Models\Kurikulum::orderBy('semester')->orderBy('kode_mk')->get();
     $kurikulumBySemester = $kurikulum->groupBy('semester');
-    return view('pages.kurikulum-detail', compact('kurikulumBySemester'));
+    return view('halaman-pengunjung.kurikulum.detail', compact('kurikulumBySemester'));
 })->name('kurikulum.detail');
 
 // Route Dosen
 Route::get('/dosen', function () {
-    return view('pages.dosen');
+    return view('halaman-pengunjung.dosen.index');
 })->name('dosen');
+
+// Route Staf
+Route::get('/staf', function () {
+    $staf = \App\Models\Staf::orderBy('created_at', 'asc')->get();
+    return view('halaman-pengunjung.staf.index', compact('staf'));
+})->name('staf');
 
 // Route Detail Dosen
 Route::get('/dosen/{slug}', function ($slug) {
@@ -281,7 +288,7 @@ Route::get('/dosen/{slug}', function ($slug) {
         abort(404);
     }
 
-    return view('pages.detail-dosen', ['dosen' => $dosenData[$slug]]);
+    return view('halaman-pengunjung.dosen.detail', ['dosen' => $dosenData[$slug]]);
 })->name('dosen.detail');
 
 Route::get('/berita', function () {
@@ -308,7 +315,7 @@ Route::get('/berita', function () {
     // Paginate results
     $news = $query->paginate($perPage)->withQueryString();
 
-    return view('pages.berita', compact('news', 'categories'));
+    return view('halaman-pengunjung.berita.index', compact('news', 'categories'));
 })->name('berita');
 
 Route::get('/berita/{slug}', function (string $slug) {
@@ -317,7 +324,7 @@ Route::get('/berita/{slug}', function (string $slug) {
         ->with('kategori')
         ->firstOrFail();
 
-    return view('pages.berita-detail', compact('berita'));
+    return view('halaman-pengunjung.berita.detail', compact('berita'));
 })->name('berita.detail');
 
 if (!function_exists('galeriItems')) {
@@ -468,12 +475,12 @@ Route::get('/galeri', function () {
     // Paginate results
     $gallery = $query->paginate($perPage)->withQueryString();
 
-    return view('pages.galeri', ['gallery' => $gallery, 'categories' => $categories]);
+    return view('halaman-pengunjung.galeri.index', ['gallery' => $gallery, 'categories' => $categories]);
 })->name('galeri');
 
 // Route Kontak (jika ada linknya di menu/footer)
 Route::get('/kontak', function () {
-    return view('pages.kontak');
+    return view('halaman-pengunjung.kontak');
 })->name('kontak');
 
 // Route Admin Login
@@ -484,7 +491,7 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 // Route Admin Dashboard (protected)
 Route::middleware('admin.auth')->group(function () {
     Route::get('/admin', function () {
-        return view('admin-pages.admin');
+        return view('halaman-admin.admin');
     })->name('admin.dashboard');
     
     Route::resource('admin/profil', \App\Http\Controllers\ProfilProdiController::class)->names([
@@ -496,9 +503,27 @@ Route::middleware('admin.auth')->group(function () {
         'destroy' => 'admin.profil.destroy',
     ]);
 
-    Route::resource('admin/kurikulum', \App\Http\Controllers\KurikulumController::class)->names([
+    Route::get('admin/kurikulum/tambah', [\App\Http\Controllers\KurikulumController::class, 'create'])->name('admin.kurikulum.tambah');
+    Route::get('admin/fasilitas/tambah', [\App\Http\Controllers\FasilitasController::class, 'create'])->name('admin.fasilitas.tambah');
+    Route::get('admin/staf/tambah', [\App\Http\Controllers\StafController::class, 'create'])->name('admin.staf.tambah');
+    Route::resource('admin/fasilitas', \App\Http\Controllers\FasilitasController::class)->except(['create'])->names([
+        'index' => 'admin.fasilitas.index',
+        'store' => 'admin.fasilitas.store',
+        'show' => 'admin.fasilitas.show',
+        'edit' => 'admin.fasilitas.edit',
+        'update' => 'admin.fasilitas.update',
+        'destroy' => 'admin.fasilitas.destroy',
+    ]);
+    Route::resource('admin/staf', \App\Http\Controllers\StafController::class)->except(['create'])->names([
+        'index' => 'admin.staf.index',
+        'store' => 'admin.staf.store',
+        'show' => 'admin.staf.show',
+        'edit' => 'admin.staf.edit',
+        'update' => 'admin.staf.update',
+        'destroy' => 'admin.staf.destroy',
+    ]);
+    Route::resource('admin/kurikulum', \App\Http\Controllers\KurikulumController::class)->except(['create'])->names([
         'index' => 'admin.kurikulum.index',
-        'create' => 'admin.kurikulum.create',
         'store' => 'admin.kurikulum.store',
         'edit' => 'admin.kurikulum.edit',
         'update' => 'admin.kurikulum.update',

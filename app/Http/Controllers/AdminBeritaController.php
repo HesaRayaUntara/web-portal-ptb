@@ -22,7 +22,7 @@ class AdminBeritaController extends Controller
             ->orderBy('tanggal_publikasi', 'desc')
             ->get();
         
-        return view('admin-pages.admin-berita', compact('kategoris', 'beritaList'));
+        return view('halaman-admin.berita.index', compact('kategoris', 'beritaList'));
     }
 
     /**
@@ -132,7 +132,7 @@ class AdminBeritaController extends Controller
             ->orderBy('updated_at', 'desc')
             ->get();
         
-        return view('admin-pages.admin-berita-draft', compact('drafts'));
+        return view('halaman-admin.berita.draft', compact('drafts'));
     }
 
     /**
@@ -149,7 +149,7 @@ class AdminBeritaController extends Controller
 
         $kategoris = KategoriBerita::orderBy('nama')->get();
         
-        return view('admin-pages.admin-edit-berita', compact('berita', 'kategoris'));
+        return view('halaman-admin.berita.edit', compact('berita', 'kategoris'));
     }
 
     /**
@@ -229,7 +229,7 @@ class AdminBeritaController extends Controller
         $berita = Berita::with('kategori')->findOrFail($id);
         $kategoris = KategoriBerita::orderBy('nama')->get();
         
-        return view('admin-pages.admin-edit-berita', compact('berita', 'kategoris'));
+        return view('halaman-admin.berita.edit', compact('berita', 'kategoris'));
     }
 
     /**

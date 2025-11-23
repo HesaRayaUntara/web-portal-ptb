@@ -15,10 +15,11 @@
                 <nav class="space-y-1 text-sm font-semibold text-textMuted">
                     <a href="<?php echo e(route('admin.dashboard')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Dasbor</a>
                     <a href="<?php echo e(route('admin.profil.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
+                    <a href="<?php echo e(route('admin.fasilitas.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Kurikulum</a>
                     <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</button>
+                    <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
+                    <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
                 <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
                     <?php echo csrf_field(); ?>
@@ -121,11 +122,11 @@ unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <div>
-                        <label for="kode_mata_kuliah" class="mb-2 block text-sm font-semibold text-textDark">Kode Mata Kuliah</label>
-                        <input type="text" id="kode_mata_kuliah" name="kode_mata_kuliah" value="<?php echo e(old('kode_mata_kuliah')); ?>" required
+                        <label for="kode_mk" class="mb-2 block text-sm font-semibold text-textDark">Kode Mata Kuliah</label>
+                        <input type="text" id="kode_mk" name="kode_mk" value="<?php echo e(old('kode_mk')); ?>" required
                             class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                             placeholder="Contoh: PTB101">
-                        <?php $__errorArgs = ['kode_mata_kuliah'];
+                        <?php $__errorArgs = ['kode_mk'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -138,11 +139,11 @@ unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <div>
-                        <label for="nama_mata_kuliah" class="mb-2 block text-sm font-semibold text-textDark">Nama Mata Kuliah</label>
-                        <input type="text" id="nama_mata_kuliah" name="nama_mata_kuliah" value="<?php echo e(old('nama_mata_kuliah')); ?>" required
+                        <label for="nama_mk" class="mb-2 block text-sm font-semibold text-textDark">Nama Mata Kuliah</label>
+                        <input type="text" id="nama_mk" name="nama_mk" value="<?php echo e(old('nama_mk')); ?>" required
                             class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                             placeholder="Contoh: Dasar-dasar Pemuliaan Tanaman">
-                        <?php $__errorArgs = ['nama_mata_kuliah'];
+                        <?php $__errorArgs = ['nama_mk'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -155,11 +156,19 @@ unset($__errorArgs, $__bag); ?>
                     </div>
 
                     <div>
-                        <label for="status_mata_kuliah" class="mb-2 block text-sm font-semibold text-textDark">Status Mata Kuliah</label>
-                        <input type="text" id="status_mata_kuliah" name="status_mata_kuliah" value="<?php echo e(old('status_mata_kuliah')); ?>" required
-                            class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                            placeholder="Contoh: Wajib / Pilihan">
-                        <?php $__errorArgs = ['status_mata_kuliah'];
+                        <label for="jenis_mk" class="mb-2 block text-sm font-semibold text-textDark">Jenis Mata Kuliah</label>
+                        <select id="jenis_mk" name="jenis_mk" required
+                            class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
+                            <option value="" disabled selected>Pilih Jenis Mata Kuliah</option>
+                            <option value="CCC" <?php echo e(old('jenis_mk') == 'CCC' ? 'selected' : ''); ?>>CCC: Common Core Courses</option>
+                            <option value="FC" <?php echo e(old('jenis_mk') == 'FC' ? 'selected' : ''); ?>>FC: Foundational Courses</option>
+                            <option value="FL" <?php echo e(old('jenis_mk') == 'FL' ? 'selected' : ''); ?>>FL: Foundational Literacies Courses</option>
+                            <option value="IC" <?php echo e(old('jenis_mk') == 'IC' ? 'selected' : ''); ?>>IC: In-depth Study Program Courses</option>
+                            <option value="ACC" <?php echo e(old('jenis_mk') == 'ACC' ? 'selected' : ''); ?>>ACC: Vocational Core Courses</option>
+                            <option value="EC" <?php echo e(old('jenis_mk') == 'EC' ? 'selected' : ''); ?>>EC: Enrichment Courses</option>
+                            <option value="FYP" <?php echo e(old('jenis_mk') == 'FYP' ? 'selected' : ''); ?>>FYP: Final Year Project</option>
+                        </select>
+                        <?php $__errorArgs = ['jenis_mk'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -174,7 +183,7 @@ unset($__errorArgs, $__bag); ?>
                     <div class="grid gap-4 md:grid-cols-2">
                         <div>
                             <label for="sks_kuliah" class="mb-2 block text-sm font-semibold text-textDark">SKS Kuliah</label>
-                            <input type="number" id="sks_kuliah" name="sks_kuliah" value="<?php echo e(old('sks_kuliah', 0)); ?>" required min="0"
+                            <input type="number" id="sks_kuliah" name="sks_kuliah" value="<?php echo e(old('sks_kuliah')); ?>" required min="0"
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="0">
                             <?php $__errorArgs = ['sks_kuliah'];
@@ -191,7 +200,7 @@ unset($__errorArgs, $__bag); ?>
 
                         <div>
                             <label for="sks_praktikum" class="mb-2 block text-sm font-semibold text-textDark">SKS Praktikum</label>
-                            <input type="number" id="sks_praktikum" name="sks_praktikum" value="<?php echo e(old('sks_praktikum', 0)); ?>" required min="0"
+                            <input type="number" id="sks_praktikum" name="sks_praktikum" value="<?php echo e(old('sks_praktikum')); ?>" required min="0"
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="0">
                             <?php $__errorArgs = ['sks_praktikum'];

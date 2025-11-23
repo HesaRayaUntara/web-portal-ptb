@@ -15,10 +15,11 @@
                 <nav class="space-y-1 text-sm font-semibold text-textMuted">
                     <a href="<?php echo e(route('admin.dashboard')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Dasbor</a>
                     <a href="<?php echo e(route('admin.profil.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
+                    <a href="<?php echo e(route('admin.fasilitas.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Kurikulum</a>
                     <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</button>
+                    <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
+                    <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
                 <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
                     <?php echo csrf_field(); ?>
@@ -139,7 +140,7 @@
             <div class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
                 <div class="mb-4 flex items-center justify-between">
                     <h2 class="text-lg font-semibold text-textDark">Daftar Mata Kuliah</h2>
-                    <a href="<?php echo e(route('admin.kurikulum.create')); ?>"
+                    <a href="<?php echo e(route('admin.kurikulum.tambah')); ?>"
                         class="rounded-lg bg-primary px-2.5 py-1 text-xs font-semibold text-white shadow-soft transition hover:bg-primaryDark">
                         + Tambah
                     </a>
@@ -175,11 +176,11 @@
                                                 <td class="px-4 py-2 text-sm font-semibold text-textDark whitespace-nowrap align-top" rowspan="<?php echo e($kurikulumItems->count()); ?>">Semester <?php echo e($semester); ?></td>
                                             <?php endif; ?>
                                             <td class="px-4 py-2 text-sm text-textMuted whitespace-nowrap">
-                                                <?php echo e($item->kode_mata_kuliah); ?>
+                                                <?php echo e($item->kode_mk); ?>
 
                                             </td>
                                             <td class="px-4 py-2 text-sm text-textMuted whitespace-nowrap">
-                                                <?php echo e($item->nama_mata_kuliah); ?>
+                                                <?php echo e($item->nama_mk); ?>
 
                                             </td>
                                             <td class="px-4 py-2 text-sm text-textMuted whitespace-nowrap">
@@ -217,7 +218,7 @@
                 <?php else: ?>
                     <div class="py-8 text-center">
                         <p class="text-sm text-textMuted">Belum ada mata kuliah yang ditambahkan.</p>
-                        <a href="<?php echo e(route('admin.kurikulum.create')); ?>"
+                        <a href="<?php echo e(route('admin.kurikulum.tambah')); ?>"
                             class="mt-4 inline-block rounded-xl bg-primary px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-primaryDark">
                             Tambah Kurikulum Pertama
                         </a>

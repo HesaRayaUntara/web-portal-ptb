@@ -34,13 +34,26 @@
                     <a href="{{ route('beranda') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('beranda') ? 'text-primary font-semibold' : '' }}">Beranda</a>
                 </li>
                 <li>
+                    <button type="button" id="mobile-profil-toggle" class="flex w-full items-center justify-between transition-colors hover:text-primary {{ request()->routeIs('profil') || request()->routeIs('dosen') || request()->routeIs('staf') ? 'text-primary font-semibold' : '' }}">
+                        <span>Profil</span>
+                        <svg id="mobile-profil-icon" class="h-4 w-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    <ul id="mobile-profil-dropdown" class="mt-2 ml-4 hidden flex-col gap-2 border-l-2 border-primary/20 pl-4">
+                        <li>
                     <a href="{{ route('profil') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('profil') ? 'text-primary font-semibold' : '' }}">Profil Prodi</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('dosen') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('dosen') ? 'text-primary font-semibold' : '' }}">Dosen</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('staf') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('staf') ? 'text-primary font-semibold' : '' }}">Staf</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ route('kurikulum') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('kurikulum') ? 'text-primary font-semibold' : '' }}">Kurikulum</a>
-                </li>
-                <li>
-                    <a href="{{ route('dosen') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('dosen') ? 'text-primary font-semibold' : '' }}">Dosen</a>
                 </li>
                 <li>
                     <a href="{{ route('berita') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('berita') ? 'text-primary font-semibold' : '' }}">Berita</a>
@@ -81,14 +94,29 @@
             <li>
                 <a href="{{ route('beranda') }}" class="transition-colors hover:text-primary {{ request()->routeIs('beranda') ? 'text-primary font-semibold' : '' }}">Beranda</a>
             </li>
-            <li>
-                <a href="{{ route('profil') }}" class="transition-colors hover:text-primary {{ request()->routeIs('profil') ? 'text-primary font-semibold' : '' }}">Profil Prodi</a>
+            <li class="relative group">
+                <a href="#" class="flex items-center gap-1 transition-colors hover:text-primary {{ request()->routeIs('profil') || request()->routeIs('dosen') || request()->routeIs('staf') ? 'text-primary font-semibold' : '' }}">
+                    Profil
+                    <svg class="h-4 w-4 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </a>
+                <div class="absolute left-0 top-full z-50 pt-2">
+                    <div class="hidden min-w-[180px] flex-col rounded-lg border border-primary/10 bg-white text-sm text-textDark shadow-soft group-hover:flex">
+                        <a href="{{ route('profil') }}" class="flex items-center gap-3 rounded-t-lg px-4 py-2 transition hover:bg-primary/10 hover:text-primary {{ request()->routeIs('profil') ? 'bg-primary/10 text-primary font-semibold' : '' }}">
+                            <span>Profil Prodi</span>
+                        </a>
+                        <a href="{{ route('dosen') }}" class="flex items-center gap-3 px-4 py-2 transition hover:bg-primary/10 hover:text-primary {{ request()->routeIs('dosen') ? 'bg-primary/10 text-primary font-semibold' : '' }}">
+                            <span>Dosen</span>
+                        </a>
+                        <a href="{{ route('staf') }}" class="flex items-center gap-3 rounded-b-lg px-4 py-2 transition hover:bg-primary/10 hover:text-primary {{ request()->routeIs('staf') ? 'bg-primary/10 text-primary font-semibold' : '' }}">
+                            <span>Staf</span>
+                        </a>
+                    </div>
+                </div>
             </li>
             <li>
                 <a href="{{ route('kurikulum') }}" class="transition-colors hover:text-primary {{ request()->routeIs('kurikulum') ? 'text-primary font-semibold' : '' }}">Kurikulum</a>
-            </li>
-            <li>
-                <a href="{{ route('dosen') }}" class="transition-colors hover:text-primary {{ request()->routeIs('dosen') ? 'text-primary font-semibold' : '' }}">Dosen</a>
             </li>
             <li>
                 <a href="{{ route('berita') }}" class="transition-colors hover:text-primary {{ request()->routeIs('berita') ? 'text-primary font-semibold' : '' }}">Berita</a>
@@ -167,6 +195,26 @@
                     mobileMenu.classList.add('hidden');
                     menuIcon.classList.remove('hidden');
                     closeIcon.classList.add('hidden');
+                }
+            });
+        }
+
+        // Mobile Profil Dropdown Toggle
+        const mobileProfilToggle = document.getElementById('mobile-profil-toggle');
+        const mobileProfilDropdown = document.getElementById('mobile-profil-dropdown');
+        const mobileProfilIcon = document.getElementById('mobile-profil-icon');
+
+        if (mobileProfilToggle && mobileProfilDropdown && mobileProfilIcon) {
+            mobileProfilToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                const isHidden = mobileProfilDropdown.classList.contains('hidden');
+                
+                if (isHidden) {
+                    mobileProfilDropdown.classList.remove('hidden');
+                    mobileProfilIcon.classList.add('rotate-180');
+                } else {
+                    mobileProfilDropdown.classList.add('hidden');
+                    mobileProfilIcon.classList.remove('rotate-180');
                 }
             });
         }

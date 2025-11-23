@@ -15,11 +15,11 @@
                     <nav class="space-y-1 text-sm font-semibold text-textMuted">
                         <a href="<?php echo e(route('admin.dashboard')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Dasbor</a>
                         <a href="<?php echo e(route('admin.profil.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
-                        <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Profil Dosen</button>
-                        <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Kurikulum</button>
-                        <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Formulir Kontak</button>
-                        <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Berita</button>
-                        <button class="w-full rounded-xl bg-white py-3 text-left shadow-soft">Galeri</button>
+                        <a href="<?php echo e(route('admin.fasilitas.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
+                        <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
+                        <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
+                        <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
+                        <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                     </nav>
                     <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
                         <?php echo csrf_field(); ?>
@@ -77,7 +77,10 @@
                         <div class="mt-6 h-32 rounded-card bg-white/70 p-4 shadow-inner">
                             <div class="flex h-full items-end justify-between gap-2">
                                 <?php $__currentLoopData = [50, 80, 65, 120, 90, 150, 110]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <span class="flex-1 rounded-t-md bg-primary/80" style="height: <?php echo e(round($value / 1.8)); ?>px"></span>
+                                    <?php
+                                        $height = round($value / 1.8);
+                                    ?>
+                                    <span class="flex-1 rounded-t-md bg-primary/80" data-height="<?php echo e($height); ?>"></span>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </div>
                         </div>
@@ -278,6 +281,15 @@
                     panel.classList.toggle('hidden');
                 });
             }
+
+            // Set height for chart bars
+            const chartBars = document.querySelectorAll('[data-height]');
+            chartBars.forEach(bar => {
+                const height = bar.getAttribute('data-height');
+                if (height) {
+                    bar.style.height = height + 'px';
+                }
+            });
         });
     </script>
 <?php $__env->stopPush(); ?>
