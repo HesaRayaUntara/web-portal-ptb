@@ -222,7 +222,27 @@ Route::get('/kurikulum/detail', function () {
 
 // Route Dosen
 Route::get('/dosen', function () {
-    return view('halaman-pengunjung.dosen.index');
+    $kepalaProdi = \App\Models\Dosen::where('kepala_program_studi', true)->first();
+    
+    // Ambil semua dosen yang bukan kepala prodi
+    // Jika ada kepala prodi, exclude dari list
+    if ($kepalaProdi) {
+        $dosenList = \App\Models\Dosen::where('id', '!=', $kepalaProdi->id)
+            ->orderBy('nama', 'asc')
+            ->get();
+    } else {
+        $dosenList = \App\Models\Dosen::orderBy('nama', 'asc')->get();
+    }
+    
+    // Pastikan semua dosen punya slug
+    foreach ($dosenList as $dosen) {
+        if (empty($dosen->slug)) {
+            $dosen->slug = \Illuminate\Support\Str::slug($dosen->nama);
+            $dosen->save();
+        }
+    }
+    
+    return view('halaman-pengunjung.dosen.index', compact('kepalaProdi', 'dosenList'));
 })->name('dosen');
 
 // Route Staf
@@ -233,62 +253,15 @@ Route::get('/staf', function () {
 
 // Route Detail Dosen
 Route::get('/dosen/{slug}', function ($slug) {
-    $dosenData = [
-        'ir-bagus-raharjo-msc' => [
-            'name' => 'Ir. Bagus Raharjo, M.Sc.',
-            'expertise' => 'Teknologi Irigasi Cerdas',
-            'contact' => 'bagus.raharjo@ptb.ac.id',
-            'position' => 'Dosen Tetap',
-            'education' => 'S2 Teknik Irigasi - University of California, Davis',
-            'research' => 'Smart Irrigation Systems & Water Management',
-            'awards' => 'Best Research Paper Award 2023',
-            'publications' => '12 jurnal internasional, 5 buku ajar',
-            'description' => 'Spesialis dalam pengembangan sistem irigasi cerdas berbasis IoT untuk meningkatkan efisiensi penggunaan air di sektor pertanian. Memiliki pengalaman lebih dari 10 tahun dalam riset teknologi irigasi presisi dan manajemen sumber daya air berkelanjutan.',
-            'image' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=800&q=80',
-        ],
-        'dr-nurma-hidayati-sp-msi' => [
-            'name' => 'Dr. Nurma Hidayati, S.P., M.Si.',
-            'expertise' => 'Keamanan Pangan & Nutrisi',
-            'contact' => 'nurma.hidayati@ptb.ac.id',
-            'position' => 'Dosen Tetap',
-            'education' => 'S3 Ilmu Pangan - IPB University',
-            'research' => 'Food Safety, Nutritional Analysis & Functional Foods',
-            'awards' => 'Outstanding Researcher Award 2022',
-            'publications' => '18 jurnal internasional, 3 paten',
-            'description' => 'Ahli dalam analisis keamanan pangan dan pengembangan produk pangan fungsional. Fokus penelitian pada deteksi kontaminan pangan, fortifikasi nutrisi, dan pengembangan produk pangan sehat berbasis bahan lokal.',
-            'image' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80',
-        ],
-        'dr-cand-ardi-prakoso-sp-mp' => [
-            'name' => 'Dr. (Cand.) Ardi Prakoso, S.P., M.P.',
-            'expertise' => 'Agribisnis Digital',
-            'contact' => 'ardi.prakoso@ptb.ac.id',
-            'position' => 'Dosen Tetap',
-            'education' => 'S3 Agribisnis (On-going) - Universitas Gadjah Mada',
-            'research' => 'Digital Agriculture, E-commerce & Supply Chain Management',
-            'awards' => 'Innovation Award 2023',
-            'publications' => '8 jurnal internasional, 2 buku',
-            'description' => 'Pakar dalam transformasi digital agribisnis dan pengembangan platform e-commerce untuk produk pertanian. Memiliki keahlian dalam manajemen rantai pasok digital dan analisis data untuk pengambilan keputusan bisnis pertanian.',
-            'image' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=800&q=80',
-        ],
-        'dr-silvi-lestari-sp-mp' => [
-            'name' => 'Dr. Silvi Lestari, S.P., M.P.',
-            'expertise' => 'Manajemen Sumber Daya Lahan',
-            'contact' => 'silvi.lestari@ptb.ac.id',
-            'position' => 'Dosen Tetap',
-            'education' => 'S3 Ilmu Tanah - Bogor Agricultural University',
-            'research' => 'Soil Management, Land Use Planning & Environmental Conservation',
-            'awards' => 'Environmental Excellence Award 2025',
-            'publications' => '15 jurnal internasional, 4 buku referensi',
-            'description' => 'Spesialis dalam manajemen sumber daya lahan berkelanjutan dan konservasi tanah. Fokus pada pengembangan strategi penggunaan lahan yang optimal, rehabilitasi lahan terdegradasi, dan integrasi konservasi lingkungan dalam sistem pertanian.',
-            'image' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=800&q=80',
-        ],
-    ];
-
-    if (!isset($dosenData[$slug])) {
-        abort(404);
-    }
-
-    return view('halaman-pengunjung.dosen.detail', ['dosen' => $dosenData[$slug]]);
+    $dosen = \App\Models\Dosen::where('slug', $slug)->firstOrFail();
+    
+    // Get portofolio data
+    $penelitian = $dosen->penelitian()->orderBy('tahun', 'desc')->get();
+    $pengabdian = $dosen->pengabdian()->orderBy('tahun', 'desc')->get();
+    $publikasi = $dosen->publikasi()->orderBy('tahun', 'desc')->get();
+    $hki = $dosen->hki()->orderBy('tahun', 'desc')->get();
+    
+    return view('halaman-pengunjung.dosen.detail', compact('dosen', 'penelitian', 'pengabdian', 'publikasi', 'hki'));
 })->name('dosen.detail');
 
 Route::get('/berita', function () {
@@ -522,6 +495,33 @@ Route::middleware('admin.auth')->group(function () {
         'update' => 'admin.staf.update',
         'destroy' => 'admin.staf.destroy',
     ]);
+    
+    // Routes Admin Dosen
+    Route::get('admin/dosen', [\App\Http\Controllers\AdminDosenController::class, 'index'])->name('admin.dosen.index');
+    Route::post('admin/dosen', [\App\Http\Controllers\AdminDosenController::class, 'storeDosen'])->name('admin.dosen.storeDosen');
+    Route::put('admin/dosen/{dosen}', [\App\Http\Controllers\AdminDosenController::class, 'updateDosen'])->name('admin.dosen.updateDosen');
+    Route::delete('admin/dosen/{dosen}', [\App\Http\Controllers\AdminDosenController::class, 'destroyDosen'])->name('admin.dosen.destroyDosen');
+    
+    Route::post('admin/dosen/jenis-karya', [\App\Http\Controllers\AdminDosenController::class, 'storeJenisKarya'])->name('admin.dosen.storeJenisKarya');
+    Route::put('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\AdminDosenController::class, 'updateJenisKarya'])->name('admin.dosen.updateJenisKarya');
+    Route::delete('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\AdminDosenController::class, 'destroyJenisKarya'])->name('admin.dosen.destroyJenisKarya');
+    
+    Route::post('admin/dosen/penelitian', [\App\Http\Controllers\AdminDosenController::class, 'storePenelitian'])->name('admin.dosen.storePenelitian');
+    Route::put('admin/dosen/penelitian/{penelitian}', [\App\Http\Controllers\AdminDosenController::class, 'updatePenelitian'])->name('admin.dosen.updatePenelitian');
+    Route::delete('admin/dosen/penelitian/{penelitian}', [\App\Http\Controllers\AdminDosenController::class, 'destroyPenelitian'])->name('admin.dosen.destroyPenelitian');
+    
+    Route::post('admin/dosen/pengabdian', [\App\Http\Controllers\AdminDosenController::class, 'storePengabdian'])->name('admin.dosen.storePengabdian');
+    Route::put('admin/dosen/pengabdian/{pengabdian}', [\App\Http\Controllers\AdminDosenController::class, 'updatePengabdian'])->name('admin.dosen.updatePengabdian');
+    Route::delete('admin/dosen/pengabdian/{pengabdian}', [\App\Http\Controllers\AdminDosenController::class, 'destroyPengabdian'])->name('admin.dosen.destroyPengabdian');
+    
+    Route::post('admin/dosen/publikasi', [\App\Http\Controllers\AdminDosenController::class, 'storePublikasi'])->name('admin.dosen.storePublikasi');
+    Route::put('admin/dosen/publikasi/{publikasi}', [\App\Http\Controllers\AdminDosenController::class, 'updatePublikasi'])->name('admin.dosen.updatePublikasi');
+    Route::delete('admin/dosen/publikasi/{publikasi}', [\App\Http\Controllers\AdminDosenController::class, 'destroyPublikasi'])->name('admin.dosen.destroyPublikasi');
+    
+    Route::post('admin/dosen/hki', [\App\Http\Controllers\AdminDosenController::class, 'storeHki'])->name('admin.dosen.storeHki');
+    Route::put('admin/dosen/hki/{hki}', [\App\Http\Controllers\AdminDosenController::class, 'updateHki'])->name('admin.dosen.updateHki');
+    Route::delete('admin/dosen/hki/{hki}', [\App\Http\Controllers\AdminDosenController::class, 'destroyHki'])->name('admin.dosen.destroyHki');
+    
     Route::resource('admin/kurikulum', \App\Http\Controllers\KurikulumController::class)->except(['create'])->names([
         'index' => 'admin.kurikulum.index',
         'store' => 'admin.kurikulum.store',
