@@ -10,11 +10,7 @@ class DeskripsiKurikulum extends Model
     use HasFactory;
 
     protected $table = 'deskripsi_kurikulum';
-
-    protected $fillable = [
-        'deskripsi_semester_1_2',
-        'deskripsi_semester_3_4',
-        'deskripsi_semester_5_6',
-        'deskripsi_semester_7_8',
-    ];
+    protected $fillable = ['deskripsi_semester_1_2', 'deskripsi_semester_3_4', 'deskripsi_semester_5_6', 'deskripsi_semester_7_8'];
+    protected $primaryKey = 'id_deskripsi_kurikulum';
+    public $timestamps = true;
 }

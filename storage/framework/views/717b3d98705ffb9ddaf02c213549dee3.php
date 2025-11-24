@@ -113,14 +113,14 @@
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->jabatan); ?></td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="<?php echo e(route('admin.staf.edit', $item->id)); ?>"
+                                                <a href="<?php echo e(route('admin.staf.edit', $item)); ?>"
                                                     class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100 flex-shrink-0"
                                                     title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="<?php echo e(route('admin.staf.destroy', $item->id)); ?>" class="inline flex-shrink-0"
+                                                <form method="POST" action="<?php echo e(route('admin.staf.destroy', $item)); ?>" class="inline flex-shrink-0"
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus staf ini?');">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>

@@ -102,7 +102,7 @@
             @endif
 
             {{-- Form Edit Galeri --}}
-            <form method="POST" action="{{ route('admin.galeri.updateGaleri', $galeri->id) }}" enctype="multipart/form-data" id="galeriForm" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
+            <form method="POST" action="{{ route('admin.galeri.updateGaleri', $galeri) }}" enctype="multipart/form-data" id="galeriForm" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
                 @csrf
                 @method('PUT')
                 <div class="space-y-4">
@@ -127,7 +127,7 @@
                             required>
                             <option value="" disabled selected>Pilih Kategori</option>
                             @foreach($kategoris as $kategori)
-                                <option value="{{ $kategori->id }}" {{ old('kategori_galeri_id', $galeri->kategori_galeri_id) == $kategori->id ? 'selected' : '' }}>
+                                <option value="{{ $kategori->id_kategori_galeri }}" {{ old('kategori_galeri_id', $galeri->kategori_galeri_id) == $kategori->id_kategori_galeri ? 'selected' : '' }}>
                                     {{ $kategori->nama }}
                                 </option>
                             @endforeach

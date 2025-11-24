@@ -98,7 +98,7 @@
             @endif
 
             {{-- Form Edit Fasilitas --}}
-            <form method="POST" action="{{ route('admin.fasilitas.update', $fasilitas->id) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+            <form method="POST" action="{{ route('admin.fasilitas.update', $fasilitas) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
                 @csrf
                 @method('PUT')
                 

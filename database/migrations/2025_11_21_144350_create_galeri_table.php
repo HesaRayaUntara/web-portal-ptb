@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('galeri', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_galeri');
             $table->string('judul');
             $table->text('deskripsi');
-            $table->foreignId('kategori_galeri_id')->constrained('kategori_galeri')->onDelete('cascade');
+            $table->unsignedBigInteger('kategori_galeri_id');
+            $table->foreign('kategori_galeri_id')->references('id_kategori_galeri')->on('kategori_galeri')->onDelete('cascade');
             $table->enum('tipe', ['photo', 'video']);
             $table->string('foto')->nullable();
             $table->string('youtube_url')->nullable();

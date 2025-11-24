@@ -139,7 +139,7 @@
                                         <td class="px-3 py-2 text-xs text-textMuted sm:px-4 sm:py-3 sm:text-sm">{{ $kategori->nama }}</td>
                                         <td class="px-3 py-2 sm:px-4 sm:py-3">
                                             <div class="flex items-center justify-center">
-                                                <form method="POST" action="{{ route('admin.berita.deleteKategori', $kategori->id) }}" 
+                                                <form method="POST" action="{{ route('admin.berita.deleteKategori', $kategori) }}" 
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
                                                     @csrf
                                                     @method('DELETE')
@@ -191,7 +191,7 @@
                                 required>
                                 <option value="" disabled selected>Pilih Kategori</option>
                                 @foreach($kategoris as $kategori)
-                                    <option value="{{ $kategori->id }}" {{ old('kategori_berita_id') == $kategori->id ? 'selected' : '' }}>
+                                    <option value="{{ $kategori->id_kategori_berita }}" {{ old('kategori_berita_id') == $kategori->id_kategori_berita ? 'selected' : '' }}>
                                         {{ $kategori->nama }}
                                     </option>
                                 @endforeach
@@ -247,14 +247,14 @@
                                         <td class="px-3 py-2 text-xs text-textMuted sm:px-4 sm:py-3 sm:text-sm">{{ $berita->judul }}</td>
                                         <td class="px-3 py-2 sm:px-4 sm:py-3">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="{{ route('admin.berita.editBerita', $berita->id) }}"
+                                                <a href="{{ route('admin.berita.editBerita', $berita) }}"
                                                     class="flex items-center justify-center rounded-lg bg-blue-50 p-1.5 text-blue-600 transition hover:bg-blue-100 sm:p-2"
                                                     title="Edit">
                                                     <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="{{ route('admin.berita.destroyBerita', $berita->id) }}" 
+                                                <form method="POST" action="{{ route('admin.berita.destroyBerita', $berita) }}" 
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus berita ini?');">
                                                     @csrf
                                                     @method('DELETE')

@@ -67,7 +67,7 @@ class StafController extends Controller
     public function update(Request $request, Staf $staf)
     {
         $data = $request->validate([
-            'nama' => 'required|string|max:255|unique:staf,nama,' . $staf->id,
+            'nama' => 'required|string|max:255|unique:staf,nama,' . $staf->id_staf . ',id_staf',
             'jabatan' => 'required|string|max:255',
             'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
         ], [

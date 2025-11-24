@@ -104,12 +104,12 @@
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->status); ?></td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="<?php echo e(route('admin.dosen.edit', $item->id)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <a href="<?php echo e(route('admin.dosen.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyDosen', $item->id)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus dosen ini?');" class="inline">
+                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyDosen', $item)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus dosen ini?');" class="inline">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>
                                                     <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">
@@ -166,7 +166,7 @@
                                         <td class="px-3 py-2 text-xs text-textMuted sm:px-4 sm:py-3 sm:text-sm"><?php echo e($item->j_karya); ?></td>
                                         <td class="px-3 py-2 sm:px-4 sm:py-3">
                                             <div class="flex items-center justify-center">
-                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyJenisKarya', $item->id)); ?>" 
+                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyJenisKarya', $item)); ?>" 
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus jenis karya ini?');">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>
@@ -218,12 +218,12 @@
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="<?php echo e(route('admin.dosen.penelitian.edit', $item->id)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <a href="<?php echo e(route('admin.dosen.penelitian.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyPenelitian', $item->id)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus penelitian ini?');" class="inline">
+                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyPenelitian', $item)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus penelitian ini?');" class="inline">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>
                                                     <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">
@@ -274,12 +274,12 @@
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="<?php echo e(route('admin.dosen.pengabdian.edit', $item->id)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <a href="<?php echo e(route('admin.dosen.pengabdian.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyPengabdian', $item->id)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengabdian masyarakat ini?');" class="inline">
+                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyPengabdian', $item)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengabdian masyarakat ini?');" class="inline">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>
                                                     <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">
@@ -332,12 +332,12 @@
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="<?php echo e(route('admin.dosen.publikasi.edit', $item->id)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <a href="<?php echo e(route('admin.dosen.publikasi.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyPublikasi', $item->id)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus publikasi karya ini?');" class="inline">
+                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyPublikasi', $item)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus publikasi karya ini?');" class="inline">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>
                                                     <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">
@@ -390,12 +390,12 @@
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
                                         <td class="px-4 py-3 whitespace-nowrap">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="<?php echo e(route('admin.dosen.hki.edit', $item->id)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <a href="<?php echo e(route('admin.dosen.hki.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyHki', $item->id)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus HKI/Paten ini?');" class="inline">
+                                                <form method="POST" action="<?php echo e(route('admin.dosen.destroyHki', $item)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus HKI/Paten ini?');" class="inline">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>
                                                     <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">

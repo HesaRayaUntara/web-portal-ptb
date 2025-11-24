@@ -107,9 +107,9 @@
                         <label for="dosen_id" class="mb-2 block text-sm font-semibold text-textDark">Dosen</label>
                         <select id="dosen_id" name="dosen_id"
                             class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
-                            <option value="">Pilih Dosen (Opsional)</option>
+                            <option value="" disabled selected>Pilih Dosen</option>
                             @foreach($dosen as $d)
-                                <option value="{{ $d->id }}" {{ old('dosen_id') == $d->id ? 'selected' : '' }}>{{ $d->nama }}</option>
+                                <option value="{{ $d->id_dosen }}" {{ old('dosen_id') == $d->id_dosen ? 'selected' : '' }}>{{ $d->nama }}</option>
                             @endforeach
                         </select>
                         @error('dosen_id')

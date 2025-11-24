@@ -103,11 +103,11 @@
 
             {{-- Form Edit Berita --}}
             @if($berita->status === 'draft')
-                <form method="POST" action="{{ route('admin.berita.updateDraft', $berita->id) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
+                <form method="POST" action="{{ route('admin.berita.updateDraft', $berita) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
                     @csrf
                     @method('PUT')
             @else
-                <form method="POST" action="{{ route('admin.berita.updateBerita', $berita->id) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
+                <form method="POST" action="{{ route('admin.berita.updateBerita', $berita) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
                     @csrf
                     @method('PUT')
             @endif
@@ -133,7 +133,7 @@
                             required>
                             <option value="" disabled selected>Pilih Kategori</option>
                             @foreach($kategoris as $kategori)
-                                <option value="{{ $kategori->id }}" {{ old('kategori_berita_id', $berita->kategori_berita_id) == $kategori->id ? 'selected' : '' }}>
+                                <option value="{{ $kategori->id_kategori_berita }}" {{ old('kategori_berita_id', $berita->kategori_berita_id) == $kategori->id_kategori_berita ? 'selected' : '' }}>
                                     {{ $kategori->nama }}
                                 </option>
                             @endforeach

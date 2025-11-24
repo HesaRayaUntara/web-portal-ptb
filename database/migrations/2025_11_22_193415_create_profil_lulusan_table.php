@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('profil_lulusan', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('profil_prodi_id')->constrained('profil_prodi')->onDelete('cascade');
+            $table->id('id_profil_lulusan');
+            $table->unsignedBigInteger('profil_prodi_id');
+            $table->foreign('profil_prodi_id')->references('id_profil_prodi')->on('profil_prodi')->onDelete('cascade');
             $table->string('peran');
             $table->text('deskripsi_kemampuan');
             $table->timestamps();

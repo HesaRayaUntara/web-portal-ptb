@@ -99,7 +99,7 @@
             @endif
 
             {{-- Form Edit Penelitian --}}
-            <form method="POST" action="{{ route('admin.dosen.updatePenelitian', $penelitian->id) }}" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+            <form method="POST" action="{{ route('admin.dosen.updatePenelitian', $penelitian) }}" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
                 @csrf
                 @method('PUT')
                 
@@ -110,7 +110,7 @@
                             class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
                             <option value="">Pilih Dosen (Opsional)</option>
                             @foreach($dosen as $d)
-                                <option value="{{ $d->id }}" {{ old('dosen_id', $penelitian->dosen_id) == $d->id ? 'selected' : '' }}>{{ $d->nama }}</option>
+                                <option value="{{ $d->id_dosen }}" {{ old('dosen_id', $penelitian->dosen_id) == $d->id_dosen ? 'selected' : '' }}>{{ $d->nama }}</option>
                             @endforeach
                         </select>
                         @error('dosen_id')

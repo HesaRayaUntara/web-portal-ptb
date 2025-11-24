@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pengabdian', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('dosen_id')->nullable()->constrained('dosen')->onDelete('cascade');
+            $table->id('id_pengabdian');
+            $table->unsignedBigInteger('dosen_id')->nullable();
+            $table->foreign('dosen_id')->references('id_dosen')->on('dosen')->onDelete('cascade');
             $table->string('judul_pengabdian');
             $table->year('tahun');
             $table->timestamps();

@@ -230,7 +230,7 @@ Route::get('/dosen', function () {
                   ->orWhereNull('kepala_program_studi');
         })
         ->when($kepalaProdi, function($query) use ($kepalaProdi) {
-            $query->where('id', '!=', $kepalaProdi->id);
+            $query->where('id_dosen', '!=', $kepalaProdi->id_dosen);
         })
         ->orderBy('nama', 'asc')
         ->get();
@@ -512,10 +512,7 @@ Route::middleware('admin.auth')->group(function () {
     Route::put('admin/dosen/{dosen}', [\App\Http\Controllers\AdminDosenController::class, 'updateDosen'])->name('admin.dosen.updateDosen');
     Route::delete('admin/dosen/{dosen}', [\App\Http\Controllers\AdminDosenController::class, 'destroyDosen'])->name('admin.dosen.destroyDosen');
 
-    Route::get('admin/dosen/jenis-karya/create', [\App\Http\Controllers\JenisKaryaController::class, 'create'])->name('admin.dosen.jenis-karya.create');
-    Route::get('admin/dosen/jenis-karya/{jenisKarya}/edit', [\App\Http\Controllers\JenisKaryaController::class, 'edit'])->name('admin.dosen.jenis-karya.edit');
     Route::post('admin/dosen/jenis-karya', [\App\Http\Controllers\JenisKaryaController::class, 'store'])->name('admin.dosen.storeJenisKarya');
-    Route::put('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\JenisKaryaController::class, 'update'])->name('admin.dosen.updateJenisKarya');
     Route::delete('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\JenisKaryaController::class, 'destroy'])->name('admin.dosen.destroyJenisKarya');
 
     Route::get('admin/dosen/penelitian/create', [\App\Http\Controllers\PenelitianController::class, 'create'])->name('admin.dosen.penelitian.create');

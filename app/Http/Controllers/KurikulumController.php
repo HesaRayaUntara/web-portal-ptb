@@ -112,7 +112,7 @@ class KurikulumController extends Controller
         ]);
 
         $existingKurikulum = Kurikulum::where('kode_mk', $data['kode_mk'])
-            ->where('id', '!=', $kurikulum->id)
+            ->where('id_kurikulum', '!=', $kurikulum->id_kurikulum)
             ->first();
         
         if ($existingKurikulum) {

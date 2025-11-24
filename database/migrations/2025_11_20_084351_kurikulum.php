@@ -16,7 +16,7 @@ return new class extends Migration
         }
         
         Schema::create('kurikulum', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_kurikulum');
             $table->integer('semester');
             $table->string('kode_mk');
             $table->string('nama_mk');

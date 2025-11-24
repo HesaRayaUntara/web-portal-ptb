@@ -102,7 +102,7 @@
             @endif
 
             {{-- Form Edit Staf --}}
-            <form method="POST" action="{{ route('admin.staf.update', $staf->id) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+            <form method="POST" action="{{ route('admin.staf.update', $staf) }}" enctype="multipart/form-data" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
                 @csrf
                 @method('PUT')
                 

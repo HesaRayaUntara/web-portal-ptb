@@ -164,7 +164,7 @@ class AdminBeritaController extends Controller
         $data['slug'] = Str::slug($data['judul']);
         
         $slugCount = Berita::where('slug', $data['slug'])
-            ->where('id', '!=', $berita->id)
+            ->where('id_berita', '!=', $berita->id_berita)
             ->count();
         if ($slugCount > 0) {
             $data['slug'] = $data['slug'] . '-' . ($slugCount + 1);
@@ -230,7 +230,7 @@ class AdminBeritaController extends Controller
         $data['slug'] = Str::slug($data['judul']);
         
         $slugCount = Berita::where('slug', $data['slug'])
-            ->where('id', '!=', $berita->id)
+            ->where('id_berita', '!=', $berita->id_berita)
             ->count();
         if ($slugCount > 0) {
             $data['slug'] = $data['slug'] . '-' . ($slugCount + 1);

@@ -114,7 +114,7 @@ class AdminDosenController extends Controller
         // Check if kepala_program_studi is being set to true
         if ($request->has('kepala_program_studi') && $request->kepala_program_studi) {
             $existingKepalaProdi = Dosen::where('kepala_program_studi', true)
-                ->where('id', '!=', $dosen->id)
+                ->where('id_dosen', '!=', $dosen->id_dosen)
                 ->first();
             if ($existingKepalaProdi) {
                 return back()->withInput()->withErrors(['kepala_program_studi' => 'Sudah ada dosen yang menjadi Kepala Program Studi. Hapus terlebih dahulu sebelum menambahkan yang baru.']);

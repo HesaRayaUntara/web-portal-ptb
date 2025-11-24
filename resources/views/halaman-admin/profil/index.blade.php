@@ -102,7 +102,7 @@
                 </div>
             @endif
 
-            <form method="POST" action="{{ isset($profilProdi) ? route('admin.profil.update', $profilProdi->id) : route('admin.profil.store') }}" enctype="multipart/form-data" class="space-y-8">
+            <form method="POST" action="{{ isset($profilProdi) ? route('admin.profil.update', $profilProdi) : route('admin.profil.store') }}" enctype="multipart/form-data" class="space-y-8">
                 @csrf
                 @if(isset($profilProdi))
                     @method('PUT')
@@ -136,14 +136,14 @@
                             <textarea id="misi" name="misi" rows="5" required
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan misi program studi (pisahkan dengan baris baru)">{{ old('misi', $profilProdi->misi ?? '') }}</textarea>
-                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap poin misi dengan baris baru</p>
+                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap poin misi dengan baris baru</p>
                         </div>
                         <div>
                             <label for="tujuan" class="mb-2 block text-sm font-semibold text-textDark">Tujuan</label>
                             <textarea id="tujuan" name="tujuan" rows="5" required
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan tujuan program studi (pisahkan dengan baris baru)">{{ old('tujuan', $profilProdi->tujuan ?? '') }}</textarea>
-                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap poin tujuan dengan baris baru</p>
+                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap poin tujuan dengan baris baru</p>
                         </div>
                     </div>
                 </section>
@@ -263,7 +263,7 @@
                             <textarea id="industri_tempat_bekerja" name="industri_tempat_bekerja" rows="4" required
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan industri atau tempat bekerja (pisahkan dengan baris baru)">{{ old('industri_tempat_bekerja', $profilProdi->industri_tempat_bekerja ?? '') }}</textarea>
-                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap item dengan baris baru</p>
+                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap item dengan baris baru</p>
                         </div>
                     </div>
                 </section>
@@ -286,7 +286,7 @@
                                         Hapus
                                     </button>
                                 </div>
-                                <input type="hidden" name="profil_lulusan[{{ $index }}][id]" value="{{ $lulusan->id }}">
+                                <input type="hidden" name="profil_lulusan[{{ $index }}][id_profil_lulusan]" value="{{ $lulusan->id_profil_lulusan }}">
                                 <div class="space-y-3">
                                     <div>
                                         <label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>
@@ -344,7 +344,7 @@
             {{-- Delete Button (Outside form to avoid nested form issue) --}}
             @if(isset($profilProdi))
                 <div class="mt-4 flex justify-end">
-                    <form method="POST" action="{{ route('admin.profil.destroy', $profilProdi->id) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil program studi?');" class="inline">
+                    <form method="POST" action="{{ route('admin.profil.destroy', $profilProdi) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil program studi?');" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" 

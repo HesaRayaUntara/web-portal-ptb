@@ -98,7 +98,7 @@
             @endif
 
             {{-- Form Edit Kurikulum --}}
-            <form method="POST" action="{{ route('admin.kurikulum.update', $kurikulum->id) }}" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+            <form method="POST" action="{{ route('admin.kurikulum.update', $kurikulum) }}" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
                 @csrf
                 @method('PUT')
                 

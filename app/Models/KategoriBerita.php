@@ -10,13 +10,12 @@ class KategoriBerita extends Model
     use HasFactory;
 
     protected $table = 'kategori_berita';
-
-    protected $fillable = [
-        'nama',
-    ];
+    protected $fillable = ['nama'];
+    protected $primaryKey = 'id_kategori_berita';
+    public $timestamps = true;
 
     public function berita()
     {
-        return $this->hasMany(Berita::class);
+        return $this->hasMany(Berita::class, 'kategori_berita_id', 'id_kategori_berita');
     }
 }

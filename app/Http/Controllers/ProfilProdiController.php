@@ -20,7 +20,7 @@ class ProfilProdiController extends Controller
             return redirect()->route('admin.profil.create');
         }
 
-        return redirect()->route('admin.profil.edit', $profilProdi->id);
+        return redirect()->route('admin.profil.edit', $profilProdi->id_profil_prodi);
     }
 
     /**
@@ -94,7 +94,7 @@ class ProfilProdiController extends Controller
             foreach ($request->profil_lulusan as $lulusan) {
                 if (!empty($lulusan['peran']) && !empty($lulusan['deskripsi_kemampuan'])) {
                     ProfilLulusan::create([
-                        'profil_prodi_id' => $profilProdi->id,
+                        'profil_prodi_id' => $profilProdi->id_profil_prodi,
                         'peran' => $lulusan['peran'],
                         'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
                     ]);
@@ -103,7 +103,7 @@ class ProfilProdiController extends Controller
         }
 
         if ($profilProdi) {
-            return redirect()->route('admin.profil.edit', $profilProdi->id)->with('success', 'Profil Program Studi berhasil dibuat.');
+            return redirect()->route('admin.profil.edit', $profilProdi->id_profil_prodi)->with('success', 'Profil Program Studi berhasil dibuat.');
         }
 
         return back()->withInput()->with('error', 'Gagal membuat profil program studi.');
@@ -194,24 +194,24 @@ class ProfilProdiController extends Controller
 
         if ($profilProdi->update($data)) {
             if ($request->has('profil_lulusan') && is_array($request->profil_lulusan)) {
-                $existingIds = collect($request->profil_lulusan)->pluck('id')->filter()->toArray();
+                $existingIds = collect($request->profil_lulusan)->pluck('id_profil_lulusan')->filter()->toArray();
                 
-                ProfilLulusan::where('profil_prodi_id', $profilProdi->id)
-                    ->whereNotIn('id', $existingIds)
+                ProfilLulusan::where('profil_prodi_id', $profilProdi->id_profil_prodi)
+                    ->whereNotIn('id_profil_lulusan', $existingIds)
                     ->delete();
 
                 foreach ($request->profil_lulusan as $lulusan) {
                     if (!empty($lulusan['peran']) && !empty($lulusan['deskripsi_kemampuan'])) {
-                        if (isset($lulusan['id']) && $lulusan['id']) {
-                            ProfilLulusan::where('id', $lulusan['id'])
-                                ->where('profil_prodi_id', $profilProdi->id)
+                        if (isset($lulusan['id_profil_lulusan']) && $lulusan['id_profil_lulusan']) {
+                            ProfilLulusan::where('id_profil_lulusan', $lulusan['id_profil_lulusan'])
+                                ->where('profil_prodi_id', $profilProdi->id_profil_prodi)
                                 ->update([
                                     'peran' => $lulusan['peran'],
                                     'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
                                 ]);
                         } else {
                             ProfilLulusan::create([
-                                'profil_prodi_id' => $profilProdi->id,
+                                'profil_prodi_id' => $profilProdi->id_profil_prodi,
                                 'peran' => $lulusan['peran'],
                                 'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
                             ]);
@@ -219,10 +219,10 @@ class ProfilProdiController extends Controller
                     }
                 }
             } else {
-                ProfilLulusan::where('profil_prodi_id', $profilProdi->id)->delete();
+                ProfilLulusan::where('profil_prodi_id', $profilProdi->id_profil_prodi)->delete();
             }
 
-            return redirect()->route('admin.profil.edit', $profilProdi->id)->with('success', 'Profil Program Studi berhasil diperbarui.');
+            return redirect()->route('admin.profil.edit', $profilProdi->id_profil_prodi)->with('success', 'Profil Program Studi berhasil diperbarui.');
         }
 
         return back()->withInput()->with('error', 'Gagal memperbarui profil program studi.');

@@ -10,10 +10,7 @@ class Staf extends Model
     use HasFactory;
 
     protected $table = 'staf';
-
-    protected $fillable = [
-        'nama',
-        'jabatan',
-        'foto',
-    ];
+    protected $fillable = ['nama', 'jabatan', 'foto'];
+    protected $primaryKey = 'id_staf';
+    public $timestamps = true;
 }

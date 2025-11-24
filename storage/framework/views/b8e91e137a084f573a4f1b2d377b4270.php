@@ -109,7 +109,7 @@
                             class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
                             <option value="">Pilih Dosen (Opsional)</option>
                             <?php $__currentLoopData = $dosen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($d->id); ?>" <?php echo e(old('dosen_id') == $d->id ? 'selected' : ''); ?>><?php echo e($d->nama); ?></option>
+                                <option value="<?php echo e($d->id_dosen); ?>" <?php echo e(old('dosen_id') == $d->id_dosen ? 'selected' : ''); ?>><?php echo e($d->nama); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                         <?php $__errorArgs = ['dosen_id'];

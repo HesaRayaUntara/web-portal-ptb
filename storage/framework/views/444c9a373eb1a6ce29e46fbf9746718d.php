@@ -100,7 +100,7 @@
                 </div>
             <?php endif; ?>
 
-            <form method="POST" action="<?php echo e(isset($profilProdi) ? route('admin.profil.update', $profilProdi->id) : route('admin.profil.store')); ?>" enctype="multipart/form-data" class="space-y-8">
+            <form method="POST" action="<?php echo e(isset($profilProdi) ? route('admin.profil.update', $profilProdi) : route('admin.profil.store')); ?>" enctype="multipart/form-data" class="space-y-8">
                 <?php echo csrf_field(); ?>
                 <?php if(isset($profilProdi)): ?>
                     <?php echo method_field('PUT'); ?>
@@ -134,14 +134,14 @@
                             <textarea id="misi" name="misi" rows="5" required
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan misi program studi (pisahkan dengan baris baru)"><?php echo e(old('misi', $profilProdi->misi ?? '')); ?></textarea>
-                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap poin misi dengan baris baru</p>
+                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap poin misi dengan baris baru</p>
                         </div>
                         <div>
                             <label for="tujuan" class="mb-2 block text-sm font-semibold text-textDark">Tujuan</label>
                             <textarea id="tujuan" name="tujuan" rows="5" required
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan tujuan program studi (pisahkan dengan baris baru)"><?php echo e(old('tujuan', $profilProdi->tujuan ?? '')); ?></textarea>
-                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap poin tujuan dengan baris baru</p>
+                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap poin tujuan dengan baris baru</p>
                         </div>
                     </div>
                 </section>
@@ -262,7 +262,7 @@
                             <textarea id="industri_tempat_bekerja" name="industri_tempat_bekerja" rows="4" required
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan industri atau tempat bekerja (pisahkan dengan baris baru)"><?php echo e(old('industri_tempat_bekerja', $profilProdi->industri_tempat_bekerja ?? '')); ?></textarea>
-                            <p class="mt-1 text-xs text-textMuted">Pisahkan setiap item dengan baris baru</p>
+                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap item dengan baris baru</p>
                         </div>
                     </div>
                 </section>
@@ -285,7 +285,7 @@
                                         Hapus
                                     </button>
                                 </div>
-                                <input type="hidden" name="profil_lulusan[<?php echo e($index); ?>][id]" value="<?php echo e($lulusan->id); ?>">
+                                <input type="hidden" name="profil_lulusan[<?php echo e($index); ?>][id_profil_lulusan]" value="<?php echo e($lulusan->id_profil_lulusan); ?>">
                                 <div class="space-y-3">
                                     <div>
                                         <label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>
@@ -345,7 +345,7 @@
             
             <?php if(isset($profilProdi)): ?>
                 <div class="mt-4 flex justify-end">
-                    <form method="POST" action="<?php echo e(route('admin.profil.destroy', $profilProdi->id)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil program studi?');" class="inline">
+                    <form method="POST" action="<?php echo e(route('admin.profil.destroy', $profilProdi)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil program studi?');" class="inline">
                         <?php echo csrf_field(); ?>
                         <?php echo method_field('DELETE'); ?>
                         <button type="submit" 

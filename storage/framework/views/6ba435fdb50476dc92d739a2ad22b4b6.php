@@ -146,8 +146,9 @@ unset($__errorArgs, $__bag); ?>
                     <div>
                         <label for="bidang_keahlian" class="mb-2 block text-sm font-semibold text-textDark">Bidang Keahlian</label>
                         <textarea id="bidang_keahlian" name="bidang_keahlian" rows="4"
-                            class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
+                            class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                             placeholder="Setiap poin dipisahkan dengan baris baru"><?php echo e(old('bidang_keahlian')); ?></textarea>
+                        <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap poin bidang keahlian dengan baris baru</p>
                         <?php $__errorArgs = ['bidang_keahlian'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
@@ -163,8 +164,9 @@ unset($__errorArgs, $__bag); ?>
                     <div>
                         <label for="pendidikan" class="mb-2 block text-sm font-semibold text-textDark">Pendidikan</label>
                         <textarea id="pendidikan" name="pendidikan" rows="4"
-                            class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                            placeholder="Format: Jenjang Pendidikan - Perguruan Tinggi (tahun)&#10;Contoh: S3 - Institut Pertanian Bogor (2006)&#10;Setiap poin dipisahkan dengan baris baru"><?php echo e(old('pendidikan')); ?></textarea>
+                            class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
+                            placeholder="Masukkan riwayat pendidikan"><?php echo e(old('pendidikan')); ?></textarea>
+                        <p class="mt-1 text-xs text-textMuted">*Format: Jenjang Pendidikan - Perguruan Tinggi (tahun). Pisahkan setiap poin dengan baris baru</p>
                         <?php $__errorArgs = ['pendidikan'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :

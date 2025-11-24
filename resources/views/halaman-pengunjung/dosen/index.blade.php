@@ -97,7 +97,7 @@
                                 <span class="text-xs font-medium text-textDark">Penelitian</span>
                             </div>
                             <div class="mt-auto">
-                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Penelitian::where('dosen_id', $kepalaProdi->id)->count() }}+</p>
+                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Penelitian::where('dosen_id', $kepalaProdi->id_dosen)->count() }}+</p>
                             </div>
                         @if($kepalaProdi->slug)
                             </a>
@@ -120,7 +120,7 @@
                                 <span class="text-xs font-medium text-textDark">Pengabdian Masyarakat</span>
                             </div>
                             <div class="mt-auto">
-                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Pengabdian::where('dosen_id', $kepalaProdi->id)->count() }}+</p>
+                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Pengabdian::where('dosen_id', $kepalaProdi->id_dosen)->count() }}+</p>
                             </div>
                         @if($kepalaProdi->slug)
                             </a>
@@ -143,7 +143,7 @@
                                 <span class="text-xs font-medium text-textDark">Publikasi Karya</span>
                             </div>
                             <div class="mt-auto">
-                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Publikasi::where('dosen_id', $kepalaProdi->id)->count() }}+</p>
+                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Publikasi::where('dosen_id', $kepalaProdi->id_dosen)->count() }}+</p>
                             </div>
                         @if($kepalaProdi->slug)
                             </a>
@@ -166,7 +166,7 @@
                                 <span class="text-xs font-medium text-textDark">HKI/Paten</span>
                         </div>
                             <div class="mt-auto">
-                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Hki::where('dosen_id', $kepalaProdi->id)->count() }}+</p>
+                                <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Hki::where('dosen_id', $kepalaProdi->id_dosen)->count() }}+</p>
                         </div>
                         @if($kepalaProdi->slug)
                             </a>

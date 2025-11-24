@@ -9,9 +9,7 @@ class Fasilitas extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama_fasilitas',
-        'deskripsi',
-        'foto',
-    ];
+    protected $fillable = ['nama_fasilitas', 'deskripsi', 'foto'];
+    protected $primaryKey = 'id_fasilitas';
+    public $timestamps = true;
 }

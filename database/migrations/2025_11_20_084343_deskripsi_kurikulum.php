@@ -16,7 +16,7 @@ return new class extends Migration
         }
         
         Schema::create('deskripsi_kurikulum', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_deskripsi_kurikulum');
             $table->text('deskripsi_semester_1_2')->nullable();
             $table->text('deskripsi_semester_3_4')->nullable();
             $table->text('deskripsi_semester_5_6')->nullable();
