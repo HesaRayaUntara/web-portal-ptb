@@ -28,98 +28,77 @@ class AdminBeritaController extends Controller
     /**
      * Store kategori berita
      */
-    public function storeKategori(Request $request)
+    public function storeKategori(Request $request, KategoriBerita $kategoriBerita)
     {
-        try {
-            $validated = $request->validate([
-                'nama' => 'required|string|max:255|unique:kategori_berita,nama',
-            ]);
+        $data = $request->validate([
+            'nama' => 'required|string|max:255|unique:kategori_berita,nama',
+        ]);
 
-            KategoriBerita::create($validated);
-
-            return redirect()->route('admin.berita.index')
-                ->with('success', 'Kategori berita berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal menambahkan kategori: ' . $e->getMessage());
+        if (KategoriBerita::create($data)) {
+            return redirect()->route('admin.berita.index')->with('success', 'Kategori berita berhasil ditambahkan.');
         }
+
+        return back()->withInput()->with('error', 'Gagal menambahkan kategori.');
     }
 
     /**
      * Delete kategori berita
      */
-    public function deleteKategori($id)
+    public function deleteKategori(KategoriBerita $kategoriBerita)
     {
-        try {
-            $kategori = KategoriBerita::findOrFail($id);
-            
-            // Check if kategori is used in berita
-            if ($kategori->berita()->count() > 0) {
-                return redirect()->back()
-                    ->with('error', 'Kategori tidak dapat dihapus karena masih digunakan dalam berita.');
-            }
-
-            $kategori->delete();
-
-            return redirect()->route('admin.berita.index')
-                ->with('success', 'Kategori berita berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Gagal menghapus kategori: ' . $e->getMessage());
+        if ($kategoriBerita->berita()->count() > 0) {
+            return back()->with('error', 'Kategori tidak dapat dihapus karena masih digunakan dalam berita.');
         }
+
+        if ($kategoriBerita->delete()) {
+            return redirect()->route('admin.berita.index')->with('success', 'Kategori berita berhasil dihapus.');
+        }
+
+        return back()->with('error', 'Gagal menghapus kategori.');
     }
 
     /**
      * Store berita (publikasikan atau draft)
      */
-    public function storeBerita(Request $request)
+    public function storeBerita(Request $request, Berita $berita)
     {
-        try {
-            $validated = $request->validate([
-                'judul' => 'required|string|max:255',
-                'isi' => 'required|string',
-                'kategori_berita_id' => 'required|exists:kategori_berita,id',
-                'penulis' => 'required|string|max:255',
-                'image' => 'required|image|mimes:jpeg,jpg,png|max:10240', // max 10MB, only jpg, jpeg, png
-            ]);
+        $data = $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'kategori_berita_id' => 'required|exists:kategori_berita,id',
+            'penulis' => 'required|string|max:255',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:10240',
+        ]);
 
-            // Handle file upload
-            if ($request->hasFile('image')) {
-                $file = $request->file('image');
-                $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('berita', $filename, 'public');
-                $validated['image'] = $path;
-            }
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('berita', $filename, 'public');
+            $data['image'] = $path;
+        }
 
-            $validated['slug'] = Str::slug($validated['judul']);
-            
-            // Check if slug already exists
-            $slugCount = Berita::where('slug', $validated['slug'])->count();
-            if ($slugCount > 0) {
-                $validated['slug'] = $validated['slug'] . '-' . ($slugCount + 1);
-            }
+        $data['slug'] = Str::slug($data['judul']);
+        
+        $slugCount = Berita::where('slug', $data['slug'])->count();
+        if ($slugCount > 0) {
+            $data['slug'] = $data['slug'] . '-' . ($slugCount + 1);
+        }
 
-            if ($request->action === 'publikasikan') {
-                $validated['status'] = 'published';
-                $validated['tanggal_publikasi'] = Carbon::now();
-            } else {
-                $validated['status'] = 'draft';
-            }
+        if ($request->action === 'publikasikan') {
+            $data['status'] = 'published';
+            $data['tanggal_publikasi'] = Carbon::now();
+        } else {
+            $data['status'] = 'draft';
+        }
 
-            Berita::create($validated);
-
+        if (Berita::create($data)) {
             $message = $request->action === 'publikasikan' 
                 ? 'Berita berhasil dipublikasikan.' 
                 : 'Berita berhasil disimpan sebagai draft.';
-
-            return redirect()->route('admin.berita.index')
-                ->with('success', $message);
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal menyimpan berita: ' . $e->getMessage());
+            return redirect()->route('admin.berita.index')->with('success', $message);
         }
+
+        return back()->withInput()->with('error', 'Gagal menyimpan berita.');
     }
 
     /**
@@ -138,167 +117,141 @@ class AdminBeritaController extends Controller
     /**
      * Show the form for editing draft berita
      */
-    public function editDraft($id)
+    public function editDraft(Berita $berita, KategoriBerita $kategoriBerita)
     {
-        $berita = Berita::with('kategori')->findOrFail($id);
-        
         if ($berita->status !== 'draft') {
-            return redirect()->route('admin.berita.index')
-                ->with('error', 'Berita ini bukan draft.');
+            return redirect()->route('admin.berita.index')->with('error', 'Berita ini bukan draft.');
         }
 
-        $kategoris = KategoriBerita::orderBy('nama')->get();
+        $data = [
+            'berita' => $berita->load('kategori'),
+            'kategoris' => $kategoriBerita->orderBy('nama')->get(),
+        ];
         
-        return view('halaman-admin.berita.edit', compact('berita', 'kategoris'));
+        return view('halaman-admin.berita.edit', $data);
     }
 
     /**
      * Update draft berita
      */
-    public function updateDraft(Request $request, $id)
+    public function updateDraft(Request $request, Berita $berita)
     {
-        try {
-            $berita = Berita::findOrFail($id);
-            
-            if ($berita->status !== 'draft') {
-                return redirect()->route('admin.berita.index')
-                    ->with('error', 'Berita ini bukan draft.');
-            }
-
-            $validated = $request->validate([
-                'judul' => 'required|string|max:255',
-                'isi' => 'required|string',
-                'kategori_berita_id' => 'required|exists:kategori_berita,id',
-                'penulis' => 'required|string|max:255',
-                'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240', // max 10MB, only jpg, jpeg, png
-            ]);
-
-            // Handle file upload
-            if ($request->hasFile('image')) {
-                // Delete old image
-                if ($berita->image && Storage::disk('public')->exists($berita->image)) {
-                    Storage::disk('public')->delete($berita->image);
-                }
-                
-                $file = $request->file('image');
-                $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('berita', $filename, 'public');
-                $validated['image'] = $path;
-            } else {
-                // Keep existing image if no new file uploaded
-                $validated['image'] = $berita->image;
-            }
-
-            $validated['slug'] = Str::slug($validated['judul']);
-            
-            // Check if slug already exists (except current berita)
-            $slugCount = Berita::where('slug', $validated['slug'])
-                ->where('id', '!=', $id)
-                ->count();
-            if ($slugCount > 0) {
-                $validated['slug'] = $validated['slug'] . '-' . ($slugCount + 1);
-            }
-
-            if ($request->action === 'publikasikan') {
-                $validated['status'] = 'published';
-                $validated['tanggal_publikasi'] = Carbon::now();
-                $message = 'Berita berhasil dipublikasikan.';
-                $redirectRoute = 'admin.berita.index';
-            } else {
-                $validated['status'] = 'draft';
-                $message = 'Draft berita berhasil diperbarui.';
-                $redirectRoute = 'admin.berita.draft';
-            }
-
-            $berita->update($validated);
-
-            return redirect()->route($redirectRoute)
-                ->with('success', $message);
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui berita: ' . $e->getMessage());
+        if ($berita->status !== 'draft') {
+            return redirect()->route('admin.berita.index')->with('error', 'Berita ini bukan draft.');
         }
+
+        $data = $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'kategori_berita_id' => 'required|exists:kategori_berita,id',
+            'penulis' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
+        ]);
+
+        if ($request->hasFile('image')) {
+            if ($berita->image && Storage::disk('public')->exists($berita->image)) {
+                Storage::disk('public')->delete($berita->image);
+            }
+            
+            $file = $request->file('image');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('berita', $filename, 'public');
+            $data['image'] = $path;
+        } else {
+            $data['image'] = $berita->image;
+        }
+
+        $data['slug'] = Str::slug($data['judul']);
+        
+        $slugCount = Berita::where('slug', $data['slug'])
+            ->where('id', '!=', $berita->id)
+            ->count();
+        if ($slugCount > 0) {
+            $data['slug'] = $data['slug'] . '-' . ($slugCount + 1);
+        }
+
+        if ($request->action === 'publikasikan') {
+            $data['status'] = 'published';
+            $data['tanggal_publikasi'] = Carbon::now();
+            $message = 'Berita berhasil dipublikasikan.';
+            $redirectRoute = 'admin.berita.index';
+        } else {
+            $data['status'] = 'draft';
+            $message = 'Draft berita berhasil diperbarui.';
+            $redirectRoute = 'admin.berita.draft';
+        }
+
+        if ($berita->update($data)) {
+            return redirect()->route($redirectRoute)->with('success', $message);
+        }
+
+        return back()->withInput()->with('error', 'Gagal memperbarui berita.');
     }
 
     /**
      * Show the form for editing published berita
      */
-    public function editBerita($id)
+    public function editBerita(Berita $berita, KategoriBerita $kategoriBerita)
     {
-        $berita = Berita::with('kategori')->findOrFail($id);
-        $kategoris = KategoriBerita::orderBy('nama')->get();
+        $data = [
+            'berita' => $berita->load('kategori'),
+            'kategoris' => $kategoriBerita->orderBy('nama')->get(),
+        ];
         
-        return view('halaman-admin.berita.edit', compact('berita', 'kategoris'));
+        return view('halaman-admin.berita.edit', $data);
     }
 
     /**
      * Update published berita
      */
-    public function updateBerita(Request $request, $id)
+    public function updateBerita(Request $request, Berita $berita)
     {
-        try {
-            $berita = Berita::findOrFail($id);
+        $data = $request->validate([
+            'judul' => 'required|string|max:255',
+            'isi' => 'required|string',
+            'kategori_berita_id' => 'required|exists:kategori_berita,id',
+            'penulis' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
+        ]);
 
-            $validated = $request->validate([
-                'judul' => 'required|string|max:255',
-                'isi' => 'required|string',
-                'kategori_berita_id' => 'required|exists:kategori_berita,id',
-                'penulis' => 'required|string|max:255',
-                'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240', // max 10MB, only jpg, jpeg, png
-            ]);
-
-            // Handle file upload
-            if ($request->hasFile('image')) {
-                // Delete old image
-                if ($berita->image && Storage::disk('public')->exists($berita->image)) {
-                    Storage::disk('public')->delete($berita->image);
-                }
-                
-                $file = $request->file('image');
-                $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('berita', $filename, 'public');
-                $validated['image'] = $path;
-            } else {
-                // Keep existing image if no new file uploaded
-                $validated['image'] = $berita->image;
+        if ($request->hasFile('image')) {
+            if ($berita->image && Storage::disk('public')->exists($berita->image)) {
+                Storage::disk('public')->delete($berita->image);
             }
-
-            $validated['slug'] = Str::slug($validated['judul']);
             
-            // Check if slug already exists (except current berita)
-            $slugCount = Berita::where('slug', $validated['slug'])
-                ->where('id', '!=', $id)
-                ->count();
-            if ($slugCount > 0) {
-                $validated['slug'] = $validated['slug'] . '-' . ($slugCount + 1);
-            }
-
-            $berita->update($validated);
-
-            return redirect()->route('admin.berita.index')
-                ->with('success', 'Berita berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui berita: ' . $e->getMessage());
+            $file = $request->file('image');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('berita', $filename, 'public');
+            $data['image'] = $path;
+        } else {
+            $data['image'] = $berita->image;
         }
+
+        $data['slug'] = Str::slug($data['judul']);
+        
+        $slugCount = Berita::where('slug', $data['slug'])
+            ->where('id', '!=', $berita->id)
+            ->count();
+        if ($slugCount > 0) {
+            $data['slug'] = $data['slug'] . '-' . ($slugCount + 1);
+        }
+
+        if ($berita->update($data)) {
+            return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diperbarui.');
+        }
+
+        return back()->withInput()->with('error', 'Gagal memperbarui berita.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroyBerita($id)
+    public function destroyBerita(Berita $berita)
     {
-        try {
-            $berita = Berita::findOrFail($id);
-            $berita->delete();
-
-            return redirect()->back()
-                ->with('success', 'Berita berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Gagal menghapus berita: ' . $e->getMessage());
+        if ($berita->delete()) {
+            return back()->with('success', 'Berita berhasil dihapus.');
         }
+
+        return back()->with('error', 'Gagal menghapus berita.');
     }
 }

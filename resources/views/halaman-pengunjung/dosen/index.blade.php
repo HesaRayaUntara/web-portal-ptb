@@ -32,7 +32,7 @@
                         <h2 class="text-lg font-semibold text-secondary md:text-xl">{{ $kepalaProdi->nama }}</h2>
                         <span class="mt-1 inline-flex rounded-full bg-primary/15 px-3 py-0.5 text-xs font-semibold text-primary">Kepala Program Studi</span>
                     </div>
-                    <div class="flex justify-center">
+                <div class="flex justify-center">
                         <div class="w-full max-w-[160px] overflow-hidden rounded-card shadow-soft">
                             <div class="relative w-full pb-[133.33%] bg-gray-200">
                                 @if($kepalaProdi->foto)
@@ -148,7 +148,7 @@
                         @if($kepalaProdi->slug)
                             </a>
                         @else
-                            </div>
+                    </div>
                         @endif
                         
                         <!-- Card HKI/Paten -->
@@ -162,16 +162,16 @@
                                     <svg class="h-3.5 w-3.5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
                                     </svg>
-                                </div>
+                        </div>
                                 <span class="text-xs font-medium text-textDark">HKI/Paten</span>
-                            </div>
+                        </div>
                             <div class="mt-auto">
                                 <p class="text-xl font-bold text-primary md:text-2xl">{{ \App\Models\Hki::where('dosen_id', $kepalaProdi->id)->count() }}+</p>
-                            </div>
+                        </div>
                         @if($kepalaProdi->slug)
                             </a>
                         @else
-                            </div>
+                        </div>
                         @endif
                     </div>
                 </div>
@@ -202,7 +202,7 @@
                                         @php
                                             $bidangArray = array_filter(array_map('trim', explode("\n", $dosen->bidang_keahlian)));
                                             $bidangDisplay = array_slice($bidangArray, 0, 2);
-                                        @endphp
+                    @endphp
                                         {{ implode(', ', $bidangDisplay) }}
                                         @if(count($bidangArray) > 2)
                                             ...
@@ -212,18 +212,18 @@
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 text-primary">{{ $dosen->email ?? '-' }}</td>
-                                <td class="px-6 py-4">
+                            <td class="px-6 py-4">
                                     @if($dosen->slug)
                                         <a href="{{ route('dosen.detail', $dosen->slug) }}"
-                                           class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
-                                            Detail
-                                        </a>
+                                   class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
+                                    Detail
+                                </a>
                                     @else
                                         <span class="text-xs text-textMuted">-</span>
                                     @endif
-                                </td>
-                            </tr>
-                        @endforeach
+                            </td>
+                        </tr>
+                    @endforeach
                     @else
                         <tr>
                             <td colspan="4" class="px-6 py-4 text-center text-textMuted">Belum ada data dosen.</td>

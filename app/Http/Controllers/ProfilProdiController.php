@@ -34,87 +34,79 @@ class ProfilProdiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, ProfilProdi $profilProdi)
     {
-        try {
-            $validated = $request->validate([
-                'deskripsi' => 'required|string',
-                'visi' => 'required|string',
-                'misi' => 'required|string',
-                'tujuan' => 'required|string',
-                'lama_studi' => 'required|string|max:255',
-                'gelar_lulusan' => 'required|string|max:255',
-                'kepanjangan_gelar' => 'required|string|max:255',
-                'snbp_pelamar' => 'required|integer|min:0',
-                'snbp_diterima' => 'required|integer|min:1',
-                'snbt_pelamar' => 'required|integer|min:0',
-                'snbt_diterima' => 'required|integer|min:1',
-                'akreditasi' => 'required|string|max:255',
-                'no_sk' => 'required|string|max:255',
-                'foto_akreditasi' => 'nullable|image|mimes:jpeg,jpg,png|max:5120',
-                'industri_tempat_bekerja' => 'required|string',
-                'mitra_logo' => 'nullable|array',
-                'mitra_logo.*' => 'image|mimes:jpeg,jpg,png|max:5120',
-                'profil_lulusan' => 'nullable|array',
-                'profil_lulusan.*.peran' => 'required|string|max:255',
-                'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
-            ]);
+        $data = $request->validate([
+            'deskripsi' => 'required|string',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
+            'tujuan' => 'required|string',
+            'lama_studi' => 'required|string|max:255',
+            'gelar_lulusan' => 'required|string|max:255',
+            'kepanjangan_gelar' => 'required|string|max:255',
+            'snbp_pelamar' => 'required|integer|min:0',
+            'snbp_diterima' => 'required|integer|min:1',
+            'snbt_pelamar' => 'required|integer|min:0',
+            'snbt_diterima' => 'required|integer|min:1',
+            'akreditasi' => 'required|string|max:255',
+            'no_sk' => 'required|string|max:255',
+            'foto_akreditasi' => 'nullable|image|mimes:jpeg,jpg,png|max:5120',
+            'industri_tempat_bekerja' => 'required|string',
+            'mitra_logo' => 'nullable|array',
+            'mitra_logo.*' => 'image|mimes:jpeg,jpg,png|max:5120',
+            'profil_lulusan' => 'nullable|array',
+            'profil_lulusan.*.peran' => 'required|string|max:255',
+            'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
+        ]);
 
-            // Calculate keketatan automatically
-            // Rumus: (pelamar / diterima) × 100 / 100 = pelamar / diterima
-            if (isset($validated['snbp_pelamar']) && isset($validated['snbp_diterima']) && $validated['snbp_diterima'] > 0) {
-                $validated['snbp_keketatan'] = round($validated['snbp_pelamar'] / $validated['snbp_diterima'], 2);
-            } else {
-                $validated['snbp_keketatan'] = 0.00;
-            }
-
-            if (isset($validated['snbt_pelamar']) && isset($validated['snbt_diterima']) && $validated['snbt_diterima'] > 0) {
-                $validated['snbt_keketatan'] = round($validated['snbt_pelamar'] / $validated['snbt_diterima'], 2);
-            } else {
-                $validated['snbt_keketatan'] = 0.00;
-            }
-
-            // Handle foto akreditasi upload
-            if ($request->hasFile('foto_akreditasi')) {
-                $file = $request->file('foto_akreditasi');
-                $filename = 'akreditasi_' . time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('profil-prodi', $filename, 'public');
-                $validated['foto_akreditasi'] = $path;
-            }
-
-            // Handle mitra logo upload (multiple files)
-            if ($request->hasFile('mitra_logo')) {
-                $mitraLogos = [];
-                foreach ($request->file('mitra_logo') as $file) {
-                    $filename = 'mitra_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $path = $file->storeAs('profil-prodi/mitra', $filename, 'public');
-                    $mitraLogos[] = $path;
-                }
-                $validated['mitra_logo'] = $mitraLogos;
-            }
-
-            $profilProdi = ProfilProdi::create($validated);
-
-            // Handle profil lulusan
-            if ($request->has('profil_lulusan') && is_array($request->profil_lulusan)) {
-                foreach ($request->profil_lulusan as $lulusan) {
-                    if (!empty($lulusan['peran']) && !empty($lulusan['deskripsi_kemampuan'])) {
-                        ProfilLulusan::create([
-                            'profil_prodi_id' => $profilProdi->id,
-                            'peran' => $lulusan['peran'],
-                            'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
-                        ]);
-                    }
-                }
-            }
-
-            return redirect()->route('admin.profil.edit', $profilProdi->id)
-                ->with('success', 'Profil Program Studi berhasil dibuat.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal membuat profil program studi: ' . $e->getMessage());
+        if (isset($data['snbp_pelamar']) && isset($data['snbp_diterima']) && $data['snbp_diterima'] > 0) {
+            $data['snbp_keketatan'] = round($data['snbp_pelamar'] / $data['snbp_diterima'], 2);
+        } else {
+            $data['snbp_keketatan'] = 0.00;
         }
+
+        if (isset($data['snbt_pelamar']) && isset($data['snbt_diterima']) && $data['snbt_diterima'] > 0) {
+            $data['snbt_keketatan'] = round($data['snbt_pelamar'] / $data['snbt_diterima'], 2);
+        } else {
+            $data['snbt_keketatan'] = 0.00;
+        }
+
+        if ($request->hasFile('foto_akreditasi')) {
+            $file = $request->file('foto_akreditasi');
+            $filename = 'akreditasi_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('profil-prodi', $filename, 'public');
+            $data['foto_akreditasi'] = $path;
+        }
+
+        if ($request->hasFile('mitra_logo')) {
+            $mitraLogos = [];
+            foreach ($request->file('mitra_logo') as $file) {
+                $filename = 'mitra_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('profil-prodi/mitra', $filename, 'public');
+                $mitraLogos[] = $path;
+            }
+            $data['mitra_logo'] = $mitraLogos;
+        }
+
+        $profilProdi = ProfilProdi::create($data);
+
+        if ($request->has('profil_lulusan') && is_array($request->profil_lulusan)) {
+            foreach ($request->profil_lulusan as $lulusan) {
+                if (!empty($lulusan['peran']) && !empty($lulusan['deskripsi_kemampuan'])) {
+                    ProfilLulusan::create([
+                        'profil_prodi_id' => $profilProdi->id,
+                        'peran' => $lulusan['peran'],
+                        'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
+                    ]);
+                }
+            }
+        }
+
+        if ($profilProdi) {
+            return redirect()->route('admin.profil.edit', $profilProdi->id)->with('success', 'Profil Program Studi berhasil dibuat.');
+        }
+
+        return back()->withInput()->with('error', 'Gagal membuat profil program studi.');
     }
 
     /**
@@ -128,19 +120,19 @@ class ProfilProdiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ProfilProdi $profilProdi)
     {
-        $profilProdi = ProfilProdi::with('profilLulusan')->findOrFail($id);
-        return view('halaman-admin.profil.index', compact('profilProdi'));
+        $data = [
+            'profilProdi' => $profilProdi->load('profilLulusan'),
+        ];
+        return view('halaman-admin.profil.index', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ProfilProdi $profilProdi)
     {
-        try {
-            $profilProdi = ProfilProdi::findOrFail($id);
 
             $validated = $request->validate([
                 'deskripsi' => 'required|string',
@@ -166,64 +158,51 @@ class ProfilProdiController extends Controller
                 'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
             ]);
 
-            // Calculate keketatan automatically
-            // Rumus: (pelamar / diterima) × 100 / 100 = pelamar / diterima
-            if (isset($validated['snbp_pelamar']) && isset($validated['snbp_diterima']) && $validated['snbp_diterima'] > 0) {
-                $validated['snbp_keketatan'] = round($validated['snbp_pelamar'] / $validated['snbp_diterima'], 2);
-            } else {
-                $validated['snbp_keketatan'] = $profilProdi->snbp_keketatan ?? 0.00;
+        if (isset($data['snbp_pelamar']) && isset($data['snbp_diterima']) && $data['snbp_diterima'] > 0) {
+            $data['snbp_keketatan'] = round($data['snbp_pelamar'] / $data['snbp_diterima'], 2);
+        } else {
+            $data['snbp_keketatan'] = $profilProdi->snbp_keketatan ?? 0.00;
+        }
+
+        if (isset($data['snbt_pelamar']) && isset($data['snbt_diterima']) && $data['snbt_diterima'] > 0) {
+            $data['snbt_keketatan'] = round($data['snbt_pelamar'] / $data['snbt_diterima'], 2);
+        } else {
+            $data['snbt_keketatan'] = $profilProdi->snbt_keketatan ?? 0.00;
+        }
+
+        if ($request->hasFile('foto_akreditasi')) {
+            if ($profilProdi->foto_akreditasi && Storage::disk('public')->exists($profilProdi->foto_akreditasi)) {
+                Storage::disk('public')->delete($profilProdi->foto_akreditasi);
             }
 
-            if (isset($validated['snbt_pelamar']) && isset($validated['snbt_diterima']) && $validated['snbt_diterima'] > 0) {
-                $validated['snbt_keketatan'] = round($validated['snbt_pelamar'] / $validated['snbt_diterima'], 2);
-            } else {
-                $validated['snbt_keketatan'] = $profilProdi->snbt_keketatan ?? 0.00;
+            $file = $request->file('foto_akreditasi');
+            $filename = 'akreditasi_' . time() . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('profil-prodi', $filename, 'public');
+            $data['foto_akreditasi'] = $path;
+        }
+
+        if ($request->hasFile('mitra_logo')) {
+            $existingLogos = $profilProdi->mitra_logo ?? [];
+            
+            foreach ($request->file('mitra_logo') as $file) {
+                $filename = 'mitra_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+                $path = $file->storeAs('profil-prodi/mitra', $filename, 'public');
+                $existingLogos[] = $path;
             }
+            $data['mitra_logo'] = $existingLogos;
+        }
 
-            // Handle foto akreditasi upload
-            if ($request->hasFile('foto_akreditasi')) {
-                // Delete old file if exists
-                if ($profilProdi->foto_akreditasi && Storage::disk('public')->exists($profilProdi->foto_akreditasi)) {
-                    Storage::disk('public')->delete($profilProdi->foto_akreditasi);
-                }
-
-                $file = $request->file('foto_akreditasi');
-                $filename = 'akreditasi_' . time() . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('profil-prodi', $filename, 'public');
-                $validated['foto_akreditasi'] = $path;
-            }
-
-            // Handle mitra logo upload (multiple files)
-            if ($request->hasFile('mitra_logo')) {
-                // Get existing logos
-                $existingLogos = $profilProdi->mitra_logo ?? [];
-                
-                // Add new logos
-                foreach ($request->file('mitra_logo') as $file) {
-                    $filename = 'mitra_' . time() . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-                    $path = $file->storeAs('profil-prodi/mitra', $filename, 'public');
-                    $existingLogos[] = $path;
-                }
-                $validated['mitra_logo'] = $existingLogos;
-            }
-
-            $profilProdi->update($validated);
-
-            // Handle profil lulusan
+        if ($profilProdi->update($data)) {
             if ($request->has('profil_lulusan') && is_array($request->profil_lulusan)) {
-                // Get existing IDs
                 $existingIds = collect($request->profil_lulusan)->pluck('id')->filter()->toArray();
                 
-                // Delete removed items
                 ProfilLulusan::where('profil_prodi_id', $profilProdi->id)
                     ->whereNotIn('id', $existingIds)
                     ->delete();
 
-                // Update or create items
                 foreach ($request->profil_lulusan as $lulusan) {
                     if (!empty($lulusan['peran']) && !empty($lulusan['deskripsi_kemampuan'])) {
                         if (isset($lulusan['id']) && $lulusan['id']) {
-                            // Update existing
                             ProfilLulusan::where('id', $lulusan['id'])
                                 ->where('profil_prodi_id', $profilProdi->id)
                                 ->update([
@@ -231,7 +210,6 @@ class ProfilProdiController extends Controller
                                     'deskripsi_kemampuan' => $lulusan['deskripsi_kemampuan'],
                                 ]);
                         } else {
-                            // Create new
                             ProfilLulusan::create([
                                 'profil_prodi_id' => $profilProdi->id,
                                 'peran' => $lulusan['peran'],
@@ -241,48 +219,36 @@ class ProfilProdiController extends Controller
                     }
                 }
             } else {
-                // If no profil_lulusan data, delete all
                 ProfilLulusan::where('profil_prodi_id', $profilProdi->id)->delete();
             }
 
-            return redirect()->route('admin.profil.edit', $profilProdi->id)
-                ->with('success', 'Profil Program Studi berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui profil program studi: ' . $e->getMessage());
+            return redirect()->route('admin.profil.edit', $profilProdi->id)->with('success', 'Profil Program Studi berhasil diperbarui.');
         }
+
+        return back()->withInput()->with('error', 'Gagal memperbarui profil program studi.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(ProfilProdi $profilProdi)
     {
-        try {
-            $profilProdi = ProfilProdi::findOrFail($id);
+        if ($profilProdi->foto_akreditasi && Storage::disk('public')->exists($profilProdi->foto_akreditasi)) {
+            Storage::disk('public')->delete($profilProdi->foto_akreditasi);
+        }
 
-            // Delete foto akreditasi if exists
-            if ($profilProdi->foto_akreditasi && Storage::disk('public')->exists($profilProdi->foto_akreditasi)) {
-                Storage::disk('public')->delete($profilProdi->foto_akreditasi);
-            }
-
-            // Delete mitra logos if exists
-            if ($profilProdi->mitra_logo && is_array($profilProdi->mitra_logo)) {
-                foreach ($profilProdi->mitra_logo as $logo) {
-                    if (Storage::disk('public')->exists($logo)) {
-                        Storage::disk('public')->delete($logo);
-                    }
+        if ($profilProdi->mitra_logo && is_array($profilProdi->mitra_logo)) {
+            foreach ($profilProdi->mitra_logo as $logo) {
+                if (Storage::disk('public')->exists($logo)) {
+                    Storage::disk('public')->delete($logo);
                 }
             }
-
-            $profilProdi->delete();
-
-            return redirect()->route('admin.profil.create')
-                ->with('success', 'Profil Program Studi berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Gagal menghapus profil program studi: ' . $e->getMessage());
         }
+
+        if ($profilProdi->delete()) {
+            return redirect()->route('admin.profil.create')->with('success', 'Profil Program Studi berhasil dihapus.');
+        }
+
+        return back()->with('error', 'Gagal menghapus profil program studi.');
     }
 }

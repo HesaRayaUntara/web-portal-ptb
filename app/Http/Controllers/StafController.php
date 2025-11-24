@@ -29,34 +29,28 @@ class StafController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Staf $staf)
     {
-        try {
-            $validated = $request->validate([
-                'nama' => 'required|string|max:255|unique:staf,nama',
-                'jabatan' => 'required|string|max:255',
-                'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
-            ], [
-                'nama.unique' => 'Nama staf sudah ada dalam database.',
-            ]);
+        $data = $request->validate([
+            'nama' => 'required|string|max:255|unique:staf,nama',
+            'jabatan' => 'required|string|max:255',
+            'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
+        ], [
+            'nama.unique' => 'Nama staf sudah ada dalam database.',
+        ]);
 
-            // Handle file upload
-            if ($request->hasFile('foto')) {
-                $file = $request->file('foto');
-                $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('staf', $filename, 'public');
-                $validated['foto'] = $path;
-            }
-
-            Staf::create($validated);
-
-            return redirect()->route('admin.staf.index')
-                ->with('success', 'Staf berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal menambahkan staf: ' . $e->getMessage());
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('staf', $filename, 'public');
+            $data['foto'] = $path;
         }
+
+        if (Staf::create($data)) {
+            return redirect()->route('admin.staf.index')->with('success', 'Staf berhasil ditambahkan.');
+        }
+
+        return back()->withInput()->with('error', 'Gagal menambahkan staf.');
     }
 
     /**
@@ -72,40 +66,32 @@ class StafController extends Controller
      */
     public function update(Request $request, Staf $staf)
     {
-        try {
-            $validated = $request->validate([
-                'nama' => 'required|string|max:255|unique:staf,nama,' . $staf->id,
-                'jabatan' => 'required|string|max:255',
-                'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
-            ], [
-                'nama.unique' => 'Nama staf sudah ada dalam database.',
-            ]);
+        $data = $request->validate([
+            'nama' => 'required|string|max:255|unique:staf,nama,' . $staf->id,
+            'jabatan' => 'required|string|max:255',
+            'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
+        ], [
+            'nama.unique' => 'Nama staf sudah ada dalam database.',
+        ]);
 
-            // Handle file upload
-            if ($request->hasFile('foto')) {
-                // Delete old foto
-                if ($staf->foto && Storage::disk('public')->exists($staf->foto)) {
-                    Storage::disk('public')->delete($staf->foto);
-                }
-                
-                $file = $request->file('foto');
-                $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
-                $path = $file->storeAs('staf', $filename, 'public');
-                $validated['foto'] = $path;
-            } else {
-                // Keep existing foto if no new file uploaded
-                $validated['foto'] = $staf->foto;
+        if ($request->hasFile('foto')) {
+            if ($staf->foto && Storage::disk('public')->exists($staf->foto)) {
+                Storage::disk('public')->delete($staf->foto);
             }
-
-            $staf->update($validated);
-
-            return redirect()->route('admin.staf.index')
-                ->with('success', 'Staf berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui staf: ' . $e->getMessage());
+            
+            $file = $request->file('foto');
+            $filename = time() . '_' . Str::random(10) . '.' . $file->getClientOriginalExtension();
+            $path = $file->storeAs('staf', $filename, 'public');
+            $data['foto'] = $path;
+        } else {
+            $data['foto'] = $staf->foto;
         }
+
+        if ($staf->update($data)) {
+            return redirect()->route('admin.staf.index')->with('success', 'Staf berhasil diperbarui.');
+        }
+
+        return back()->withInput()->with('error', 'Gagal memperbarui staf.');
     }
 
     /**
@@ -113,19 +99,14 @@ class StafController extends Controller
      */
     public function destroy(Staf $staf)
     {
-        try {
-            // Delete foto
-            if ($staf->foto && Storage::disk('public')->exists($staf->foto)) {
-                Storage::disk('public')->delete($staf->foto);
-            }
-            
-            $staf->delete();
-
-            return redirect()->route('admin.staf.index')
-                ->with('success', 'Staf berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Gagal menghapus staf: ' . $e->getMessage());
+        if ($staf->foto && Storage::disk('public')->exists($staf->foto)) {
+            Storage::disk('public')->delete($staf->foto);
         }
+        
+        if ($staf->delete()) {
+            return redirect()->route('admin.staf.index')->with('success', 'Staf berhasil dihapus.');
+        }
+
+        return back()->with('error', 'Gagal menghapus staf.');
     }
 }

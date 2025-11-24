@@ -506,29 +506,41 @@ Route::middleware('admin.auth')->group(function () {
     
     // Routes Admin Dosen
     Route::get('admin/dosen', [\App\Http\Controllers\AdminDosenController::class, 'index'])->name('admin.dosen.index');
+    Route::get('admin/dosen/create', [\App\Http\Controllers\AdminDosenController::class, 'createDosen'])->name('admin.dosen.create');
+    Route::get('admin/dosen/{dosen}/edit', [\App\Http\Controllers\AdminDosenController::class, 'editDosen'])->name('admin.dosen.edit');
     Route::post('admin/dosen', [\App\Http\Controllers\AdminDosenController::class, 'storeDosen'])->name('admin.dosen.storeDosen');
     Route::put('admin/dosen/{dosen}', [\App\Http\Controllers\AdminDosenController::class, 'updateDosen'])->name('admin.dosen.updateDosen');
     Route::delete('admin/dosen/{dosen}', [\App\Http\Controllers\AdminDosenController::class, 'destroyDosen'])->name('admin.dosen.destroyDosen');
-    
-    Route::post('admin/dosen/jenis-karya', [\App\Http\Controllers\AdminDosenController::class, 'storeJenisKarya'])->name('admin.dosen.storeJenisKarya');
-    Route::put('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\AdminDosenController::class, 'updateJenisKarya'])->name('admin.dosen.updateJenisKarya');
-    Route::delete('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\AdminDosenController::class, 'destroyJenisKarya'])->name('admin.dosen.destroyJenisKarya');
-    
-    Route::post('admin/dosen/penelitian', [\App\Http\Controllers\AdminDosenController::class, 'storePenelitian'])->name('admin.dosen.storePenelitian');
-    Route::put('admin/dosen/penelitian/{penelitian}', [\App\Http\Controllers\AdminDosenController::class, 'updatePenelitian'])->name('admin.dosen.updatePenelitian');
-    Route::delete('admin/dosen/penelitian/{penelitian}', [\App\Http\Controllers\AdminDosenController::class, 'destroyPenelitian'])->name('admin.dosen.destroyPenelitian');
-    
-    Route::post('admin/dosen/pengabdian', [\App\Http\Controllers\AdminDosenController::class, 'storePengabdian'])->name('admin.dosen.storePengabdian');
-    Route::put('admin/dosen/pengabdian/{pengabdian}', [\App\Http\Controllers\AdminDosenController::class, 'updatePengabdian'])->name('admin.dosen.updatePengabdian');
-    Route::delete('admin/dosen/pengabdian/{pengabdian}', [\App\Http\Controllers\AdminDosenController::class, 'destroyPengabdian'])->name('admin.dosen.destroyPengabdian');
-    
-    Route::post('admin/dosen/publikasi', [\App\Http\Controllers\AdminDosenController::class, 'storePublikasi'])->name('admin.dosen.storePublikasi');
-    Route::put('admin/dosen/publikasi/{publikasi}', [\App\Http\Controllers\AdminDosenController::class, 'updatePublikasi'])->name('admin.dosen.updatePublikasi');
-    Route::delete('admin/dosen/publikasi/{publikasi}', [\App\Http\Controllers\AdminDosenController::class, 'destroyPublikasi'])->name('admin.dosen.destroyPublikasi');
-    
-    Route::post('admin/dosen/hki', [\App\Http\Controllers\AdminDosenController::class, 'storeHki'])->name('admin.dosen.storeHki');
-    Route::put('admin/dosen/hki/{hki}', [\App\Http\Controllers\AdminDosenController::class, 'updateHki'])->name('admin.dosen.updateHki');
-    Route::delete('admin/dosen/hki/{hki}', [\App\Http\Controllers\AdminDosenController::class, 'destroyHki'])->name('admin.dosen.destroyHki');
+
+    Route::get('admin/dosen/jenis-karya/create', [\App\Http\Controllers\JenisKaryaController::class, 'create'])->name('admin.dosen.jenis-karya.create');
+    Route::get('admin/dosen/jenis-karya/{jenisKarya}/edit', [\App\Http\Controllers\JenisKaryaController::class, 'edit'])->name('admin.dosen.jenis-karya.edit');
+    Route::post('admin/dosen/jenis-karya', [\App\Http\Controllers\JenisKaryaController::class, 'store'])->name('admin.dosen.storeJenisKarya');
+    Route::put('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\JenisKaryaController::class, 'update'])->name('admin.dosen.updateJenisKarya');
+    Route::delete('admin/dosen/jenis-karya/{jenisKarya}', [\App\Http\Controllers\JenisKaryaController::class, 'destroy'])->name('admin.dosen.destroyJenisKarya');
+
+    Route::get('admin/dosen/penelitian/create', [\App\Http\Controllers\PenelitianController::class, 'create'])->name('admin.dosen.penelitian.create');
+    Route::get('admin/dosen/penelitian/{penelitian}/edit', [\App\Http\Controllers\PenelitianController::class, 'edit'])->name('admin.dosen.penelitian.edit');
+    Route::post('admin/dosen/penelitian', [\App\Http\Controllers\PenelitianController::class, 'store'])->name('admin.dosen.storePenelitian');
+    Route::put('admin/dosen/penelitian/{penelitian}', [\App\Http\Controllers\PenelitianController::class, 'update'])->name('admin.dosen.updatePenelitian');
+    Route::delete('admin/dosen/penelitian/{penelitian}', [\App\Http\Controllers\PenelitianController::class, 'destroy'])->name('admin.dosen.destroyPenelitian');
+
+    Route::get('admin/dosen/pengabdian/create', [\App\Http\Controllers\PengabdianController::class, 'create'])->name('admin.dosen.pengabdian.create');
+    Route::get('admin/dosen/pengabdian/{pengabdian}/edit', [\App\Http\Controllers\PengabdianController::class, 'edit'])->name('admin.dosen.pengabdian.edit');
+    Route::post('admin/dosen/pengabdian', [\App\Http\Controllers\PengabdianController::class, 'store'])->name('admin.dosen.storePengabdian');
+    Route::put('admin/dosen/pengabdian/{pengabdian}', [\App\Http\Controllers\PengabdianController::class, 'update'])->name('admin.dosen.updatePengabdian');
+    Route::delete('admin/dosen/pengabdian/{pengabdian}', [\App\Http\Controllers\PengabdianController::class, 'destroy'])->name('admin.dosen.destroyPengabdian');
+
+    Route::get('admin/dosen/publikasi/create', [\App\Http\Controllers\PublikasiController::class, 'create'])->name('admin.dosen.publikasi.create');
+    Route::get('admin/dosen/publikasi/{publikasi}/edit', [\App\Http\Controllers\PublikasiController::class, 'edit'])->name('admin.dosen.publikasi.edit');
+    Route::post('admin/dosen/publikasi', [\App\Http\Controllers\PublikasiController::class, 'store'])->name('admin.dosen.storePublikasi');
+    Route::put('admin/dosen/publikasi/{publikasi}', [\App\Http\Controllers\PublikasiController::class, 'update'])->name('admin.dosen.updatePublikasi');
+    Route::delete('admin/dosen/publikasi/{publikasi}', [\App\Http\Controllers\PublikasiController::class, 'destroy'])->name('admin.dosen.destroyPublikasi');
+
+    Route::get('admin/dosen/hki/create', [\App\Http\Controllers\HkiController::class, 'create'])->name('admin.dosen.hki.create');
+    Route::get('admin/dosen/hki/{hki}/edit', [\App\Http\Controllers\HkiController::class, 'edit'])->name('admin.dosen.hki.edit');
+    Route::post('admin/dosen/hki', [\App\Http\Controllers\HkiController::class, 'store'])->name('admin.dosen.storeHki');
+    Route::put('admin/dosen/hki/{hki}', [\App\Http\Controllers\HkiController::class, 'update'])->name('admin.dosen.updateHki');
+    Route::delete('admin/dosen/hki/{hki}', [\App\Http\Controllers\HkiController::class, 'destroy'])->name('admin.dosen.destroyHki');
     
     Route::resource('admin/kurikulum', \App\Http\Controllers\KurikulumController::class)->except(['create'])->names([
         'index' => 'admin.kurikulum.index',
@@ -543,21 +555,21 @@ Route::middleware('admin.auth')->group(function () {
     // Routes Admin Berita
     Route::get('admin/berita', [\App\Http\Controllers\AdminBeritaController::class, 'index'])->name('admin.berita.index');
     Route::post('admin/berita/kategori', [\App\Http\Controllers\AdminBeritaController::class, 'storeKategori'])->name('admin.berita.storeKategori');
-    Route::delete('admin/berita/kategori/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'deleteKategori'])->name('admin.berita.deleteKategori');
+    Route::delete('admin/berita/kategori/{kategoriBerita}', [\App\Http\Controllers\AdminBeritaController::class, 'deleteKategori'])->name('admin.berita.deleteKategori');
     Route::post('admin/berita', [\App\Http\Controllers\AdminBeritaController::class, 'storeBerita'])->name('admin.berita.storeBerita');
     Route::get('admin/berita/draft', [\App\Http\Controllers\AdminBeritaController::class, 'draft'])->name('admin.berita.draft');
-    Route::get('admin/berita/draft/{id}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editDraft'])->name('admin.berita.editDraft');
-    Route::put('admin/berita/draft/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'updateDraft'])->name('admin.berita.updateDraft');
-    Route::get('admin/berita/{id}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editBerita'])->name('admin.berita.editBerita');
-    Route::put('admin/berita/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'updateBerita'])->name('admin.berita.updateBerita');
-    Route::delete('admin/berita/{id}', [\App\Http\Controllers\AdminBeritaController::class, 'destroyBerita'])->name('admin.berita.destroyBerita');
+    Route::get('admin/berita/draft/{berita}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editDraft'])->name('admin.berita.editDraft');
+    Route::put('admin/berita/draft/{berita}', [\App\Http\Controllers\AdminBeritaController::class, 'updateDraft'])->name('admin.berita.updateDraft');
+    Route::get('admin/berita/{berita}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editBerita'])->name('admin.berita.editBerita');
+    Route::put('admin/berita/{berita}', [\App\Http\Controllers\AdminBeritaController::class, 'updateBerita'])->name('admin.berita.updateBerita');
+    Route::delete('admin/berita/{berita}', [\App\Http\Controllers\AdminBeritaController::class, 'destroyBerita'])->name('admin.berita.destroyBerita');
     
     // Routes Admin Galeri
     Route::get('admin/galeri', [\App\Http\Controllers\AdminGaleriController::class, 'index'])->name('admin.galeri.index');
     Route::post('admin/galeri/kategori', [\App\Http\Controllers\AdminGaleriController::class, 'storeKategori'])->name('admin.galeri.storeKategori');
-    Route::delete('admin/galeri/kategori/{id}', [\App\Http\Controllers\AdminGaleriController::class, 'deleteKategori'])->name('admin.galeri.deleteKategori');
+    Route::delete('admin/galeri/kategori/{kategoriGaleri}', [\App\Http\Controllers\AdminGaleriController::class, 'deleteKategori'])->name('admin.galeri.deleteKategori');
     Route::post('admin/galeri', [\App\Http\Controllers\AdminGaleriController::class, 'storeGaleri'])->name('admin.galeri.storeGaleri');
-    Route::get('admin/galeri/{id}/edit', [\App\Http\Controllers\AdminGaleriController::class, 'editGaleri'])->name('admin.galeri.editGaleri');
-    Route::put('admin/galeri/{id}', [\App\Http\Controllers\AdminGaleriController::class, 'updateGaleri'])->name('admin.galeri.updateGaleri');
-    Route::delete('admin/galeri/{id}', [\App\Http\Controllers\AdminGaleriController::class, 'destroyGaleri'])->name('admin.galeri.destroyGaleri');
+    Route::get('admin/galeri/{galeri}/edit', [\App\Http\Controllers\AdminGaleriController::class, 'editGaleri'])->name('admin.galeri.editGaleri');
+    Route::put('admin/galeri/{galeri}', [\App\Http\Controllers\AdminGaleriController::class, 'updateGaleri'])->name('admin.galeri.updateGaleri');
+    Route::delete('admin/galeri/{galeri}', [\App\Http\Controllers\AdminGaleriController::class, 'destroyGaleri'])->name('admin.galeri.destroyGaleri');
 });

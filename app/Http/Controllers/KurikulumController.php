@@ -33,66 +33,55 @@ class KurikulumController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Kurikulum $kurikulum)
     {
-        try {
-            $validated = $request->validate([
-                'semester' => 'required|integer|between:1,8',
-                'kode_mk' => 'required|string|max:255',
-                'nama_mk' => 'required|string|max:255',
-                'jenis_mk' => 'required|string|in:CCC,FC,FL,IC,ACC,EC,FYP',
-                'sks_kuliah' => 'required|integer|min:0',
-                'sks_praktikum' => 'required|integer|min:0',
-            ]);
+        $data = $request->validate([
+            'semester' => 'required|integer|between:1,8',
+            'kode_mk' => 'required|string|max:255',
+            'nama_mk' => 'required|string|max:255',
+            'jenis_mk' => 'required|string|in:CCC,FC,FL,IC,ACC,EC,FYP',
+            'sks_kuliah' => 'required|integer|min:0',
+            'sks_praktikum' => 'required|integer|min:0',
+        ]);
 
-            // Check if kode_mk already exists
-            $existingKurikulum = Kurikulum::where('kode_mk', $validated['kode_mk'])->first();
-            
-            if ($existingKurikulum) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Data ' . $validated['kode_mata_kuliah'] . ' sudah ada. coba lagi');
-            }
-
-            Kurikulum::create($validated);
-
-            return redirect()->route('admin.kurikulum.index')
-                ->with('success', 'Mata kuliah berhasil ditambahkan.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal menambahkan mata kuliah: ' . $e->getMessage());
+        $existingKurikulum = Kurikulum::where('kode_mk', $data['kode_mk'])->first();
+        
+        if ($existingKurikulum) {
+            return back()->withInput()->with('error', 'Data ' . $data['kode_mk'] . ' sudah ada. coba lagi');
         }
+
+        if (Kurikulum::create($data)) {
+            return redirect()->route('admin.kurikulum.index')->with('success', 'Mata kuliah berhasil ditambahkan.');
+        }
+
+        return back()->withInput()->with('error', 'Gagal menambahkan mata kuliah.');
     }
 
     /**
      * Update deskripsi kurikulum
      */
-    public function updateDeskripsi(Request $request)
+    public function updateDeskripsi(Request $request, DeskripsiKurikulum $deskripsiKurikulum)
     {
-        try {
-            $validated = $request->validate([
-                'deskripsi_semester_1_2' => 'nullable|string',
-                'deskripsi_semester_3_4' => 'nullable|string',
-                'deskripsi_semester_5_6' => 'nullable|string',
-                'deskripsi_semester_7_8' => 'nullable|string',
-            ]);
+        $data = $request->validate([
+            'deskripsi_semester_1_2' => 'nullable|string',
+            'deskripsi_semester_3_4' => 'nullable|string',
+            'deskripsi_semester_5_6' => 'nullable|string',
+            'deskripsi_semester_7_8' => 'nullable|string',
+        ]);
 
-            $deskripsiKurikulum = DeskripsiKurikulum::first();
-            
-            if ($deskripsiKurikulum) {
-                $deskripsiKurikulum->update($validated);
-            } else {
-                DeskripsiKurikulum::create($validated);
+        $deskripsiKurikulum = DeskripsiKurikulum::first();
+        
+        if ($deskripsiKurikulum) {
+            if ($deskripsiKurikulum->update($data)) {
+                return redirect()->route('admin.kurikulum.index')->with('success', 'Deskripsi kurikulum berhasil diperbarui.');
             }
-
-            return redirect()->route('admin.kurikulum.index')
-                ->with('success', 'Deskripsi kurikulum berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui deskripsi kurikulum: ' . $e->getMessage());
+        } else {
+            if (DeskripsiKurikulum::create($data)) {
+                return redirect()->route('admin.kurikulum.index')->with('success', 'Deskripsi kurikulum berhasil diperbarui.');
+            }
         }
+
+        return back()->withInput()->with('error', 'Gagal memperbarui deskripsi kurikulum.');
     }
 
     /**
@@ -106,65 +95,46 @@ class KurikulumController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Kurikulum $kurikulum)
     {
-        $kurikulum = Kurikulum::findOrFail($id);
         return view('halaman-admin.kurikulum.edit', compact('kurikulum'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Kurikulum $kurikulum)
     {
-        try {
-            $kurikulum = Kurikulum::findOrFail($id);
+        $data = $request->validate([
+            'semester' => 'required|integer|between:1,8',
+            'kode_mk' => 'required|string|max:255',
+            'nama_mk' => 'required|string|max:255',
+            'jenis_mk' => 'required|string|in:CCC,FC,FL,IC,ACC,EC,FYP',
+            'sks_kuliah' => 'required|integer|min:0',
+            'sks_praktikum' => 'required|integer|min:0',
+        ]);
 
-            $validated = $request->validate([
-                'semester' => 'required|integer|between:1,8',
-                'kode_mk' => 'required|string|max:255',
-                'nama_mk' => 'required|string|max:255',
-                'jenis_mk' => 'required|string|in:CCC,FC,FL,IC,ACC,EC,FYP',
-                'sks_kuliah' => 'required|integer|min:0',
-                'sks_praktikum' => 'required|integer|min:0',
-            ]);
-
-            // Check if kode_mk already exists in another record
-            $existingKurikulum = Kurikulum::where('kode_mk', $validated['kode_mk'])
-                ->where('id', '!=', $id)
-                ->first();
-            
-            if ($existingKurikulum) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Data ' . $validated['kode_mk'] . ' sudah ada. coba lagi');
-            }
-
-            $kurikulum->update($validated);
-
-            return redirect()->route('admin.kurikulum.index')
-                ->with('success', 'Mata kuliah berhasil diperbarui.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->withInput()
-                ->with('error', 'Gagal memperbarui mata kuliah: ' . $e->getMessage());
+        $existingKurikulum = Kurikulum::where('kode_mk', $data['kode_mk'])
+            ->where('id', '!=', $kurikulum->id)
+            ->first();
+        
+        if ($existingKurikulum) {
+            return back()->withInput()->with('error', 'Data ' . $data['kode_mk'] . ' sudah ada. coba lagi');
         }
+
+        if ($kurikulum->update($data)) {
+            return redirect()->route('admin.kurikulum.index')->with('success', 'Mata kuliah berhasil diperbarui.');
+        }
+
+        return back()->withInput()->with('error', 'Gagal memperbarui mata kuliah.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Kurikulum $kurikulum)
     {
-        try {
-            $kurikulum = Kurikulum::findOrFail($id);
-            $kurikulum->delete();
-
-            return redirect()->route('admin.kurikulum.index')
-                ->with('success', 'Mata kuliah berhasil dihapus.');
-        } catch (\Exception $e) {
-            return redirect()->back()
-                ->with('error', 'Gagal menghapus mata kuliah: ' . $e->getMessage());
+        if ($kurikulum->delete()) {
+            return redirect()->route('admin.kurikulum.index')->with('success', 'Mata kuliah berhasil dihapus.');
         }
+
+        return back()->with('error', 'Gagal menghapus mata kuliah.');
     }
 }

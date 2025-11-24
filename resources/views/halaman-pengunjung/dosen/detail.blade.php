@@ -24,7 +24,7 @@
                         <h1 class="text-lg font-semibold text-secondary md:text-xl">{{ $dosen->nama }}</h1>
                         <span class="mt-1 inline-flex rounded-full bg-primary/15 px-3 py-0.5 text-xs font-semibold text-primary">{{ $dosen->status }}</span>
                     </div>
-                    <div class="flex justify-center">
+                <div class="flex justify-center">
                         <div class="w-full max-w-[160px] overflow-hidden rounded-card shadow-soft">
                             <div class="relative w-full pb-[133.33%] bg-gray-200">
                                 @if($dosen->foto)
@@ -45,7 +45,7 @@
                     <div class="space-y-2">
                         <div class="flex items-center gap-2">
                             <h3 class="text-sm font-semibold text-textDark md:text-base">Bidang Keahlian</h3>
-                        </div>
+                    </div>
                         @if($dosen->bidang_keahlian)
                             @foreach(explode("\n", $dosen->bidang_keahlian) as $bidang)
                                 @if(trim($bidang))
