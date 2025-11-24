@@ -225,20 +225,28 @@ Route::get('/dosen', function () {
     $kepalaProdi = \App\Models\Dosen::where('kepala_program_studi', true)->first();
     
     // Ambil semua dosen yang bukan kepala prodi
-    // Jika ada kepala prodi, exclude dari list
-    if ($kepalaProdi) {
-        $dosenList = \App\Models\Dosen::where('id', '!=', $kepalaProdi->id)
-            ->orderBy('nama', 'asc')
-            ->get();
-    } else {
-        $dosenList = \App\Models\Dosen::orderBy('nama', 'asc')->get();
-    }
+    $dosenList = \App\Models\Dosen::where(function($query) {
+            $query->where('kepala_program_studi', false)
+                  ->orWhereNull('kepala_program_studi');
+        })
+        ->when($kepalaProdi, function($query) use ($kepalaProdi) {
+            $query->where('id', '!=', $kepalaProdi->id);
+        })
+        ->orderBy('nama', 'asc')
+        ->get();
     
-    // Pastikan semua dosen punya slug
-    foreach ($dosenList as $dosen) {
-        if (empty($dosen->slug)) {
+    // Pastikan semua dosen punya slug - hanya update jika benar-benar perlu
+    // Jangan lakukan save() di dalam loop untuk menghindari multiple queries
+    $dosenWithoutSlug = $dosenList->filter(function($dosen) {
+        return empty($dosen->slug);
+    });
+    
+    if ($dosenWithoutSlug->isNotEmpty()) {
+        // Update slug untuk dosen yang belum punya slug (dilakukan di background, tidak blocking)
+        // Untuk sekarang, kita hanya set di collection saja tanpa save ke database
+        // Save akan dilakukan saat dosen di-edit atau dibuat ulang
+        foreach ($dosenWithoutSlug as $dosen) {
             $dosen->slug = \Illuminate\Support\Str::slug($dosen->nama);
-            $dosen->save();
         }
     }
     

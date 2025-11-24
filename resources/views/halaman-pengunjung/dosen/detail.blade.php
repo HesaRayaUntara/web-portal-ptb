@@ -248,12 +248,12 @@
     @endphp
 
     <script id="dosen-data" type="application/json">
-        {
-            "penelitian": @json($dataPenelitian),
-            "pengabdian": @json($dataPengabdian),
-            "publikasi": @json($dataPublikasi),
-            "hki": @json($dataHKI)
-        }
+        {!! json_encode([
+            'penelitian' => $dataPenelitian,
+            'pengabdian' => $dataPengabdian,
+            'publikasi' => $dataPublikasi,
+            'hki' => $dataHKI
+        ]) !!}
     </script>
     <script>
         // Data dari database

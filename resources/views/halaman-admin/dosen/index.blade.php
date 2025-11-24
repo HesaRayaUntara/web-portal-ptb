@@ -673,15 +673,15 @@
 </div>
 
 <script id="admin-dosen-data" type="application/json">
-{
-    "dosen": @json($dosen),
-    "hasKepalaProdi": @json($hasKepalaProdi),
-    "jenisKarya": @json($jenisKarya),
-    "penelitian": @json($penelitian),
-    "pengabdian": @json($pengabdian),
-    "publikasi": @json($publikasi),
-    "hki": @json($hki)
-}
+{!! json_encode([
+    'dosen' => $dosen,
+    'hasKepalaProdi' => $hasKepalaProdi,
+    'jenisKarya' => $jenisKarya,
+    'penelitian' => $penelitian,
+    'pengabdian' => $pengabdian,
+    'publikasi' => $publikasi,
+    'hki' => $hki
+]) !!}
 </script>
 <script>
     // Parse data from JSON script tag
