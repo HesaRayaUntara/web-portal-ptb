@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Admin - Berita'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -19,7 +17,8 @@
                     <a href="<?php echo e(route('admin.profil.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
                     <a href="<?php echo e(route('admin.fasilitas.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
+                    <a href="<?php echo e(route('admin.staf.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Staf</a>
+                    <a href="<?php echo e(route('admin.dosen.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</a>
                     <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Berita</a>
                     <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
@@ -139,7 +138,7 @@
                                         <td class="px-3 py-2 text-xs text-textMuted sm:px-4 sm:py-3 sm:text-sm"><?php echo e($kategori->nama); ?></td>
                                         <td class="px-3 py-2 sm:px-4 sm:py-3">
                                             <div class="flex items-center justify-center">
-                                                <form method="POST" action="<?php echo e(route('admin.berita.deleteKategori', $kategori->id)); ?>" 
+                                                <form method="POST" action="<?php echo e(route('admin.berita.deleteKategori', $kategori)); ?>" 
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus kategori ini?');">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>
@@ -191,7 +190,7 @@
                                 required>
                                 <option value="" disabled selected>Pilih Kategori</option>
                                 <?php $__currentLoopData = $kategoris; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kategori): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option value="<?php echo e($kategori->id); ?>" <?php echo e(old('kategori_berita_id') == $kategori->id ? 'selected' : ''); ?>>
+                                    <option value="<?php echo e($kategori->id_kategori_berita); ?>" <?php echo e(old('kategori_berita_id') == $kategori->id_kategori_berita ? 'selected' : ''); ?>>
                                         <?php echo e($kategori->nama); ?>
 
                                     </option>
@@ -248,14 +247,14 @@
                                         <td class="px-3 py-2 text-xs text-textMuted sm:px-4 sm:py-3 sm:text-sm"><?php echo e($berita->judul); ?></td>
                                         <td class="px-3 py-2 sm:px-4 sm:py-3">
                                             <div class="flex items-center justify-center gap-2">
-                                                <a href="<?php echo e(route('admin.berita.editBerita', $berita->id)); ?>"
+                                                <a href="<?php echo e(route('admin.berita.editBerita', $berita)); ?>"
                                                     class="flex items-center justify-center rounded-lg bg-blue-50 p-1.5 text-blue-600 transition hover:bg-blue-100 sm:p-2"
                                                     title="Edit">
                                                     <svg class="h-3.5 w-3.5 sm:h-4 sm:w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
                                                     </svg>
                                                 </a>
-                                                <form method="POST" action="<?php echo e(route('admin.berita.destroyBerita', $berita->id)); ?>" 
+                                                <form method="POST" action="<?php echo e(route('admin.berita.destroyBerita', $berita)); ?>" 
                                                     onsubmit="return confirm('Apakah Anda yakin ingin menghapus berita ini?');">
                                                     <?php echo csrf_field(); ?>
                                                     <?php echo method_field('DELETE'); ?>

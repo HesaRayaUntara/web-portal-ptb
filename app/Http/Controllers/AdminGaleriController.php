@@ -26,7 +26,7 @@ class AdminGaleriController extends Controller
     /**
      * Store kategori galeri
      */
-    public function storeKategori(Request $request, KategoriGaleri $kategoriGaleri)
+    public function storeKategori(Request $request)
     {
         $data = $request->validate([
             'nama' => 'required|string|max:255|unique:kategori_galeri,nama',
@@ -63,7 +63,7 @@ class AdminGaleriController extends Controller
         $data = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'kategori_galeri_id' => 'required|exists:kategori_galeri,id',
+            'kategori_galeri_id' => 'required|exists:kategori_galeri,id_kategori_galeri',
             'tipe' => 'required|in:photo,video',
             'foto' => 'required_if:tipe,photo|nullable|image|mimes:jpeg,jpg,png|max:10240',
             'youtube_url' => 'required_if:tipe,video|nullable|url',
@@ -90,11 +90,11 @@ class AdminGaleriController extends Controller
     /**
      * Show the form for editing galeri
      */
-    public function editGaleri(Galeri $galeri, KategoriGaleri $kategoriGaleri)
+    public function editGaleri(Galeri $galeri)
     {
         $data = [
             'galeri' => $galeri->load('kategori'),
-            'kategoris' => $kategoriGaleri->orderBy('nama')->get(),
+            'kategoris' => KategoriGaleri::orderBy('nama')->get(),
         ];
         
         return view('halaman-admin.galeri.edit', $data);
@@ -108,7 +108,7 @@ class AdminGaleriController extends Controller
         $data = $request->validate([
             'judul' => 'required|string|max:255',
             'deskripsi' => 'required|string',
-            'kategori_galeri_id' => 'required|exists:kategori_galeri,id',
+            'kategori_galeri_id' => 'required|exists:kategori_galeri,id_kategori_galeri',
             'tipe' => 'required|in:photo,video',
             'foto' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
             'youtube_url' => 'required_if:tipe,video|nullable|url',

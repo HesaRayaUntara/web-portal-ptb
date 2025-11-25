@@ -15,12 +15,7 @@ class ProfilProdiController extends Controller
     public function index()
     {
         $profilProdi = ProfilProdi::first();
-        
-        if (!$profilProdi) {
-            return redirect()->route('admin.profil.create');
-        }
-
-        return redirect()->route('admin.profil.edit', $profilProdi->id_profil_prodi);
+        return view('halaman-admin.profil.index', compact('profilProdi'));
     }
 
     /**
@@ -28,14 +23,24 @@ class ProfilProdiController extends Controller
      */
     public function create()
     {
-        return view('halaman-admin.profil.index');
+        $existingProfil = ProfilProdi::first();
+        if ($existingProfil) {
+            return redirect()->route('admin.profil.edit', $existingProfil)->with('error', 'Profil Program Studi sudah ada. Hanya boleh ada 1 data profil prodi.');
+        }
+        
+        return view('halaman-admin.profil.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request, ProfilProdi $profilProdi)
+    public function store(Request $request)
     {
+        $existingProfil = ProfilProdi::first();
+        if ($existingProfil) {
+            return redirect()->route('admin.profil.edit', $existingProfil)->with('error', 'Profil Program Studi sudah ada. Hanya boleh ada 1 data profil prodi.');
+        }
+
         $data = $request->validate([
             'deskripsi' => 'required|string',
             'visi' => 'required|string',
@@ -55,8 +60,8 @@ class ProfilProdiController extends Controller
             'mitra_logo' => 'nullable|array',
             'mitra_logo.*' => 'image|mimes:jpeg,jpg,png|max:5120',
             'profil_lulusan' => 'nullable|array',
-            'profil_lulusan.*.peran' => 'required|string|max:255',
-            'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
+            'profil_lulusan.*.peran' => 'required_with:profil_lulusan|string|max:255',
+            'profil_lulusan.*.deskripsi_kemampuan' => 'required_with:profil_lulusan|string',
         ]);
 
         if (isset($data['snbp_pelamar']) && isset($data['snbp_diterima']) && $data['snbp_diterima'] > 0) {
@@ -103,7 +108,7 @@ class ProfilProdiController extends Controller
         }
 
         if ($profilProdi) {
-            return redirect()->route('admin.profil.edit', $profilProdi->id_profil_prodi)->with('success', 'Profil Program Studi berhasil dibuat.');
+            return redirect()->route('admin.profil.index')->with('success', 'Profil Program Studi berhasil dibuat.');
         }
 
         return back()->withInput()->with('error', 'Gagal membuat profil program studi.');
@@ -122,10 +127,8 @@ class ProfilProdiController extends Controller
      */
     public function edit(ProfilProdi $profilProdi)
     {
-        $data = [
-            'profilProdi' => $profilProdi->load('profilLulusan'),
-        ];
-        return view('halaman-admin.profil.index', $data);
+        $profilProdi->load('profilLulusan');
+        return view('halaman-admin.profil.edit', compact('profilProdi'));
     }
 
     /**
@@ -133,30 +136,29 @@ class ProfilProdiController extends Controller
      */
     public function update(Request $request, ProfilProdi $profilProdi)
     {
-
-            $validated = $request->validate([
-                'deskripsi' => 'required|string',
-                'visi' => 'required|string',
-                'misi' => 'required|string',
-                'tujuan' => 'required|string',
-                'lama_studi' => 'required|string|max:255',
-                'gelar_lulusan' => 'required|string|max:255',
-                'kepanjangan_gelar' => 'required|string|max:255',
-                'snbp_pelamar' => 'required|integer|min:0',
-                'snbp_diterima' => 'required|integer|min:1',
-                'snbt_pelamar' => 'required|integer|min:0',
-                'snbt_diterima' => 'required|integer|min:1',
-                'akreditasi' => 'required|string|max:255',
-                'no_sk' => 'required|string|max:255',
-                'foto_akreditasi' => 'nullable|image|mimes:jpeg,jpg,png|max:5120',
-                'industri_tempat_bekerja' => 'required|string',
-                'mitra_logo' => 'nullable|array',
-                'mitra_logo.*' => 'image|mimes:jpeg,jpg,png|max:5120',
-                'profil_lulusan' => 'nullable|array',
-                'profil_lulusan.*.id' => 'nullable|exists:profil_lulusan,id',
-                'profil_lulusan.*.peran' => 'required|string|max:255',
-                'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
-            ]);
+        $data = $request->validate([
+            'deskripsi' => 'required|string',
+            'visi' => 'required|string',
+            'misi' => 'required|string',
+            'tujuan' => 'required|string',
+            'lama_studi' => 'required|string|max:255',
+            'gelar_lulusan' => 'required|string|max:255',
+            'kepanjangan_gelar' => 'required|string|max:255',
+            'snbp_pelamar' => 'required|integer|min:0',
+            'snbp_diterima' => 'required|integer|min:1',
+            'snbt_pelamar' => 'required|integer|min:0',
+            'snbt_diterima' => 'required|integer|min:1',
+            'akreditasi' => 'required|string|max:255',
+            'no_sk' => 'required|string|max:255',
+            'foto_akreditasi' => 'nullable|image|mimes:jpeg,jpg,png|max:5120',
+            'industri_tempat_bekerja' => 'required|string',
+            'mitra_logo' => 'nullable|array',
+            'mitra_logo.*' => 'image|mimes:jpeg,jpg,png|max:5120',
+            'profil_lulusan' => 'nullable|array',
+            'profil_lulusan.*.id_profil_lulusan' => 'nullable|exists:profil_lulusan,id_profil_lulusan',
+            'profil_lulusan.*.peran' => 'required|string|max:255',
+            'profil_lulusan.*.deskripsi_kemampuan' => 'required|string',
+        ]);
 
         if (isset($data['snbp_pelamar']) && isset($data['snbp_diterima']) && $data['snbp_diterima'] > 0) {
             $data['snbp_keketatan'] = round($data['snbp_pelamar'] / $data['snbp_diterima'], 2);
@@ -222,7 +224,7 @@ class ProfilProdiController extends Controller
                 ProfilLulusan::where('profil_prodi_id', $profilProdi->id_profil_prodi)->delete();
             }
 
-            return redirect()->route('admin.profil.edit', $profilProdi->id_profil_prodi)->with('success', 'Profil Program Studi berhasil diperbarui.');
+            return redirect()->route('admin.profil.index')->with('success', 'Profil Program Studi berhasil diperbarui.');
         }
 
         return back()->withInput()->with('error', 'Gagal memperbarui profil program studi.');
@@ -246,7 +248,7 @@ class ProfilProdiController extends Controller
         }
 
         if ($profilProdi->delete()) {
-            return redirect()->route('admin.profil.create')->with('success', 'Profil Program Studi berhasil dihapus.');
+            return redirect()->route('admin.profil.index')->with('success', 'Profil Program Studi berhasil dihapus.');
         }
 
         return back()->with('error', 'Gagal menghapus profil program studi.');

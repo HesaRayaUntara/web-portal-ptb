@@ -2,11 +2,6 @@
 
 @section('title', 'Admin - Profil Program Studi')
 
-@php
-    use Illuminate\Support\Facades\Storage;
-    $profilLulusanCount = isset($profilProdi) && isset($profilProdi->profilLulusan) && $profilProdi->profilLulusan ? $profilProdi->profilLulusan->count() : 0;
-@endphp
-
 @section('content')
 <div class="rounded-section border border-borderSoft bg-white shadow-soft">
     <div class="flex flex-col gap-8 lg:flex-row">
@@ -24,7 +19,8 @@
                     <a href="{{ route('admin.profil.index') }}" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Profil Program Studi</a>
                     <a href="{{ route('admin.fasilitas.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
                     <a href="{{ route('admin.kurikulum.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
+                    <a href="{{ route('admin.staf.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Staf</a>
+                    <a href="{{ route('admin.dosen.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</a>
                     <a href="{{ route('admin.berita.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
                     <a href="{{ route('admin.galeri.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
@@ -39,22 +35,29 @@
         </aside>
 
         <main class="flex-1 p-6 lg:p-8">
-            <div class="mb-6">
-                <h1 class="text-2xl font-bold text-textDark">Profil Program Studi</h1>
-                <p class="mt-1 text-sm text-textMuted">Kelola informasi profil program studi</p>
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-textDark">Profil Program Studi</h1>
+                    <p class="mt-1 text-sm text-textMuted">Kelola informasi profil program studi</p>
+                </div>
+                @if(!$profilProdi)
+                    <a href="{{ route('admin.profil.create') }}" class="rounded-lg bg-primary px-4 py-2 text-sm font-semibold text-white shadow-soft transition hover:bg-primaryDark">
+                        + Tambah Prodi
+                    </a>
+                @endif
             </div>
 
             {{-- Success Alert --}}
             @if(session('success'))
-                <div id="success-alert" class="mb-6 flex items-center justify-between rounded-xl border border-green-300 bg-green-50 px-3 py-2 text-xs text-green-800 shadow-soft animate-slide-down sm:px-4 sm:py-3 sm:text-sm">
-                    <div class="flex items-center gap-2 sm:gap-3">
-                        <svg class="h-4 w-4 flex-shrink-0 text-green-600 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
+                <div id="success-alert" class="mb-6 flex items-center justify-between rounded-xl border border-green-300 bg-green-50 px-4 py-3 text-sm text-green-800 shadow-soft animate-slide-down">
+                    <div class="flex items-center gap-3">
+                        <svg class="h-5 w-5 flex-shrink-0 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="font-semibold break-words">{{ session('success') }}</span>
+                        <span class="font-semibold">{{ session('success') }}</span>
                     </div>
-                    <button type="button" onclick="document.getElementById('success-alert').remove()" class="ml-2 flex-shrink-0 text-green-600 hover:text-green-800 sm:ml-0">
-                        <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <button type="button" onclick="document.getElementById('success-alert').remove()" class="text-green-600 hover:text-green-800">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
@@ -63,407 +66,66 @@
 
             {{-- Error Alert --}}
             @if(session('error'))
-                <div id="error-alert" class="mb-6 flex items-center justify-between rounded-xl border border-red-300 bg-red-50 px-3 py-2 text-xs text-red-800 shadow-soft animate-slide-down sm:px-4 sm:py-3 sm:text-sm">
-                    <div class="flex items-center gap-2 sm:gap-3">
-                        <svg class="h-4 w-4 flex-shrink-0 text-red-600 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
+                <div id="error-alert" class="mb-6 flex items-center justify-between rounded-xl border border-red-300 bg-red-50 px-4 py-3 text-sm text-red-800 shadow-soft animate-slide-down">
+                    <div class="flex items-center gap-3">
+                        <svg class="h-5 w-5 flex-shrink-0 text-red-600" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                         </svg>
-                        <span class="font-semibold break-words">{{ session('error') }}</span>
+                        <span class="font-semibold">{{ session('error') }}</span>
                     </div>
-                    <button type="button" onclick="document.getElementById('error-alert').remove()" class="ml-2 flex-shrink-0 text-red-600 hover:text-red-800 sm:ml-0">
-                        <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <button type="button" onclick="document.getElementById('error-alert').remove()" class="text-red-600 hover:text-red-800">
+                        <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
                         </svg>
                     </button>
                 </div>
             @endif
 
-            {{-- Validation Errors --}}
-            @if($errors->any())
-                <div id="validation-alert" class="mb-6 rounded-xl border border-red-300 bg-red-50 px-3 py-2 text-xs shadow-soft animate-slide-down sm:px-4 sm:py-3 sm:text-sm">
-                    <div class="flex items-start gap-2 sm:gap-3">
-                        <svg class="h-4 w-4 flex-shrink-0 text-red-600 mt-0.5 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                        </svg>
-                        <div class="flex-1">
-                            <h3 class="mb-2 font-semibold text-red-800">Terjadi kesalahan validasi:</h3>
-                            <ul class="list-inside list-disc space-y-1 text-xs text-red-700 sm:text-sm">
-                                @foreach($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                        <button type="button" onclick="document.getElementById('validation-alert').remove()" class="ml-2 flex-shrink-0 text-red-600 hover:text-red-800 sm:ml-0">
-                            <svg class="h-4 w-4 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            @endif
-
-            <form method="POST" action="{{ isset($profilProdi) ? route('admin.profil.update', $profilProdi) : route('admin.profil.store') }}" enctype="multipart/form-data" class="space-y-8">
-                @csrf
-                @if(isset($profilProdi))
-                    @method('PUT')
-                @endif
-
-                {{-- Deskripsi --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Deskripsi Program Studi</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="deskripsi" class="mb-2 block text-sm font-semibold text-textDark">Deskripsi</label>
-                            <textarea id="deskripsi" name="deskripsi" rows="5" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan deskripsi program studi">{{ old('deskripsi', $profilProdi->deskripsi ?? '') }}</textarea>
-                        </div>
-                    </div>
-                </section>
-
-                {{-- Visi Misi --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Visi & Misi</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="visi" class="mb-2 block text-sm font-semibold text-textDark">Visi</label>
-                            <textarea id="visi" name="visi" rows="3" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan visi program studi">{{ old('visi', $profilProdi->visi ?? '') }}</textarea>
-                        </div>
-                        <div>
-                            <label for="misi" class="mb-2 block text-sm font-semibold text-textDark">Misi</label>
-                            <textarea id="misi" name="misi" rows="5" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan misi program studi (pisahkan dengan baris baru)">{{ old('misi', $profilProdi->misi ?? '') }}</textarea>
-                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap poin misi dengan baris baru</p>
-                        </div>
-                        <div>
-                            <label for="tujuan" class="mb-2 block text-sm font-semibold text-textDark">Tujuan</label>
-                            <textarea id="tujuan" name="tujuan" rows="5" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan tujuan program studi (pisahkan dengan baris baru)">{{ old('tujuan', $profilProdi->tujuan ?? '') }}</textarea>
-                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap poin tujuan dengan baris baru</p>
-                        </div>
-                    </div>
-                </section>
-
-                {{-- Informasi Akademik --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Informasi Akademik</h2>
-                    <div class="grid gap-4 md:grid-cols-3">
-                        <div>
-                            <label for="lama_studi" class="mb-2 block text-sm font-semibold text-textDark">Lama Studi (Semester)</label>
-                            <input type="text" id="lama_studi" name="lama_studi" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="cth. 8" value="{{ old('lama_studi', $profilProdi->lama_studi ?? '') }}">
-                        </div>
-                        <div>
-                            <label for="gelar_lulusan" class="mb-2 block text-sm font-semibold text-textDark">Gelar Lulusan</label>
-                            <input type="text" id="gelar_lulusan" name="gelar_lulusan" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="cth. S.Kom." value="{{ old('gelar_lulusan', $profilProdi->gelar_lulusan ?? '') }}">
-                        </div>
-                        <div>
-                            <label for="kepanjangan_gelar" class="mb-2 block text-sm font-semibold text-textDark">Kepanjangan Gelar</label>
-                            <input type="text" id="kepanjangan_gelar" name="kepanjangan_gelar" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="cth. Sarjana Komputer" value="{{ old('kepanjangan_gelar', $profilProdi->kepanjangan_gelar ?? '') }}">
-                        </div>
-                    </div>
-                </section>
-
-                {{-- SNBP --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">SNBP 2025</h2>
-                    <div class="grid gap-4 md:grid-cols-3">
-                        <div>
-                            <label for="snbp_pelamar" class="mb-2 block text-sm font-semibold text-textDark">Jumlah Pelamar</label>
-                            <input type="number" id="snbp_pelamar" name="snbp_pelamar" min="0" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="0" value="{{ old('snbp_pelamar', $profilProdi->snbp_pelamar ?? '') }}" oninput="calculateKeketatan('snbp')">
-                        </div>
-                        <div>
-                            <label for="snbp_diterima" class="mb-2 block text-sm font-semibold text-textDark">Diterima</label>
-                            <input type="number" id="snbp_diterima" name="snbp_diterima" min="1" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="0" value="{{ old('snbp_diterima', $profilProdi->snbp_diterima ?? '') }}" oninput="calculateKeketatan('snbp')">
-                        </div>
-                        <div>
-                            <label for="snbp_keketatan" class="mb-2 block text-sm font-semibold text-textDark">Keketatan (%)</label>
-                            <input type="text" id="snbp_keketatan" name="snbp_keketatan" readonly
-                                class="w-full rounded-xl border border-borderSoft bg-gray-50 px-4 py-3 text-sm text-textDark placeholder:text-textMuted cursor-not-allowed"
-                                placeholder="0.00" value="{{ old('snbp_keketatan', isset($profilProdi) && $profilProdi->snbp_keketatan ? number_format($profilProdi->snbp_keketatan, 2, '.', '') : '0.00') }}">
-                        </div>
-                    </div>
-                </section>
-
-                {{-- SNBT --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">SNBT 2025</h2>
-                    <div class="grid gap-4 md:grid-cols-3">
-                        <div>
-                            <label for="snbt_pelamar" class="mb-2 block text-sm font-semibold text-textDark">Jumlah Pelamar</label>
-                            <input type="number" id="snbt_pelamar" name="snbt_pelamar" min="0" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="0" value="{{ old('snbt_pelamar', $profilProdi->snbt_pelamar ?? '') }}" oninput="calculateKeketatan('snbt')">
-                        </div>
-                        <div>
-                            <label for="snbt_diterima" class="mb-2 block text-sm font-semibold text-textDark">Diterima</label>
-                            <input type="number" id="snbt_diterima" name="snbt_diterima" min="1" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="0" value="{{ old('snbt_diterima', $profilProdi->snbt_diterima ?? '') }}" oninput="calculateKeketatan('snbt')">
-                        </div>
-                        <div>
-                            <label for="snbt_keketatan" class="mb-2 block text-sm font-semibold text-textDark">Keketatan (%)</label>
-                            <input type="text" id="snbt_keketatan" name="snbt_keketatan" readonly
-                                class="w-full rounded-xl border border-borderSoft bg-gray-50 px-4 py-3 text-sm text-textDark placeholder:text-textMuted cursor-not-allowed"
-                                placeholder="0.00" value="{{ old('snbt_keketatan', isset($profilProdi) && $profilProdi->snbt_keketatan ? number_format($profilProdi->snbt_keketatan, 2, '.', '') : '0.00') }}">
-                        </div>
-                    </div>
-                </section>
-
-                {{-- Akreditasi --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Akreditasi</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="akreditasi" class="mb-2 block text-sm font-semibold text-textDark">Akreditasi</label>
-                            <input type="text" id="akreditasi" name="akreditasi" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                value="{{ old('akreditasi', $profilProdi->akreditasi ?? '') }}">
-                        </div>
-                        <div>
-                            <label for="no_sk" class="mb-2 block text-sm font-semibold text-textDark">Nomor SK</label>
-                            <input type="text" id="no_sk" name="no_sk" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="" value="{{ old('no_sk', $profilProdi->no_sk ?? '') }}">
-                        </div>
-                        <div>
-                            <label for="foto_akreditasi" class="mb-2 block text-sm font-semibold text-textDark">Sertifikat Akreditasi</label>
-                            @if(isset($profilProdi) && $profilProdi->foto_akreditasi)
-                                <div class="mb-2">
-                                    <img src="{{ asset('storage/' . $profilProdi->foto_akreditasi) }}" alt="Sertifikat Akreditasi" class="h-32 w-auto rounded-lg border border-borderSoft object-cover">
-                                    <p class="mt-1 text-xs text-textMuted">File saat ini</p>
-                                </div>
+            {{-- Table --}}
+            <div class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-[#F4F7F3]">
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Halaman</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if($profilProdi)
+                                <tr class="border-t border-borderSoft">
+                                    <td class="px-4 py-3 text-sm text-textDark">Profil PTB</td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center justify-start gap-2">
+                                            <a href="{{ route('admin.profil.edit', $profilProdi) }}" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </a>
+                                            <form method="POST" action="{{ route('admin.profil.destroy', $profilProdi) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil program studi?');" class="inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @else
+                                <tr class="border-t border-borderSoft">
+                                    <td colspan="2" class="px-4 py-8 text-center text-sm text-textMuted">
+                                        Belum ada profil program studi. Klik tombol "Tambah Prodi" untuk membuat profil baru.
+                                    </td>
+                                </tr>
                             @endif
-                            <input type="file" id="foto_akreditasi" name="foto_akreditasi" accept="image/jpeg,image/jpg,image/png" {{ !isset($profilProdi) || !$profilProdi->foto_akreditasi ? 'required' : '' }}
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark file:mr-4 file:rounded-lg file:border-0 file:bg-primary/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-primary hover:file:bg-primary/20 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
-                            <p class="mt-1 text-xs text-textMuted">Format: JPG, PNG, JPEG (Maks. 5MB)</p>
-                        </div>
-                    </div>
-                </section>
-
-                {{-- Prospek Karier --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Prospek Karier</h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label for="industri_tempat_bekerja" class="mb-2 block text-sm font-semibold text-textDark">Industri/Tempat Bekerja</label>
-                            <textarea id="industri_tempat_bekerja" name="industri_tempat_bekerja" rows="4" required
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                placeholder="Masukkan industri atau tempat bekerja (pisahkan dengan baris baru)">{{ old('industri_tempat_bekerja', $profilProdi->industri_tempat_bekerja ?? '') }}</textarea>
-                            <p class="mt-1 text-xs text-textMuted">*Pisahkan setiap item dengan baris baru</p>
-                        </div>
-                    </div>
-                </section>
-
-                {{-- Profil Lulusan --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <div class="mb-4 flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-textDark">Profil Lulusan</h2>
-                        <button type="button" onclick="addProfilLulusan()" class="rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primaryDark">
-                            + Tambah Profil
-                        </button>
-                    </div>
-                    <div id="profil-lulusan-container" class="space-y-4" data-initial-count="{{ $profilLulusanCount }}">
-                        @if(isset($profilProdi) && $profilProdi->profilLulusan && $profilProdi->profilLulusan->count() > 0)
-                            @foreach($profilProdi->profilLulusan as $index => $lulusan)
-                            <div class="profil-lulusan-item rounded-xl border border-borderSoft bg-gray-50 p-4">
-                                <div class="mb-3 flex items-center justify-between">
-                                    <h3 class="text-sm font-semibold text-textDark">Profil Lulusan #{{ $index + 1 }}</h3>
-                                    <button type="button" onclick="removeProfilLulusan(this)" class="rounded-lg bg-red-100 px-3 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-200">
-                                        Hapus
-                                    </button>
-                                </div>
-                                <input type="hidden" name="profil_lulusan[{{ $index }}][id_profil_lulusan]" value="{{ $lulusan->id_profil_lulusan }}">
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>
-                                        <input type="text" name="profil_lulusan[{{ $index }}][peran]" value="{{ old('profil_lulusan.'.$index.'.peran', $lulusan->peran) }}" required
-                                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                            placeholder="cth. Peneliti Pemuliaan Tanaman">
-                                    </div>
-                                    <div>
-                                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Deskripsi Kemampuan</label>
-                                        <textarea name="profil_lulusan[{{ $index }}][deskripsi_kemampuan]" rows="3" required
-                                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                            placeholder="Masukkan deskripsi kemampuan">{{ old('profil_lulusan.'.$index.'.deskripsi_kemampuan', $lulusan->deskripsi_kemampuan) }}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        @endif
-                    </div>
-                </section>
-
-                {{-- Mitra Prodi PTB --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Mitra Prodi PTB</h2>
-                    <div>
-                        <label for="mitra_logo" class="mb-2 block text-sm font-semibold text-textDark">Unggah Logo Mitra</label>
-                        @if(isset($profilProdi) && $profilProdi->mitra_logo && count($profilProdi->mitra_logo) > 0)
-                            <div class="mb-4 grid grid-cols-3 gap-4 md:grid-cols-6 lg:grid-cols-9">
-                                @foreach($profilProdi->mitra_logo as $logo)
-                                    <div class="relative">
-                                        <img src="{{ asset('storage/' . $logo) }}" alt="Logo Mitra" class="h-16 w-full rounded-lg border border-borderSoft object-contain p-2">
-                                    </div>
-                                @endforeach
-                            </div>
-                            <p class="mb-2 text-xs text-textMuted">Logo saat ini</p>
-                        @endif
-                        <input type="file" id="mitra_logo" name="mitra_logo[]" accept="image/jpeg,image/jpg,image/png" multiple {{ !isset($profilProdi) || !$profilProdi->mitra_logo || count($profilProdi->mitra_logo) == 0 ? 'required' : '' }}
-                            class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark file:mr-4 file:rounded-lg file:border-0 file:bg-primary/10 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-primary hover:file:bg-primary/20 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
-                        <p class="mt-1 text-xs text-textMuted">Format: JPG, PNG, JPEG (Maks. 5MB per file). Dapat mengunggah multiple file</p>
-                    </div>
-                </section>
-
-                {{-- Submit Button --}}
-                <div class="flex justify-end gap-4">
-                    <a href="{{ route('admin.dashboard') }}" 
-                        class="inline-block rounded-xl border border-borderSoft bg-white px-6 py-3 text-sm font-semibold text-textDark shadow-soft transition hover:bg-gray-50">
-                        Batal
-                    </a>
-                    <button type="submit" 
-                        class="rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:bg-primaryDark">
-                        {{ isset($profilProdi) ? 'Simpan Perubahan' : 'Simpan' }}
-                    </button>
+                        </tbody>
+                    </table>
                 </div>
-            </form>
-
-            {{-- Delete Button (Outside form to avoid nested form issue) --}}
-            @if(isset($profilProdi))
-                <div class="mt-4 flex justify-end">
-                    <form method="POST" action="{{ route('admin.profil.destroy', $profilProdi) }}" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil program studi?');" class="inline">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" 
-                            class="rounded-xl border border-red-300 bg-white px-6 py-3 text-sm font-semibold text-red-600 shadow-soft transition hover:bg-red-50">
-                            Hapus Profil
-                        </button>
-                    </form>
-                </div>
-            @endif
+            </div>
         </main>
     </div>
 </div>
-
-@push('styles')
-<style>
-    @keyframes slide-down {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-    .animate-slide-down {
-        animation: slide-down 0.3s ease-out;
-    }
-</style>
-@endpush
-
-@push('scripts')
-<script>
-    // Calculate keketatan automatically
-    // Rumus: pelamar / diterima
-    function calculateKeketatan(type) {
-        const pelamar = parseFloat(document.getElementById(type + '_pelamar').value) || 0;
-        const diterima = parseFloat(document.getElementById(type + '_diterima').value) || 0;
-        const keketatanInput = document.getElementById(type + '_keketatan');
-        
-        if (diterima > 0) {
-            const keketatan = pelamar / diterima;
-            keketatanInput.value = keketatan.toFixed(2);
-        } else {
-            keketatanInput.value = '0.00';
-        }
-    }
-
-    // Auto-dismiss alerts after 5 seconds
-    document.addEventListener('DOMContentLoaded', function() {
-        const successAlert = document.getElementById('success-alert');
-        const errorAlert = document.getElementById('error-alert');
-        const validationAlert = document.getElementById('validation-alert');
-
-        function autoDismiss(alert, delay = 5000) {
-            if (alert) {
-                setTimeout(() => {
-                    alert.style.transition = 'opacity 0.3s ease-out';
-                    alert.style.opacity = '0';
-                    setTimeout(() => {
-                        alert.remove();
-                    }, 300);
-                }, delay);
-            }
-        }
-
-        autoDismiss(successAlert, 5000);
-        autoDismiss(errorAlert, 7000); // Error alerts stay longer
-        autoDismiss(validationAlert, 7000); // Validation errors stay longer
-
-        // Calculate initial keketatan on page load
-        calculateKeketatan('snbp');
-        calculateKeketatan('snbt');
-    });
-
-    // Profil Lulusan Management
-    const container = document.getElementById('profil-lulusan-container');
-    let profilLulusanIndex = parseInt(container.getAttribute('data-initial-count')) || 0;
-
-    function addProfilLulusan() {
-        const container = document.getElementById('profil-lulusan-container');
-        const item = document.createElement('div');
-        item.className = 'profil-lulusan-item rounded-xl border border-borderSoft bg-gray-50 p-4';
-        const index = profilLulusanIndex;
-        item.innerHTML = '<div class="mb-3 flex items-center justify-between">' +
-            '<h3 class="text-sm font-semibold text-textDark">Profil Lulusan #' + (index + 1) + '</h3>' +
-            '<button type="button" onclick="removeProfilLulusan(this)" class="rounded-lg bg-red-100 px-3 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-200">Hapus</button>' +
-            '</div>' +
-            '<div class="space-y-3">' +
-            '<div><label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>' +
-            '<input type="text" name="profil_lulusan[' + index + '][peran]" required ' +
-            'class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15" ' +
-            'placeholder="cth. Peneliti Pemuliaan Tanaman"></div>' +
-            '<div><label class="mb-1.5 block text-xs font-semibold text-textDark">Deskripsi Kemampuan</label>' +
-            '<textarea name="profil_lulusan[' + index + '][deskripsi_kemampuan]" rows="3" required ' +
-            'class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15" ' +
-            'placeholder="Masukkan deskripsi kemampuan"></textarea></div>' +
-            '</div>';
-        container.appendChild(item);
-        profilLulusanIndex++;
-        updateProfilLulusanNumbers();
-    }
-
-    function removeProfilLulusan(button) {
-        const item = button.closest('.profil-lulusan-item');
-        item.remove();
-        updateProfilLulusanNumbers();
-    }
-
-    function updateProfilLulusanNumbers() {
-        const items = document.querySelectorAll('.profil-lulusan-item');
-        items.forEach((item, index) => {
-            const title = item.querySelector('h3');
-            if (title) {
-                title.textContent = `Profil Lulusan #${index + 1}`;
-            }
-        });
-    }
-</script>
-@endpush
 @endsection
-

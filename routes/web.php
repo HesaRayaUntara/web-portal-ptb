@@ -198,7 +198,8 @@ Route::get('/', function () {
 // Route Profil
 Route::get('/profil', function () {
     $profilProdi = \App\Models\ProfilProdi::with('profilLulusan')->first();
-    return view('halaman-pengunjung.profil.index', compact('profilProdi'));
+    $fasilitas = \App\Models\Fasilitas::orderBy('created_at', 'desc')->take(4)->get();
+    return view('halaman-pengunjung.profil.index', compact('profilProdi', 'fasilitas'));
 })->name('profil');
 
 // Route Fasilitas
@@ -219,6 +220,9 @@ Route::get('/kurikulum/detail', function () {
     $kurikulumBySemester = $kurikulum->groupBy('semester');
     return view('halaman-pengunjung.kurikulum.detail', compact('kurikulumBySemester'));
 })->name('kurikulum.detail');
+
+// Route Download PDF Kurikulum
+Route::get('/kurikulum/download', [\App\Http\Controllers\KurikulumController::class, 'downloadPDF'])->name('kurikulum.download');
 
 // Route Dosen
 Route::get('/dosen', function () {
@@ -475,7 +479,9 @@ Route::middleware('admin.auth')->group(function () {
         return view('halaman-admin.admin');
     })->name('admin.dashboard');
     
-    Route::resource('admin/profil', \App\Http\Controllers\ProfilProdiController::class)->names([
+    Route::resource('admin/profil', \App\Http\Controllers\ProfilProdiController::class)->parameters([
+        'profil' => 'profilProdi'
+    ])->names([
         'index' => 'admin.profil.index',
         'create' => 'admin.profil.create',
         'store' => 'admin.profil.store',
@@ -487,7 +493,9 @@ Route::middleware('admin.auth')->group(function () {
     Route::get('admin/kurikulum/tambah', [\App\Http\Controllers\KurikulumController::class, 'create'])->name('admin.kurikulum.tambah');
     Route::get('admin/fasilitas/tambah', [\App\Http\Controllers\FasilitasController::class, 'create'])->name('admin.fasilitas.tambah');
     Route::get('admin/staf/tambah', [\App\Http\Controllers\StafController::class, 'create'])->name('admin.staf.tambah');
-    Route::resource('admin/fasilitas', \App\Http\Controllers\FasilitasController::class)->except(['create'])->names([
+    Route::resource('admin/fasilitas', \App\Http\Controllers\FasilitasController::class)->except(['create'])->parameters([
+        'fasilitas' => 'fasilitas'
+    ])->names([
         'index' => 'admin.fasilitas.index',
         'store' => 'admin.fasilitas.store',
         'show' => 'admin.fasilitas.show',

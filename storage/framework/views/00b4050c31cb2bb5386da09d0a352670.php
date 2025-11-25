@@ -17,7 +17,8 @@
                     <a href="<?php echo e(route('admin.profil.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
                     <a href="<?php echo e(route('admin.fasilitas.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Kurikulum</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
+                    <a href="<?php echo e(route('admin.staf.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Staf</a>
+                    <a href="<?php echo e(route('admin.dosen.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</a>
                     <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
                     <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
@@ -151,11 +152,11 @@
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Semester</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Kode</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Mata Kuliah</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">SKS</th>
-                                    <th class="px-4 py-3 text-center text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Semester</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Kode</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Mata Kuliah</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">SKS</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -173,20 +174,20 @@
                                         ?>
                                         <tr class="transition <?php echo e($isLastItem && !$isLastSemester ? 'border-b border-borderSoft' : ''); ?>">
                                             <?php if($index === 0): ?>
-                                                <td class="px-4 py-2 text-sm font-semibold text-textDark whitespace-nowrap align-top" rowspan="<?php echo e($kurikulumItems->count()); ?>">Semester <?php echo e($semester); ?></td>
+                                                <td class="px-4 py-2 text-xs text-textMuted align-center" rowspan="<?php echo e($kurikulumItems->count()); ?>">Semester <?php echo e($semester); ?></td>
                                             <?php endif; ?>
-                                            <td class="px-4 py-2 text-sm text-textMuted whitespace-nowrap">
+                                            <td class="px-4 py-2 text-xs text-textMuted">
                                                 <?php echo e($item->kode_mk); ?>
 
                                             </td>
-                                            <td class="px-4 py-2 text-sm text-textMuted whitespace-nowrap">
+                                            <td class="px-4 py-2 text-xs text-textMuted">
                                                 <?php echo e($item->nama_mk); ?>
 
                                             </td>
-                                            <td class="px-4 py-2 text-sm text-textMuted whitespace-nowrap">
+                                            <td class="px-4 py-2 text-xs text-textMuted">
                                             <?php echo e($item->sks_kuliah + $item->sks_praktikum); ?> (<?php echo e($item->sks_kuliah); ?>-<?php echo e($item->sks_praktikum); ?>)
                                             </td>
-                                            <td class="px-4 py-2 whitespace-nowrap">
+                                            <td class="px-4 py-2">
                                                 <div class="flex items-center justify-center gap-2">
                                                     <a href="<?php echo e(route('admin.kurikulum.edit', $item)); ?>"
                                                         class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100 flex-shrink-0"

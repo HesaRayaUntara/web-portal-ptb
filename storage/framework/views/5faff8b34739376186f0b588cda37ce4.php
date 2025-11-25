@@ -22,13 +22,17 @@
                         <h1 class="text-lg font-semibold text-secondary md:text-xl"><?php echo e($dosen->nama); ?></h1>
                         <span class="mt-1 inline-flex rounded-full bg-primary/15 px-3 py-0.5 text-xs font-semibold text-primary"><?php echo e($dosen->status); ?></span>
                     </div>
-                    <div class="flex justify-center">
+                <div class="flex justify-center">
                         <div class="w-full max-w-[160px] overflow-hidden rounded-card shadow-soft">
-                            <div class="relative w-full pb-[133.33%]">
+                            <div class="relative w-full pb-[133.33%] bg-gray-200">
                                 <?php if($dosen->foto): ?>
                                     <img src="<?php echo e(Storage::url($dosen->foto)); ?>" alt="<?php echo e($dosen->nama); ?>" class="absolute inset-0 h-full w-full object-cover">
                                 <?php else: ?>
-                                    <img src="<?php echo e(asset('gambar/contoh.png')); ?>" alt="<?php echo e($dosen->nama); ?>" class="absolute inset-0 h-full w-full object-cover">
+                                    <div class="absolute inset-0 flex h-full w-full items-center justify-center bg-gray-200">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-16 w-16 text-[#1e3a5f]">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                                        </svg>
+                                    </div>
                                 <?php endif; ?>
                             </div>
                         </div>
@@ -39,7 +43,7 @@
                     <div class="space-y-2">
                         <div class="flex items-center gap-2">
                             <h3 class="text-sm font-semibold text-textDark md:text-base">Bidang Keahlian</h3>
-                        </div>
+                    </div>
                         <?php if($dosen->bidang_keahlian): ?>
                             <?php $__currentLoopData = explode("\n", $dosen->bidang_keahlian); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $bidang): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                 <?php if(trim($bidang)): ?>
@@ -242,12 +246,13 @@
     ?>
 
     <script id="dosen-data" type="application/json">
-        {
-            "penelitian": <?php echo json_encode($dataPenelitian, 15, 512) ?>,
-            "pengabdian": <?php echo json_encode($dataPengabdian, 15, 512) ?>,
-            "publikasi": <?php echo json_encode($dataPublikasi, 15, 512) ?>,
-            "hki": <?php echo json_encode($dataHKI, 15, 512) ?>
-        }
+        <?php echo json_encode([
+            'penelitian' => $dataPenelitian,
+            'pengabdian' => $dataPengabdian,
+            'publikasi' => $dataPublikasi,
+            'hki' => $dataHKI
+        ]); ?>
+
     </script>
     <script>
         // Data dari database

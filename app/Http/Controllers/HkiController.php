@@ -9,21 +9,21 @@ use Illuminate\Http\Request;
 
 class HkiController extends Controller
 {
-    public function create(Dosen $dosen, JenisKarya $jenisKarya)
+    public function create()
     {
         $data = [
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
-            'jenisKarya' => $jenisKarya->orderBy('j_karya', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
+            'jenisKarya' => JenisKarya::orderBy('j_karya', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.hki.create', $data);
     }
 
-    public function edit(Hki $hki, Dosen $dosen, JenisKarya $jenisKarya)
+    public function edit(Hki $hki)
     {
         $data = [
             'hki' => $hki,
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
-            'jenisKarya' => $jenisKarya->orderBy('j_karya', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
+            'jenisKarya' => JenisKarya::orderBy('j_karya', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.hki.edit', $data);
     }
@@ -31,7 +31,7 @@ class HkiController extends Controller
     public function store(Request $request, Hki $hki)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_karya' => 'required|string|max:255',
             'jenis_karya' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
@@ -47,7 +47,7 @@ class HkiController extends Controller
     public function update(Request $request, Hki $hki)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_karya' => 'required|string|max:255',
             'jenis_karya' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),

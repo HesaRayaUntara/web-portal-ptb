@@ -48,11 +48,18 @@
                     </div>
                     <h2 class="text-sm font-semibold text-secondary md:text-base">Mata Kuliah</h2>
                 </div>
-                <a href="<?php echo e(route('kurikulum.detail')); ?>"
-                   class="hidden items-center gap-2 rounded-full border border-primary/20 px-4 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:shadow-soft md:inline-flex">
-                    <span>Selengkapnya</span>
-                    <span aria-hidden="true">></span>
-                </a>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="downloadPDF()" class="flex items-center justify-center rounded-full border border-primary/20 p-1.5 text-primary transition hover:border-primary hover:bg-primary/5 hover:shadow-soft">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                        </svg>
+                    </button>
+                    <a href="<?php echo e(route('kurikulum.detail')); ?>"
+                       class="hidden items-center gap-2 rounded-full border border-primary/20 px-4 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:shadow-soft md:inline-flex">
+                        <span>Selengkapnya</span>
+                        <span aria-hidden="true">></span>
+                    </a>
+                </div>
             </div>
             <div class="grid gap-3 md:grid-cols-2">
                 <div class="group rounded-lg border border-primary/10 bg-white/60 p-3 transition-all duration-200 hover:border-primary/20 hover:bg-white">
@@ -72,7 +79,7 @@
                     <p class="text-[10px] leading-relaxed text-textMuted md:text-xs"><?php echo e($deskripsiKurikulum->deskripsi_semester_7_8); ?></p>
                 </div>
             </div>
-            <div class="mt-4 flex justify-end md:hidden">
+            <div class="mt-4 flex items-center justify-end gap-2 md:hidden">
                 <a href="<?php echo e(route('kurikulum.detail')); ?>"
                    class="inline-flex items-center gap-2 rounded-full border border-primary/20 px-4 py-1.5 text-xs font-semibold text-primary transition hover:border-primary hover:shadow-soft">
                     <span>Detail</span>
@@ -81,6 +88,25 @@
             </div>
         </div>
     </section>
+
+    <?php if(session('error')): ?>
+    <meta name="error-message" content="<?php echo e(session('error')); ?>">
+    <?php endif; ?>
+
+    <?php $__env->startPush('scripts'); ?>
+    <script>
+        function downloadPDF() {
+            window.location.href = '<?php echo e(route("kurikulum.download")); ?>';
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorMeta = document.querySelector('meta[name="error-message"]');
+            if (errorMeta) {
+                alert(errorMeta.getAttribute('content'));
+            }
+        });
+    </script>
+    <?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.main', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\web-portal-ptb\resources\views/halaman-pengunjung/kurikulum/index.blade.php ENDPATH**/ ?>

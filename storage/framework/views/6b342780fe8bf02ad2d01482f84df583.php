@@ -1,6 +1,9 @@
 <?php $__env->startSection('title', 'Profil Program Studi'); ?>
 
 <?php $__env->startSection('content'); ?>
+<?php
+    use Illuminate\Support\Facades\Storage;
+?>
 <!-- Breadcrumb -->
 <nav class="mb-4 flex items-center gap-2 text-xs text-textMuted md:mb-6 md:text-sm">
     <a href="<?php echo e(route('beranda')); ?>" class="transition hover:text-primary">Beranda</a>
@@ -330,28 +333,30 @@
                 <span aria-hidden="true">></span>
             </a>
         </div>
-        <div class="grid gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
-            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                <img src="https://images.unsplash.com/photo-1471194402529-8e0f5a675de6?auto=format&fit=crop&w=1400&q=80" alt="Laboratorium Inovasi" class="h-36 w-full object-cover md:h-40">
-                <div class="space-y-2 p-4 md:space-y-2.5 md:p-5">
-                    <h3 class="text-xs font-semibold text-textDark md:text-sm">Laboratorium Inovasi</h3>
-                    <p class="text-[10px] text-textMuted md:text-xs">Fasilitas modern untuk kegiatan penelitian dan pengembangan teknologi berbasis data dan otomasi.</p>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+            <?php $__empty_1 = true; $__currentLoopData = $fasilitas; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                <article class="facility-card overflow-hidden rounded-card border border-primary/10 bg-white cursor-pointer shadow-soft transition hover:-translate-y-1 hover:shadow-card" 
+                         data-image="<?php echo e($item->foto ? Storage::url($item->foto) : ''); ?>" 
+                         data-alt="<?php echo e($item->nama_fasilitas); ?>">
+                    <?php if($item->foto): ?>
+                        <img src="<?php echo e(Storage::url($item->foto)); ?>" alt="<?php echo e($item->nama_fasilitas); ?>" class="h-32 w-full object-cover">
+                    <?php else: ?>
+                        <div class="flex h-32 w-full items-center justify-center bg-gray-200 text-gray-400">
+                            <svg class="h-12 w-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                    <?php endif; ?>
+                    <div class="space-y-2 p-4">
+                        <h3 class="text-lg font-semibold text-textDark"><?php echo e($item->nama_fasilitas); ?></h3>
+                        <p class="text-xs text-textMuted leading-relaxed"><?php echo e($item->deskripsi); ?></p>
+                    </div>
+                </article>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
+                <div class="col-span-full py-12 text-center">
+                    <p class="text-sm text-textMuted">Belum ada fasilitas yang ditampilkan.</p>
                 </div>
-            </article>
-            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80" alt="Agro Tech Park" class="h-36 w-full object-cover md:h-40">
-                <div class="space-y-2 p-4 md:space-y-2.5 md:p-5">
-                    <h3 class="text-xs font-semibold text-textDark md:text-sm">Agro Tech Park</h3>
-                    <p class="text-[10px] text-textMuted md:text-xs">Ruang praktik terbuka bagi mahasiswa untuk menerapkan teknologi pertanian presisi di lingkungan nyata.</p>
-                </div>
-            </article>
-            <article class="overflow-hidden rounded-card border border-primary/10 bg-white shadow-soft transition hover:-translate-y-1 hover:shadow-card md:col-span-2 lg:col-span-1">
-                <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?auto=format&fit=crop&w=800&q=80" alt="Learning Studio" class="h-36 w-full object-cover md:h-40">
-                <div class="space-y-2 p-4 md:space-y-2.5 md:p-5">
-                    <h3 class="text-xs font-semibold text-textDark md:text-sm">Learning Studio</h3>
-                    <p class="text-[10px] text-textMuted md:text-xs">Ruang belajar interaktif yang mendukung pembelajaran kolaboratif dan pengembangan ide kreatif mahasiswa.</p>
-                </div>
-            </article>
+            <?php endif; ?>
         </div>
         <div class="mt-4 flex justify-end md:hidden">
             <a href="<?php echo e(route('fasilitas')); ?>"
@@ -380,6 +385,20 @@
     </div>
 </section>
 <?php endif; ?>
+
+<!-- Image Modal -->
+<div id="facilityModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/80 p-4">
+    <div class="relative max-h-[90vh] max-w-[90vw]">
+        <button id="closeFacilityModal" class="absolute -right-2 -top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white text-textDark shadow-lg transition hover:bg-gray-100">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+        <div class="relative overflow-hidden bg-white shadow-xl">
+            <img id="facilityModalImage" src="" alt="" class="max-h-[90vh] max-w-[90vw] object-contain">
+        </div>
+    </div>
+</div>
 
 <?php $__env->startPush('scripts'); ?>
 <script>
@@ -418,6 +437,51 @@
                 }
             });
         });
+
+        // Facility card modal
+        const facilityCards = document.querySelectorAll('.facility-card');
+        const modal = document.getElementById('facilityModal');
+        const modalImage = document.getElementById('facilityModalImage');
+        const closeModal = document.getElementById('closeFacilityModal');
+
+        if (facilityCards.length > 0 && modal && modalImage && closeModal) {
+            facilityCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const imageUrl = this.getAttribute('data-image');
+                    const imageAlt = this.getAttribute('data-alt');
+                    
+                    if (imageUrl) {
+                        modalImage.src = imageUrl;
+                        modalImage.alt = imageAlt;
+                        modal.classList.remove('hidden');
+                        modal.classList.add('flex');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // Close modal functions
+            function closeFacilityModal() {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+            }
+
+            closeModal.addEventListener('click', closeFacilityModal);
+
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeFacilityModal();
+                }
+            });
+
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeFacilityModal();
+                }
+            });
+        }
     });
 </script>
 <?php $__env->stopPush(); ?>

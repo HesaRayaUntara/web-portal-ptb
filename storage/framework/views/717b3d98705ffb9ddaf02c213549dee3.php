@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Admin - Staf'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -23,9 +21,9 @@
                     <a href="<?php echo e(route('admin.fasilitas.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
                     <a href="<?php echo e(route('admin.staf.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Staf</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</button>
+                    <a href="<?php echo e(route('admin.dosen.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</a>
+                    <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
+                    <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
                 <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
                     <?php echo csrf_field(); ?>
@@ -91,27 +89,27 @@
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Foto</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Nama</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Jabatan</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Foto</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Nama</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Jabatan</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $__currentLoopData = $staf; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="border-b border-borderSoft transition hover:bg-gray-50">
-                                        <td class="px-4 py-3 text-sm text-textMuted whitespace-nowrap"><?php echo e($index + 1); ?></td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($index + 1); ?></td>
+                                        <td class="px-4 py-3">
                                             <?php if($item->foto): ?>
                                                 <img src="<?php echo e(Storage::url($item->foto)); ?>" alt="<?php echo e($item->nama); ?>" class="h-16 w-16 rounded-lg object-cover">
                                             <?php else: ?>
                                                 <div class="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-200 text-xs text-gray-400">No Image</div>
                                             <?php endif; ?>
                                         </td>
-                                        <td class="px-4 py-3 text-sm font-semibold text-textDark whitespace-nowrap"><?php echo e($item->nama); ?></td>
+                                        <td class="px-4 py-3 text-sm font-semibold text-textDark"><?php echo e($item->nama); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->jabatan); ?></td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="<?php echo e(route('admin.staf.edit', $item)); ?>"
                                                     class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100 flex-shrink-0"

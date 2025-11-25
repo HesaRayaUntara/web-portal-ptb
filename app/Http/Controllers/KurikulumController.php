@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kurikulum;
 use App\Models\DeskripsiKurikulum;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class KurikulumController extends Controller
 {
@@ -136,5 +137,20 @@ class KurikulumController extends Controller
         }
 
         return back()->with('error', 'Gagal menghapus mata kuliah.');
+    }
+
+    public function downloadPDF()
+    {
+        $kurikulum = Kurikulum::orderBy('semester')->orderBy('kode_mk')->get();
+        
+        if ($kurikulum->isEmpty()) {
+            return redirect()->route('kurikulum')->with('error', 'Mata kuliah belum tersedia.');
+        }
+
+        $kurikulumBySemester = $kurikulum->groupBy('semester');
+        
+        $pdf = PDF::loadView('halaman-pengunjung.kurikulum.pdf', compact('kurikulumBySemester'));
+        
+        return $pdf->download('Mata_Kuliah_Program_Studi_PTB.pdf');
     }
 }

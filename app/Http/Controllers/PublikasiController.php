@@ -9,21 +9,21 @@ use Illuminate\Http\Request;
 
 class PublikasiController extends Controller
 {
-    public function create(Dosen $dosen, JenisKarya $jenisKarya)
+    public function create()
     {
         $data = [
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
-            'jenisKarya' => $jenisKarya->orderBy('j_karya', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
+            'jenisKarya' => JenisKarya::orderBy('j_karya', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.publikasi.create', $data);
     }
 
-    public function edit(Publikasi $publikasi, Dosen $dosen, JenisKarya $jenisKarya)
+    public function edit(Publikasi $publikasi)
     {
         $data = [
             'publikasi' => $publikasi,
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
-            'jenisKarya' => $jenisKarya->orderBy('j_karya', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
+            'jenisKarya' => JenisKarya::orderBy('j_karya', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.publikasi.edit', $data);
     }
@@ -31,7 +31,7 @@ class PublikasiController extends Controller
     public function store(Request $request, Publikasi $publikasi)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_karya' => 'required|string|max:255',
             'jenis_karya' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
@@ -47,7 +47,7 @@ class PublikasiController extends Controller
     public function update(Request $request, Publikasi $publikasi)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_karya' => 'required|string|max:255',
             'jenis_karya' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),

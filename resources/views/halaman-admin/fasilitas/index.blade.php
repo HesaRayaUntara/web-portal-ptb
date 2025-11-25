@@ -22,9 +22,10 @@
                     <a href="{{ route('admin.profil.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
                     <a href="{{ route('admin.fasilitas.index') }}" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Fasilitas</a>
                     <a href="{{ route('admin.kurikulum.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</button>
+                    <a href="{{ route('admin.staf.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Staf</a>
+                    <a href="{{ route('admin.dosen.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</a>
+                    <a href="{{ route('admin.berita.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
+                    <a href="{{ route('admin.galeri.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
                 <form method="POST" action="{{ route('admin.logout') }}">
                     @csrf
@@ -90,27 +91,27 @@
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Foto</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Nama Fasilitas</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Deskripsi</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark ">No</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark ">Foto</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark ">Nama Fasilitas</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark ">Deskripsi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark ">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($fasilitas as $index => $item)
                                     <tr class="border-b border-borderSoft transition hover:bg-gray-50">
-                                        <td class="px-4 py-3 text-sm text-textMuted whitespace-nowrap">{{ $index + 1 }}</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3 text-sm text-textMuted ">{{ $index + 1 }}</td>
+                                        <td class="px-4 py-3">
                                             @if($item->foto)
                                                 <img src="{{ Storage::url($item->foto) }}" alt="{{ $item->nama_fasilitas }}" class="h-16 w-16 rounded-lg object-cover">
                                             @else
                                                 <div class="flex h-16 w-16 items-center justify-center rounded-lg bg-gray-200 text-xs text-gray-400">No Image</div>
                                             @endif
                                         </td>
-                                        <td class="px-4 py-3 text-sm font-semibold text-textDark whitespace-nowrap">{{ $item->nama_fasilitas }}</td>
+                                        <td class="px-4 py-3  text-sm text-textMuted ">{{ $item->nama_fasilitas }}</td>
                                         <td class="px-4 py-3 text-sm text-textMuted">{{ Str::limit($item->deskripsi, 100) }}</td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3 ">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="{{ route('admin.fasilitas.edit', $item) }}"
                                                     class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100 flex-shrink-0"

@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Admin - Edit Penelitian'); ?>
 
 <?php $__env->startSection('content'); ?>
@@ -21,8 +19,8 @@
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
                     <a href="<?php echo e(route('admin.staf.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Staf</a>
                     <a href="<?php echo e(route('admin.dosen.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Profil Dosen</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</button>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</button>
+                    <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
+                    <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Galeri</a>
                 </nav>
                 <form method="POST" action="<?php echo e(route('admin.logout')); ?>">
                     <?php echo csrf_field(); ?>
@@ -99,7 +97,7 @@
             <?php endif; ?>
 
             
-            <form method="POST" action="<?php echo e(route('admin.dosen.updatePenelitian', $penelitian->id)); ?>" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+            <form method="POST" action="<?php echo e(route('admin.dosen.updatePenelitian', $penelitian)); ?>" class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
                 <?php echo csrf_field(); ?>
                 <?php echo method_field('PUT'); ?>
                 
@@ -110,7 +108,7 @@
                             class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
                             <option value="">Pilih Dosen (Opsional)</option>
                             <?php $__currentLoopData = $dosen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $d): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($d->id); ?>" <?php echo e(old('dosen_id', $penelitian->dosen_id) == $d->id ? 'selected' : ''); ?>><?php echo e($d->nama); ?></option>
+                                <option value="<?php echo e($d->id_dosen); ?>" <?php echo e(old('dosen_id', $penelitian->dosen_id) == $d->id_dosen ? 'selected' : ''); ?>><?php echo e($d->nama); ?></option>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
                         <?php $__errorArgs = ['dosen_id'];

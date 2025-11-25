@@ -28,7 +28,7 @@ class AdminBeritaController extends Controller
     /**
      * Store kategori berita
      */
-    public function storeKategori(Request $request, KategoriBerita $kategoriBerita)
+    public function storeKategori(Request $request)
     {
         $data = $request->validate([
             'nama' => 'required|string|max:255|unique:kategori_berita,nama',
@@ -65,7 +65,7 @@ class AdminBeritaController extends Controller
         $data = $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
-            'kategori_berita_id' => 'required|exists:kategori_berita,id',
+            'kategori_berita_id' => 'required|exists:kategori_berita,id_kategori_berita',
             'penulis' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,jpg,png|max:10240',
         ]);
@@ -117,7 +117,7 @@ class AdminBeritaController extends Controller
     /**
      * Show the form for editing draft berita
      */
-    public function editDraft(Berita $berita, KategoriBerita $kategoriBerita)
+    public function editDraft(Berita $berita)
     {
         if ($berita->status !== 'draft') {
             return redirect()->route('admin.berita.index')->with('error', 'Berita ini bukan draft.');
@@ -125,7 +125,7 @@ class AdminBeritaController extends Controller
 
         $data = [
             'berita' => $berita->load('kategori'),
-            'kategoris' => $kategoriBerita->orderBy('nama')->get(),
+            'kategoris' => KategoriBerita::orderBy('nama')->get(),
         ];
         
         return view('halaman-admin.berita.edit', $data);
@@ -143,7 +143,7 @@ class AdminBeritaController extends Controller
         $data = $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
-            'kategori_berita_id' => 'required|exists:kategori_berita,id',
+            'kategori_berita_id' => 'required|exists:kategori_berita,id_kategori_berita',
             'penulis' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
         ]);
@@ -191,11 +191,11 @@ class AdminBeritaController extends Controller
     /**
      * Show the form for editing published berita
      */
-    public function editBerita(Berita $berita, KategoriBerita $kategoriBerita)
+    public function editBerita(Berita $berita)
     {
         $data = [
             'berita' => $berita->load('kategori'),
-            'kategoris' => $kategoriBerita->orderBy('nama')->get(),
+            'kategoris' => KategoriBerita::orderBy('nama')->get(),
         ];
         
         return view('halaman-admin.berita.edit', $data);
@@ -209,7 +209,7 @@ class AdminBeritaController extends Controller
         $data = $request->validate([
             'judul' => 'required|string|max:255',
             'isi' => 'required|string',
-            'kategori_berita_id' => 'required|exists:kategori_berita,id',
+            'kategori_berita_id' => 'required|exists:kategori_berita,id_kategori_berita',
             'penulis' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,jpg,png|max:10240',
         ]);

@@ -8,19 +8,19 @@ use Illuminate\Http\Request;
 
 class PengabdianController extends Controller
 {
-    public function create(Dosen $dosen)
+    public function create()
     {
         $data = [
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.pengabdian.create', $data);
     }
 
-    public function edit(Pengabdian $pengabdian, Dosen $dosen)
+    public function edit(Pengabdian $pengabdian)
     {
         $data = [
             'pengabdian' => $pengabdian,
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.pengabdian.edit', $data);
     }
@@ -28,7 +28,7 @@ class PengabdianController extends Controller
     public function store(Request $request, Pengabdian $pengabdian)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_pengabdian' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
@@ -43,7 +43,7 @@ class PengabdianController extends Controller
     public function update(Request $request, Pengabdian $pengabdian)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_pengabdian' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);

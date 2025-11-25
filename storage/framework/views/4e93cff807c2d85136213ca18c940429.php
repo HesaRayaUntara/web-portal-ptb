@@ -1,5 +1,3 @@
-
-
 <?php $__env->startSection('title', 'Admin - Edit Galeri'); ?>
 
 <?php
@@ -23,7 +21,8 @@
                     <a href="<?php echo e(route('admin.profil.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
                     <a href="<?php echo e(route('admin.fasilitas.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
                     <a href="<?php echo e(route('admin.kurikulum.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
-                    <button class="w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</button>
+                    <a href="<?php echo e(route('admin.staf.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Staf</a>
+                    <a href="<?php echo e(route('admin.dosen.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</a>
                     <a href="<?php echo e(route('admin.berita.index')); ?>" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
                     <a href="<?php echo e(route('admin.galeri.index')); ?>" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Galeri</a>
                 </nav>
@@ -102,7 +101,7 @@
             <?php endif; ?>
 
             
-            <form method="POST" action="<?php echo e(route('admin.galeri.updateGaleri', $galeri->id)); ?>" enctype="multipart/form-data" id="galeriForm" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
+            <form method="POST" action="<?php echo e(route('admin.galeri.updateGaleri', $galeri)); ?>" enctype="multipart/form-data" id="galeriForm" class="rounded-xl border border-borderSoft bg-white p-4 shadow-soft sm:p-6">
                 <?php echo csrf_field(); ?>
                 <?php echo method_field('PUT'); ?>
                 <div class="space-y-4">
@@ -127,7 +126,7 @@
                             required>
                             <option value="" disabled selected>Pilih Kategori</option>
                             <?php $__currentLoopData = $kategoris; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $kategori): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <option value="<?php echo e($kategori->id); ?>" <?php echo e(old('kategori_galeri_id', $galeri->kategori_galeri_id) == $kategori->id ? 'selected' : ''); ?>>
+                                <option value="<?php echo e($kategori->id_kategori_galeri); ?>" <?php echo e(old('kategori_galeri_id', $galeri->kategori_galeri_id) == $kategori->id_kategori_galeri ? 'selected' : ''); ?>>
                                     <?php echo e($kategori->nama); ?>
 
                                 </option>

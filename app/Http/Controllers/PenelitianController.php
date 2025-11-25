@@ -8,19 +8,19 @@ use Illuminate\Http\Request;
 
 class PenelitianController extends Controller
 {
-    public function create(Dosen $dosen)
+    public function create()
     {
         $data = [
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.penelitian.create', $data);
     }
 
-    public function edit(Penelitian $penelitian, Dosen $dosen)
+    public function edit(Penelitian $penelitian)
     {
         $data = [
             'penelitian' => $penelitian,
-            'dosen' => $dosen->orderBy('nama', 'asc')->get(),
+            'dosen' => Dosen::orderBy('nama', 'asc')->get(),
         ];
         return view('halaman-admin.dosen.penelitian.edit', $data);
     }
@@ -28,7 +28,7 @@ class PenelitianController extends Controller
     public function store(Request $request, Penelitian $penelitian)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_penelitian' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
@@ -43,7 +43,7 @@ class PenelitianController extends Controller
     public function update(Request $request, Penelitian $penelitian)
     {
         $data = $request->validate([
-            'dosen_id' => 'nullable|exists:dosen,id',
+            'dosen_id' => 'nullable|exists:dosen,id_dosen',
             'judul_penelitian' => 'required|string|max:255',
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
