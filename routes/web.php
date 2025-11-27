@@ -174,10 +174,22 @@ Route::get('/', function () {
         ->take(5)
         ->get()
         ->map(function ($item) {
+            // Handle foto path - check if file exists in storage, otherwise use asset
+            $imagePath = '';
+            if ($item->foto) {
+                $storagePath = storage_path('app/public/' . $item->foto);
+                if (file_exists($storagePath)) {
+                    $imagePath = Storage::url($item->foto);
+                } else {
+                    // Fallback to public asset if not in storage
+                    $imagePath = asset($item->foto);
+                }
+            }
+            
             return [
-                'title' => $item->title,
-                'desc' => $item->desc,
-                'image' => $item->image ? Storage::url($item->image) : '',
+                'title' => $item->judul,
+                'desc' => $item->deskripsi,
+                'image' => $imagePath,
                 'category' => $item->kategori ? $item->kategori->nama : 'Umum',
             ];
         });

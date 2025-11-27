@@ -42,7 +42,7 @@
                     </button>
                     <ul id="mobile-profil-dropdown" class="mt-2 ml-4 hidden flex-col gap-2 border-l-2 border-primary/20 pl-4">
                         <li>
-                    <a href="{{ route('profil') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('profil') ? 'text-primary font-semibold' : '' }}">Profil Prodi</a>
+                    <a href="{{ route('profil') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('profil') ? 'text-primary font-semibold' : '' }}">Program Studi</a>
                         </li>
                         <li>
                             <a href="{{ route('dosen') }}" class="block transition-colors hover:text-primary {{ request()->routeIs('dosen') ? 'text-primary font-semibold' : '' }}">Dosen</a>
@@ -104,7 +104,7 @@
                 <div class="absolute left-0 top-full z-50 pt-2">
                     <div class="hidden min-w-[180px] flex-col rounded-lg border border-primary/10 bg-white text-sm text-textDark shadow-soft group-hover:flex">
                         <a href="{{ route('profil') }}" class="flex items-center gap-3 rounded-t-lg px-4 py-2 transition hover:bg-primary/10 hover:text-primary {{ request()->routeIs('profil') ? 'bg-primary/10 text-primary font-semibold' : '' }}">
-                            <span>Profil Prodi</span>
+                            <span>Program Studi</span>
                         </a>
                         <a href="{{ route('dosen') }}" class="flex items-center gap-3 px-4 py-2 transition hover:bg-primary/10 hover:text-primary {{ request()->routeIs('dosen') ? 'bg-primary/10 text-primary font-semibold' : '' }}">
                             <span>Dosen</span>

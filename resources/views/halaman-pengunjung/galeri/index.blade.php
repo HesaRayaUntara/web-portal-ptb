@@ -137,14 +137,12 @@
     </section>
 
     <section class="mt-12 rounded-section bg-white p-8 shadow-soft md:mt-8 md:p-10 lg:p-12">
-        <div class="space-y-6">
-            <h2 class="text-3xl font-semibold text-secondary md:text-4xl">Galeri Virtual</h2>
-            <p class="text-sm leading-relaxed text-textMuted md:text-base">
-                Jelajahi lebih banyak dokumentasi kegiatan melalui kanal digital kami. Gunakan pencarian untuk menemukan kegiatan spesifik, lokasi riset, atau kolaborasi dengan mitra industri.
-            </p>
-            <div class="flex flex-wrap gap-4">
+        <div>
+            <span class="text-xs font-semibold uppercase tracking-wide4 text-primary/80">panorama</span>            
+            <h2 class="text-3xl mt-2 font-semibold text-secondary md:text-4xl">Galeri Virtual</h2>
+            <p class="text-sm mt-2 mb-6 leading-relaxed text-textMuted md:text-base">Jelajahi ruang pamer secara menyeluruh melalui Galeri Virtual 360°. Nikmati pengalaman tur interaktif yang memungkinkan melihat setiap sudut galeri seolah berada di lokasi secara langsung.</p>
+            <div class="flex flex-wrap">
                 <a class="inline-flex items-center gap-2 rounded-badge bg-primary px-6 py-3 text-sm font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark" href="https://maps.app.goo.gl/osacNqb4hpuzyNzW9" target="_blank">Kunjungi Galeri 360°</a>
-                <a class="inline-flex items-center gap-2 rounded-badge border border-primary/20 px-6 py-3 text-sm font-semibold text-primary transition hover:-translate-y-0.5 hover:border-primary" href="#">Unduh Katalog</a>
             </div>
         </div>
     </section>

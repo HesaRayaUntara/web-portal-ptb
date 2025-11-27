@@ -18,7 +18,6 @@ class GaleriSeeder extends Seeder
         $kategoriKegiatanAkademik = KategoriGaleri::where('nama', 'Kegiatan Akademik')->first();
         $kategoriKegiatanMahasiswa = KategoriGaleri::where('nama', 'Kegiatan Mahasiswa')->first();
         $kategoriPenelitian = KategoriGaleri::where('nama', 'Penelitian')->first();
-        $kategoriFasilitas = KategoriGaleri::where('nama', 'Fasilitas')->first();
 
         $galeri = [
             [
@@ -26,7 +25,7 @@ class GaleriSeeder extends Seeder
                 'deskripsi' => 'Mahasiswa melakukan praktikum genetika tanaman di laboratorium.',
                 'kategori_galeri_id' => $kategoriKegiatanAkademik ? $kategoriKegiatanAkademik->id_kategori_galeri : KategoriGaleri::first()->id_kategori_galeri,
                 'tipe' => 'photo',
-                'foto' => null,
+                'foto' => 'gambar/foto-dummy.jpg',
                 'youtube_url' => null,
             ],
             [
@@ -34,7 +33,7 @@ class GaleriSeeder extends Seeder
                 'deskripsi' => 'Mahasiswa melakukan kunjungan industri ke perusahaan benih.',
                 'kategori_galeri_id' => $kategoriKegiatanMahasiswa ? $kategoriKegiatanMahasiswa->id_kategori_galeri : KategoriGaleri::first()->id_kategori_galeri,
                 'tipe' => 'photo',
-                'foto' => null,
+                'foto' => 'gambar/foto-dummy.jpg',
                 'youtube_url' => null,
             ],
             [
@@ -42,15 +41,7 @@ class GaleriSeeder extends Seeder
                 'deskripsi' => 'Tim peneliti melakukan penelitian pengembangan varietas padi unggul.',
                 'kategori_galeri_id' => $kategoriPenelitian ? $kategoriPenelitian->id_kategori_galeri : KategoriGaleri::first()->id_kategori_galeri,
                 'tipe' => 'photo',
-                'foto' => null,
-                'youtube_url' => null,
-            ],
-            [
-                'judul' => 'Laboratorium Teknologi Benih',
-                'deskripsi' => 'Fasilitas laboratorium teknologi benih yang dilengkapi dengan peralatan modern.',
-                'kategori_galeri_id' => $kategoriFasilitas ? $kategoriFasilitas->id_kategori_galeri : KategoriGaleri::first()->id_kategori_galeri,
-                'tipe' => 'photo',
-                'foto' => null,
+                'foto' => 'gambar/foto-dummy.jpg',
                 'youtube_url' => null,
             ],
         ];

@@ -38,9 +38,9 @@ class ProfilProdiSeeder extends Seeder
 3. Meningkatkan kesejahteraan masyarakat melalui pengabdian yang dilakukan
 4. Membangun jaringan kerjasama yang luas dengan berbagai pihak
 5. Mengembangkan karakter dan kepribadian mahasiswa yang unggul',
-            'lama_studi' => '4 Tahun (8 Semester)',
-            'gelar_lulusan' => 'S.P.',
-            'kepanjangan_gelar' => 'Sarjana Pertanian',
+            'lama_studi' => '8',
+            'gelar_lulusan' => 'S.Tr.P',
+            'kepanjangan_gelar' => 'Sarjana Terapan Pertanian',
             'snbp_pelamar' => 250,
             'snbp_diterima' => 50,
             'snbp_keketatan' => 5.00,
@@ -49,17 +49,16 @@ class ProfilProdiSeeder extends Seeder
             'snbt_keketatan' => 6.00,
             'akreditasi' => 'A',
             'no_sk' => '123/SK/BAN-PT/Akred/S/VI/2024',
-            'foto_akreditasi' => null,
-            'industri_tempat_bekerja' => 'Lulusan Program Studi Pemuliaan Tanaman dan Teknologi Benih memiliki peluang kerja yang luas di berbagai sektor, antara lain:
-- Perusahaan benih nasional dan internasional
-- Balai Penelitian dan Pengembangan Pertanian
-- Dinas Pertanian (Pemerintah Daerah)
-- Perusahaan agribisnis dan agroindustri
-- Lembaga penelitian dan pengembangan
-- Wirausaha di bidang pertanian dan benih
-- Konsultan pertanian
-- Lembaga sertifikasi benih
-- Perusahaan teknologi pertanian',
+            'foto_akreditasi' => "gambar/foto-dummy.jpg",
+            'industri_tempat_bekerja' => '
+Perusahaan benih nasional dan internasional
+Balai Penelitian dan Pengembangan Pertanian
+Dinas Pertanian (Pemerintah Daerah)
+Perusahaan agribisnis dan agroindustri
+Lembaga penelitian dan pengembangan
+Wirausaha di bidang pertanian dan benih
+Konsultan pertanian
+Perusahaan teknologi pertanian',
             'mitra_logo' => null,
         ]);
 

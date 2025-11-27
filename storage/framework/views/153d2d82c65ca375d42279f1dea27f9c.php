@@ -96,6 +96,24 @@
             </table>
         </div>
     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+    <?php
+        $totalSksKuliah = 0;
+        $totalSksPraktikum = 0;
+        foreach($kurikulumBySemester as $semester => $kurikulumItems) {
+            foreach($kurikulumItems as $item) {
+                $totalSksKuliah += $item->sks_kuliah;
+                $totalSksPraktikum += $item->sks_praktikum;
+            }
+        }
+        $totalSks = $totalSksKuliah + $totalSksPraktikum;
+    ?>
+
+    <div class="total-sks" style="margin-top: 30px; text-align: left; font-size: 9pt; font-weight: bold;">
+        <div style="margin-bottom: 5px;">Kuliah: <?php echo e($totalSksKuliah); ?> SKS</div>
+        <div style="margin-bottom: 5px;">Praktikum: <?php echo e($totalSksPraktikum); ?> SKS</div>
+        <div style="margin-top: 8px; text-transform: uppercase; letter-spacing: 4px;">Total SKS: <?php echo e($totalSks); ?> SKS</div>
+    </div>
 </body>
 </html>
 
