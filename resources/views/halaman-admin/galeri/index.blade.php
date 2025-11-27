@@ -4,35 +4,8 @@
 
 @section('content')
 <div class="rounded-section border border-borderSoft bg-white shadow-soft">
-    <div class="flex flex-col gap-8 lg:flex-row">
-        <aside class="w-full border-borderSoft bg-[#F4F7F3] p-6 lg:w-80 lg:border-r">
-            <div class="flex flex-col gap-6">
-                <div class="flex items-center gap-3 rounded-card bg-white px-4 py-3 shadow-soft">
-                    <img src="{{ asset('gambar/logo-ptb.png') }}" alt="Logo PTB" class="h-12 w-12 rounded-full border border-primary/30 object-cover">
-                    <div>
-                        <p class="text-sm font-semibold text-textDark">Pemuliaan Tanaman</p>
-                        <p class="text-xs text-textMuted">dan Teknologi Benih</p>
-                    </div>
-                </div>
-                <nav class="space-y-1 text-sm font-semibold text-textMuted">
-                    <a href="{{ route('admin.dashboard') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Dasbor</a>
-                    <a href="{{ route('admin.profil.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Program Studi</a>
-                    <a href="{{ route('admin.fasilitas.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Fasilitas</a>
-                    <a href="{{ route('admin.kurikulum.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Kurikulum</a>
-                    <a href="{{ route('admin.staf.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Staf</a>
-                    <a href="{{ route('admin.dosen.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Profil Dosen</a>
-                    <a href="{{ route('admin.berita.index') }}" class="block w-full rounded-xl bg-white py-3 text-left px-4 shadow-soft transition hover:bg-primary/5">Berita</a>
-                    <a href="{{ route('admin.galeri.index') }}" class="block w-full rounded-xl bg-primary py-3 text-left px-4 text-white shadow-soft">Galeri</a>
-                </nav>
-                <form method="POST" action="{{ route('admin.logout') }}">
-                    @csrf
-                    <button type="submit"
-                        class="flex w-full items-center justify-center gap-2 rounded-xl border border-primary/20 bg-white px-4 py-3 text-sm font-semibold text-primary transition hover:bg-primary hover:text-white">
-                        <span>Keluar Admin</span>
-                    </button>
-                </form>
-            </div>
-        </aside>
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-stretch">
+        @include('partials.admin-sidebar')
         <main class="flex-1 p-4 md:p-6 lg:p-8">
             <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>

@@ -483,7 +483,12 @@ Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admi
 // Route Admin Dashboard (protected)
 Route::middleware('admin.auth')->group(function () {
     Route::get('/admin', function () {
-        return view('halaman-admin.admin');
+        $jumlahDosen = \App\Models\Dosen::count();
+        $jumlahStaf = \App\Models\Staf::count();
+        $jumlahBerita = \App\Models\Berita::count();
+        $jumlahGaleri = \App\Models\Galeri::count();
+        
+        return view('halaman-admin.admin', compact('jumlahDosen', 'jumlahStaf', 'jumlahBerita', 'jumlahGaleri'));
     })->name('admin.dashboard');
     
     Route::resource('admin/profil', \App\Http\Controllers\ProfilProdiController::class)->parameters([
