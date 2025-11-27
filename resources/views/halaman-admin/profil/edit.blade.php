@@ -235,9 +235,9 @@
                     </div>
                 </section>
 
-                {{-- Industri & Mitra --}}
+                {{-- Industri --}}
                 <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <h2 class="mb-4 text-lg font-semibold text-textDark">Industri & Mitra</h2>
+                    <h2 class="mb-4 text-lg font-semibold text-textDark">Industri</h2>
                     <div class="space-y-4">
                         <div>
                             <label for="industri_tempat_bekerja" class="mb-2 block text-sm font-semibold text-textDark">Industri Tempat Bekerja</label>
@@ -245,58 +245,6 @@
                                 class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
                                 placeholder="Masukkan industri atau tempat bekerja (pisahkan dengan baris baru)">{{ old('industri_tempat_bekerja', isset($profilProdi) ? $profilProdi->industri_tempat_bekerja : '') }}</textarea>
                         </div>
-                        <div>
-                            <label for="mitra_logo" class="mb-2 block text-sm font-semibold text-textDark">Logo Mitra</label>
-                            @if(isset($profilProdi) && $profilProdi->mitra_logo && count($profilProdi->mitra_logo) > 0)
-                                <div class="mb-2 flex flex-wrap gap-2">
-                                    @foreach($profilProdi->mitra_logo as $logo)
-                                        <img src="{{ Storage::url($logo) }}" alt="Logo Mitra" class="h-16 w-16 rounded-lg border border-borderSoft object-cover">
-                                    @endforeach
-                                </div>
-                            @endif
-                            <input type="file" id="mitra_logo" name="mitra_logo[]" accept="image/jpeg,image/jpg,image/png" multiple {{ !isset($profilProdi) || !$profilProdi->mitra_logo || count($profilProdi->mitra_logo) == 0 ? 'required' : '' }}
-                                class="w-full rounded-xl border border-borderSoft px-4 py-3 text-sm text-textDark focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15">
-                            <p class="mt-1 text-xs text-textMuted">Format: JPG, JPEG, PNG (Maks: 5MB per file)</p>
-                        </div>
-                    </div>
-                </section>
-
-                {{-- Profil Lulusan --}}
-                <section class="rounded-card border border-borderSoft bg-white p-6 shadow-soft">
-                    <div class="mb-4 flex items-center justify-between">
-                        <h2 class="text-lg font-semibold text-textDark">Profil Lulusan</h2>
-                        <button type="button" onclick="addProfilLulusan()" class="rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white transition hover:bg-primaryDark">
-                            + Tambah Profil
-                        </button>
-                    </div>
-                    <div id="profil-lulusan-container" class="space-y-4" data-initial-count="{{ isset($profilProdi) && $profilProdi->profilLulusan ? $profilProdi->profilLulusan->count() : 0 }}">
-                        @if(isset($profilProdi) && $profilProdi->profilLulusan && $profilProdi->profilLulusan->count() > 0)
-                            @foreach($profilProdi->profilLulusan as $index => $lulusan)
-                            <div class="profil-lulusan-item rounded-xl border border-borderSoft bg-gray-50 p-4">
-                                <div class="mb-3 flex items-center justify-between">
-                                    <h3 class="text-sm font-semibold text-textDark">Profil Lulusan #{{ $index + 1 }}</h3>
-                                    <button type="button" onclick="removeProfilLulusan(this)" class="rounded-lg bg-red-100 px-3 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-200">
-                                        Hapus
-                                    </button>
-                                </div>
-                                <input type="hidden" name="profil_lulusan[{{ $index }}][id_profil_lulusan]" value="{{ $lulusan->id_profil_lulusan }}">
-                                <div class="space-y-3">
-                                    <div>
-                                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>
-                                        <input type="text" name="profil_lulusan[{{ $index }}][peran]" value="{{ old('profil_lulusan.'.$index.'.peran', $lulusan->peran) }}" required
-                                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                            placeholder="cth. Peneliti Pemuliaan Tanaman">
-                                    </div>
-                                    <div>
-                                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Deskripsi Kemampuan</label>
-                                        <textarea name="profil_lulusan[{{ $index }}][deskripsi_kemampuan]" rows="3" required
-                                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                                            placeholder="Masukkan deskripsi kemampuan">{{ old('profil_lulusan.'.$index.'.deskripsi_kemampuan', $lulusan->deskripsi_kemampuan) }}</textarea>
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        @endif
                     </div>
                 </section>
 
@@ -328,41 +276,6 @@
         const diterima = parseFloat(document.getElementById(type + '_diterima').value) || 0;
         const keketatan = diterima > 0 ? (pelamar / diterima).toFixed(2) : '0.00';
         document.getElementById(type + '_keketatan').value = keketatan;
-    }
-
-    let profilLulusanCount = {{ isset($profilProdi) && $profilProdi->profilLulusan ? $profilProdi->profilLulusan->count() : 0 }};
-    function addProfilLulusan() {
-        const container = document.getElementById('profil-lulusan-container');
-        const index = profilLulusanCount++;
-        const html = `
-            <div class="profil-lulusan-item rounded-xl border border-borderSoft bg-gray-50 p-4">
-                <div class="mb-3 flex items-center justify-between">
-                    <h3 class="text-sm font-semibold text-textDark">Profil Lulusan #${index + 1}</h3>
-                    <button type="button" onclick="removeProfilLulusan(this)" class="rounded-lg bg-red-100 px-3 py-1 text-xs font-semibold text-red-600 transition hover:bg-red-200">
-                        Hapus
-                    </button>
-                </div>
-                <div class="space-y-3">
-                    <div>
-                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Peran</label>
-                        <input type="text" name="profil_lulusan[${index}][peran]" required
-                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                            placeholder="cth. Peneliti Pemuliaan Tanaman">
-                    </div>
-                    <div>
-                        <label class="mb-1.5 block text-xs font-semibold text-textDark">Deskripsi Kemampuan</label>
-                        <textarea name="profil_lulusan[${index}][deskripsi_kemampuan]" rows="3" required
-                            class="w-full rounded-lg border border-borderSoft px-3 py-2 text-sm text-textDark placeholder:text-textMuted focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/15"
-                            placeholder="Masukkan deskripsi kemampuan"></textarea>
-                    </div>
-                </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-    }
-
-    function removeProfilLulusan(button) {
-        button.closest('.profil-lulusan-item').remove();
     }
 </script>
 @endpush

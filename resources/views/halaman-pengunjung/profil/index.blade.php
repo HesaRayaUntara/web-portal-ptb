@@ -368,19 +368,30 @@
 </section>
 
 {{-- Mitra Strategis --}}
-@if(isset($profilProdi) && $profilProdi->mitra_logo && is_array($profilProdi->mitra_logo) && count($profilProdi->mitra_logo) > 0)
+@if(isset($mitra) && $mitra->count() > 0)
 <section class="mt-6 rounded-section bg-white p-4 shadow-soft md:mt-6 md:p-5 lg:p-6">
     <div class="text-center">
         <span class="text-[10px] font-semibold uppercase tracking-wide4 text-secondary md:text-xs">Mitra Prodi PTB</span>
     </div>
-    <div class="mt-4 grid grid-cols-3 gap-2 md:grid-cols-6 lg:grid-cols-9 md:gap-3">
-        @if(isset($profilProdi) && $profilProdi->mitra_logo && is_array($profilProdi->mitra_logo))
-        @foreach($profilProdi->mitra_logo as $logo)
-        <div class="flex items-center justify-center overflow-hidden rounded-lg bg-white p-2 transition hover:border-primary/20 hover:shadow-soft md:p-2.5">
-            <img src="{{ asset('storage/' . $logo) }}" alt="Mitra Logo" class="h-auto max-h-8 w-full object-contain md:max-h-10">
+    <div class="mt-4 overflow-hidden">
+        <div class="mitra-scroll-container flex gap-2 md:gap-3">
+            @php
+                $mitraWithLogo = $mitra->filter(function($item) {
+                    return $item->logo;
+                });
+            @endphp
+            @foreach($mitraWithLogo as $item)
+            <div class="mitra-item flex min-w-[80px] items-center justify-center overflow-hidden rounded-lg bg-white p-2 transition hover:border-primary/20 hover:shadow-soft md:min-w-[100px] md:p-2.5">
+                <img src="{{ Storage::url($item->logo) }}" alt="404 not found" class="h-auto max-h-8 w-full object-contain md:max-h-10">
+            </div>
+            @endforeach
+            {{-- Duplicate untuk infinite scroll --}}
+            @foreach($mitraWithLogo as $item)
+            <div class="mitra-item flex min-w-[80px] items-center justify-center overflow-hidden rounded-lg bg-white p-2 transition hover:border-primary/20 hover:shadow-soft md:min-w-[100px] md:p-2.5">
+                <img src="{{ Storage::url($item->logo) }}" alt="404 not found" class="h-auto max-h-8 w-full object-contain md:max-h-10">
+            </div>
+            @endforeach
         </div>
-        @endforeach
-        @endif
     </div>
 </section>
 @endif
@@ -483,5 +494,24 @@
         }
     });
 </script>
+
+<style>
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    .mitra-scroll-container {
+        animation: scroll 30s linear infinite;
+    }
+
+    .mitra-scroll-container:hover {
+        animation-play-state: paused;
+    }
+</style>
 @endpush
 @endsection

@@ -80,9 +80,13 @@
             <?php endif; ?>
 
             
-            <div class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+            <div class="mb-6 rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
                 <div class="overflow-x-auto">
-                    <table class="w-full border-collapse">
+                    <table class="w-full border-collapse table-fixed">
+                        <colgroup>
+                            <col style="width: auto;">
+                            <col style="width: 120px;">
+                        </colgroup>
                         <thead>
                             <tr class="bg-[#F4F7F3]">
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Halaman</th>
@@ -93,8 +97,8 @@
                             <?php if($profilProdi): ?>
                                 <tr class="border-t border-borderSoft">
                                     <td class="px-4 py-3 text-sm text-textDark">Profil PTB</td>
-                                    <td class="px-4 py-3">
-                                        <div class="flex items-center justify-start gap-2">
+                                    <td class="px-4 py-3 text-left">
+                                        <div class="flex gap-2">
                                             <a href="<?php echo e(route('admin.profil.edit', $profilProdi)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                 <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -116,6 +120,133 @@
                                 <tr class="border-t border-borderSoft">
                                     <td colspan="2" class="px-4 py-8 text-center text-sm text-textMuted">
                                         Belum ada profil program studi. Klik tombol "Tambah Prodi" untuk membuat profil baru.
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+            <div class="rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+                <div class="mb-4 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold text-textDark">Profil Lulusan</h2>
+                    </div>
+                    <a href="<?php echo e(route('admin.profil-lulusan.create')); ?>" class="rounded-lg bg-primary px-2.5 py-1 text-xs font-semibold text-white shadow-soft transition hover:bg-primaryDark">
+                        + Tambah
+                    </a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-[#F4F7F3]">
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Peran</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Deskripsi Kemampuan</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php if(isset($profilLulusan) && $profilLulusan->count() > 0): ?>
+                                <?php $__currentLoopData = $profilLulusan; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $lulusan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr class="border-t border-borderSoft">
+                                    <td class="px-4 py-3 text-sm text-textDark"><?php echo e($index + 1); ?></td>
+                                    <td class="px-4 py-3 text-sm text-textDark"><?php echo e(Str::limit($lulusan->peran, 50)); ?></td>
+                                    <td class="px-4 py-3 text-sm text-textDark"><?php echo e(Str::limit($lulusan->deskripsi_kemampuan, 100)); ?></td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center justify-start gap-2">
+                                            <a href="<?php echo e(route('admin.profil-lulusan.edit', $lulusan)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </a>
+                                            <form method="POST" action="<?php echo e(route('admin.profil-lulusan.destroy', $lulusan)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus profil lulusan ini?');" class="inline">
+                                                <?php echo csrf_field(); ?>
+                                                <?php echo method_field('DELETE'); ?>
+                                                <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
+                                <tr class="border-t border-borderSoft">
+                                    <td colspan="4" class="px-4 py-8 text-center text-sm text-textMuted">
+                                        Belum ada profil lulusan. Klik tombol "Tambah Profil Lulusan" untuk membuat profil baru.
+                                    </td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            
+            <div class="mt-6 rounded-xl border border-borderSoft bg-white p-6 shadow-soft">
+                <div class="mb-4 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-lg font-semibold text-textDark">Mitra</h2>
+                    </div>
+                    <a href="<?php echo e(route('admin.mitra.create')); ?>" class="rounded-lg bg-primary px-2.5 py-1 text-xs font-semibold text-white shadow-soft transition hover:bg-primaryDark">
+                        + Tambah
+                    </a>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full border-collapse">
+                        <thead>
+                            <tr class="bg-[#F4F7F3]">
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Nama Mitra</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Logo</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                use Illuminate\Support\Facades\Storage;
+                            ?>
+                            <?php if(isset($mitra) && $mitra->count() > 0): ?>
+                                <?php $__currentLoopData = $mitra; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <tr class="border-t border-borderSoft">
+                                    <td class="px-4 py-3 text-sm text-textDark"><?php echo e($index + 1); ?></td>
+                                    <td class="px-4 py-3 text-sm text-textDark"><?php echo e($item->nama_mitra); ?></td>
+                                    <td class="px-4 py-3">
+                                        <?php if($item->logo): ?>
+                                            <img src="<?php echo e(Storage::url($item->logo)); ?>" alt="Logo <?php echo e($item->nama_mitra); ?>" class="h-12 w-auto rounded-lg border border-borderSoft object-cover">
+                                        <?php else: ?>
+                                            <span class="text-xs text-textMuted">Tidak ada logo</span>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td class="px-4 py-3">
+                                        <div class="flex items-center justify-start gap-2">
+                                            <a href="<?php echo e(route('admin.mitra.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
+                                                <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                                </svg>
+                                            </a>
+                                            <form method="POST" action="<?php echo e(route('admin.mitra.destroy', $item)); ?>" onsubmit="return confirm('Apakah Anda yakin ingin menghapus mitra ini?');" class="inline">
+                                                <?php echo csrf_field(); ?>
+                                                <?php echo method_field('DELETE'); ?>
+                                                <button type="submit" class="flex items-center justify-center rounded-lg bg-red-50 p-2 text-red-600 transition hover:bg-red-100" title="Hapus">
+                                                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <?php else: ?>
+                                <tr class="border-t border-borderSoft">
+                                    <td colspan="4" class="px-4 py-8 text-center text-sm text-textMuted">
+                                        Belum ada mitra. Klik tombol "Tambah" untuk membuat mitra baru.
                                     </td>
                                 </tr>
                             <?php endif; ?>

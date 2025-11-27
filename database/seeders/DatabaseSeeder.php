@@ -39,6 +39,9 @@ class DatabaseSeeder extends Seeder
             FasilitasSeeder::class,
             StafSeeder::class,
             
+            // Seeder untuk Mitra
+            MitraSeeder::class,
+            
             // Seeder untuk Penelitian, Pengabdian, Publikasi, dan HKI (membutuhkan Dosen)
             PenelitianSeeder::class,
             PengabdianSeeder::class,

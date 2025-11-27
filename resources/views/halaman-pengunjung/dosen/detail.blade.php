@@ -329,11 +329,13 @@
             
             // Render table rows
             const tbody = document.getElementById(tableBodyId);
-            tbody.innerHTML = pageData.map(item => {
+            tbody.innerHTML = pageData.map((item, index) => {
+                // Update nomor urut berdasarkan halaman aktif
+                const currentNo = startIndex + index + 1;
                 if (tabName === 'publikasi' || tabName === 'hki') {
                     return `
                         <tr class="hover:bg-accent/50 transition-colors">
-                            <td class="px-4 py-3 text-textMuted">${item.no}</td>
+                            <td class="px-4 py-3 text-textMuted">${currentNo}</td>
                             <td class="px-4 py-3 text-textDark">${item.judul}</td>
                             <td class="px-4 py-3 text-textMuted">${item.jenis}</td>
                             <td class="px-4 py-3 text-textMuted">${item.tahun}</td>
@@ -342,7 +344,7 @@
                 } else {
                     return `
                         <tr class="hover:bg-accent/50 transition-colors">
-                            <td class="px-4 py-3 text-textMuted">${item.no}</td>
+                            <td class="px-4 py-3 text-textMuted">${currentNo}</td>
                             <td class="px-4 py-3 text-textDark">${item.judul}</td>
                             <td class="px-4 py-3 text-textMuted">${item.tahun}</td>
                         </tr>

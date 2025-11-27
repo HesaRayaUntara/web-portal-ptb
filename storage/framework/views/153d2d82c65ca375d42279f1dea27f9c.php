@@ -18,6 +18,11 @@
             font-weight: bold;
             margin: 10px 0;
         }
+        .header h2 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 10px 0;
+        }
         .header p {
             font-size: 11pt;
             margin: 5px 0;
@@ -59,7 +64,8 @@
 </head>
 <body>
     <div class="header">
-        <h1>MATA KULIAH PROGRAM STUDI PEMULIAAN TANAMAN DAN TEKNOLOGI BENIH</h1>
+        <h1>MATA KULIAH PROGRAM STUDI</h1>
+        <h2>PEMULIAAN TANAMAN DAN TEKNOLOGI BENIH</h2>
         <p>SEKOLAH VOKASI - IPB UNIVERSITY</p>
     </div>
 

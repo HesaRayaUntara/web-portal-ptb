@@ -199,7 +199,8 @@ Route::get('/', function () {
 Route::get('/profil', function () {
     $profilProdi = \App\Models\ProfilProdi::with('profilLulusan')->first();
     $fasilitas = \App\Models\Fasilitas::orderBy('created_at', 'desc')->take(4)->get();
-    return view('halaman-pengunjung.profil.index', compact('profilProdi', 'fasilitas'));
+    $mitra = \App\Models\Mitra::orderBy('created_at', 'desc')->get();
+    return view('halaman-pengunjung.profil.index', compact('profilProdi', 'fasilitas', 'mitra'));
 })->name('profil');
 
 // Route Fasilitas
@@ -228,14 +229,8 @@ Route::get('/kurikulum/download', [\App\Http\Controllers\KurikulumController::cl
 Route::get('/dosen', function () {
     $kepalaProdi = \App\Models\Dosen::where('kepala_program_studi', true)->first();
     
-    // Ambil semua dosen yang bukan kepala prodi
-    $dosenList = \App\Models\Dosen::where(function($query) {
-            $query->where('kepala_program_studi', false)
-                  ->orWhereNull('kepala_program_studi');
-        })
-        ->when($kepalaProdi, function($query) use ($kepalaProdi) {
-            $query->where('id_dosen', '!=', $kepalaProdi->id_dosen);
-        })
+    // Ambil semua dosen termasuk kepala prodi, urutkan: kepala prodi dulu, lalu yang lain
+    $dosenList = \App\Models\Dosen::orderByRaw('CASE WHEN kepala_program_studi = 1 THEN 0 ELSE 1 END')
         ->orderBy('nama', 'asc')
         ->get();
     
@@ -490,6 +485,26 @@ Route::middleware('admin.auth')->group(function () {
         'destroy' => 'admin.profil.destroy',
     ]);
 
+    Route::resource('admin/profil-lulusan', \App\Http\Controllers\ProfilLulusanController::class)->except(['index'])->parameters([
+        'profil-lulusan' => 'profilLulusan'
+    ])->names([
+        'create' => 'admin.profil-lulusan.create',
+        'store' => 'admin.profil-lulusan.store',
+        'edit' => 'admin.profil-lulusan.edit',
+        'update' => 'admin.profil-lulusan.update',
+        'destroy' => 'admin.profil-lulusan.destroy',
+    ]);
+
+    Route::resource('admin/mitra', \App\Http\Controllers\MitraController::class)->except(['index'])->parameters([
+        'mitra' => 'mitra'
+    ])->names([
+        'create' => 'admin.mitra.create',
+        'store' => 'admin.mitra.store',
+        'edit' => 'admin.mitra.edit',
+        'update' => 'admin.mitra.update',
+        'destroy' => 'admin.mitra.destroy',
+    ]);
+
     Route::get('admin/kurikulum/tambah', [\App\Http\Controllers\KurikulumController::class, 'create'])->name('admin.kurikulum.tambah');
     Route::get('admin/fasilitas/tambah', [\App\Http\Controllers\FasilitasController::class, 'create'])->name('admin.fasilitas.tambah');
     Route::get('admin/staf/tambah', [\App\Http\Controllers\StafController::class, 'create'])->name('admin.staf.tambah');
@@ -558,16 +573,16 @@ Route::middleware('admin.auth')->group(function () {
     Route::post('admin/kurikulum/update-deskripsi', [\App\Http\Controllers\KurikulumController::class, 'updateDeskripsi'])->name('admin.kurikulum.updateDeskripsi');
     
     // Routes Admin Berita
-    Route::get('admin/berita', [\App\Http\Controllers\AdminBeritaController::class, 'index'])->name('admin.berita.index');
-    Route::post('admin/berita/kategori', [\App\Http\Controllers\AdminBeritaController::class, 'storeKategori'])->name('admin.berita.storeKategori');
-    Route::delete('admin/berita/kategori/{kategoriBerita}', [\App\Http\Controllers\AdminBeritaController::class, 'deleteKategori'])->name('admin.berita.deleteKategori');
-    Route::post('admin/berita', [\App\Http\Controllers\AdminBeritaController::class, 'storeBerita'])->name('admin.berita.storeBerita');
-    Route::get('admin/berita/draft', [\App\Http\Controllers\AdminBeritaController::class, 'draft'])->name('admin.berita.draft');
-    Route::get('admin/berita/draft/{berita}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editDraft'])->name('admin.berita.editDraft');
-    Route::put('admin/berita/draft/{berita}', [\App\Http\Controllers\AdminBeritaController::class, 'updateDraft'])->name('admin.berita.updateDraft');
-    Route::get('admin/berita/{berita}/edit', [\App\Http\Controllers\AdminBeritaController::class, 'editBerita'])->name('admin.berita.editBerita');
-    Route::put('admin/berita/{berita}', [\App\Http\Controllers\AdminBeritaController::class, 'updateBerita'])->name('admin.berita.updateBerita');
-    Route::delete('admin/berita/{berita}', [\App\Http\Controllers\AdminBeritaController::class, 'destroyBerita'])->name('admin.berita.destroyBerita');
+    Route::get('admin/berita', [\App\Http\Controllers\BeritaController::class, 'index'])->name('admin.berita.index');
+    Route::post('admin/berita/kategori', [\App\Http\Controllers\BeritaController::class, 'storeKategori'])->name('admin.berita.storeKategori');
+    Route::delete('admin/berita/kategori/{kategoriBerita}', [\App\Http\Controllers\BeritaController::class, 'deleteKategori'])->name('admin.berita.deleteKategori');
+    Route::post('admin/berita', [\App\Http\Controllers\BeritaController::class, 'storeBerita'])->name('admin.berita.storeBerita');
+    Route::get('admin/berita/draft', [\App\Http\Controllers\BeritaController::class, 'draft'])->name('admin.berita.draft');
+    Route::get('admin/berita/draft/{berita}/edit', [\App\Http\Controllers\BeritaController::class, 'editDraft'])->name('admin.berita.editDraft');
+    Route::put('admin/berita/draft/{berita}', [\App\Http\Controllers\BeritaController::class, 'updateDraft'])->name('admin.berita.updateDraft');
+    Route::get('admin/berita/{berita}/edit', [\App\Http\Controllers\BeritaController::class, 'editBerita'])->name('admin.berita.editBerita');
+    Route::put('admin/berita/{berita}', [\App\Http\Controllers\BeritaController::class, 'updateBerita'])->name('admin.berita.updateBerita');
+    Route::delete('admin/berita/{berita}', [\App\Http\Controllers\BeritaController::class, 'destroyBerita'])->name('admin.berita.destroyBerita');
     
     // Routes Admin Galeri
     Route::get('admin/galeri', [\App\Http\Controllers\AdminGaleriController::class, 'index'])->name('admin.galeri.index');

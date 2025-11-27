@@ -88,19 +88,19 @@
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Nama</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Status</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">No.</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Nama</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Status</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $__currentLoopData = $dosen; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr class="border-b border-borderSoft transition hover:bg-gray-50">
-                                        <td class="px-4 py-3 text-sm text-textMuted whitespace-nowrap"><?php echo e($index + 1); ?></td>
+                                        <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($index + 1); ?></td>
                                         <td class="px-4 py-3 text-sm text-textDark"><?php echo e($item->nama); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->status); ?></td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="<?php echo e(route('admin.dosen.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -150,17 +150,19 @@
 
                 
                 <?php if($jenisKarya->count() > 0): ?>
-                    <div class="overflow-x-auto -mx-4 sm:mx-0">
+                    <div class="overflow-x-auto -mx-4 sm:mx-0" id="jenis-karya-container">
                         <table class="w-full min-w-[300px] border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
+                                    <th class="px-3 py-2 text-left text-xs font-semibold text-textDark sm:px-4 sm:py-3 sm:text-sm">No.</th>
                                     <th class="px-3 py-2 text-left text-xs font-semibold text-textDark sm:px-4 sm:py-3 sm:text-sm">Jenis Karya</th>
                                     <th class="px-3 py-2 text-center text-xs font-semibold text-textDark sm:px-4 sm:py-3 sm:text-sm">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="jenis-karya-tbody">
                                 <?php $__currentLoopData = $jenisKarya; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr class="border-t border-borderSoft transition hover:bg-gray-50">
+                                    <tr class="jenis-karya-row border-t border-borderSoft transition hover:bg-gray-50" data-index="<?php echo e($index); ?>">
+                                        <td class="jenis-karya-no px-4 py-3 text-sm text-textMuted"><?php echo e($index + 1); ?></td>
                                         <td class="px-3 py-2 text-xs text-textMuted sm:px-4 sm:py-3 sm:text-sm"><?php echo e($item->j_karya); ?></td>
                                         <td class="px-3 py-2 sm:px-4 sm:py-3">
                                             <div class="flex items-center justify-center">
@@ -183,6 +185,8 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <div id="jenis-karya-pagination" class="mt-4 flex items-center justify-center gap-2 text-sm text-textMuted"></div>
                 <?php else: ?>
                     <p class="py-4 text-center text-xs text-textMuted sm:text-sm">Belum ada jenis karya.</p>
                 <?php endif; ?>
@@ -198,23 +202,23 @@
                 </div>
 
                 <?php if($penelitian->count() > 0): ?>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" id="penelitian-container">
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Judul Penelitian</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Tahun</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">No.</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Judul Penelitian</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Tahun</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="penelitian-tbody">
                                 <?php $__currentLoopData = $penelitian; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr class="border-b border-borderSoft transition hover:bg-gray-50">
-                                        <td class="px-4 py-3 text-sm text-textMuted whitespace-nowrap"><?php echo e($index + 1); ?></td>
+                                    <tr class="penelitian-row border-b border-borderSoft transition hover:bg-gray-50" data-index="<?php echo e($index); ?>">
+                                        <td class="penelitian-no px-4 py-3 text-sm text-textMuted"><?php echo e($index + 1); ?></td>
                                         <td class="px-4 py-3 text-sm text-textDark"><?php echo e($item->judul_penelitian); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="<?php echo e(route('admin.dosen.penelitian.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -237,6 +241,8 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <div id="penelitian-pagination" class="mt-4 flex items-center justify-center gap-2 text-sm text-textMuted"></div>
                 <?php else: ?>
                     <div class="py-8 text-center">
                         <p class="text-sm text-textMuted">Belum ada penelitian yang ditambahkan.</p>
@@ -254,23 +260,23 @@
                 </div>
 
                 <?php if($pengabdian->count() > 0): ?>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" id="pengabdian-container">
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Judul Pengabdian</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Tahun</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">No.</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Judul Pengabdian</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Tahun</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="pengabdian-tbody">
                                 <?php $__currentLoopData = $pengabdian; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr class="border-b border-borderSoft transition hover:bg-gray-50">
-                                        <td class="px-4 py-3 text-sm text-textMuted whitespace-nowrap"><?php echo e($index + 1); ?></td>
+                                    <tr class="pengabdian-row border-b border-borderSoft transition hover:bg-gray-50" data-index="<?php echo e($index); ?>">
+                                        <td class="pengabdian-no px-4 py-3 text-sm text-textMuted"><?php echo e($index + 1); ?></td>
                                         <td class="px-4 py-3 text-sm text-textDark"><?php echo e($item->judul_pengabdian); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="<?php echo e(route('admin.dosen.pengabdian.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -293,6 +299,8 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <div id="pengabdian-pagination" class="mt-4 flex items-center justify-center gap-2 text-sm text-textMuted"></div>
                 <?php else: ?>
                     <div class="py-8 text-center">
                         <p class="text-sm text-textMuted">Belum ada pengabdian masyarakat yang ditambahkan.</p>
@@ -310,25 +318,25 @@
                 </div>
 
                 <?php if($publikasi->count() > 0): ?>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" id="publikasi-container">
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Judul Karya</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Jenis Karya</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Tahun</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">No.</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Judul Karya</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Jenis Karya</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Tahun</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="publikasi-tbody">
                                 <?php $__currentLoopData = $publikasi; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr class="border-b border-borderSoft transition hover:bg-gray-50">
-                                        <td class="px-4 py-3 text-sm text-textMuted whitespace-nowrap"><?php echo e($index + 1); ?></td>
+                                    <tr class="publikasi-row border-b border-borderSoft transition hover:bg-gray-50" data-index="<?php echo e($index); ?>">
+                                        <td class="publikasi-no px-4 py-3 text-sm text-textMuted"><?php echo e($index + 1); ?></td>
                                         <td class="px-4 py-3 text-sm text-textDark"><?php echo e($item->judul_karya); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->jenis_karya); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="<?php echo e(route('admin.dosen.publikasi.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -351,6 +359,8 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <div id="publikasi-pagination" class="mt-4 flex items-center justify-center gap-2 text-sm text-textMuted"></div>
                 <?php else: ?>
                     <div class="py-8 text-center">
                         <p class="text-sm text-textMuted">Belum ada publikasi karya yang ditambahkan.</p>
@@ -368,25 +378,25 @@
                 </div>
 
                 <?php if($hki->count() > 0): ?>
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto" id="hki-container">
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-[#F4F7F3]">
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">No</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Judul Karya</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Jenis Karya</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Tahun</th>
-                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark whitespace-nowrap">Aksi</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">No.</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Judul Karya</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Jenis Karya</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Tahun</th>
+                                    <th class="px-4 py-3 text-left text-sm font-semibold text-textDark">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="hki-tbody">
                                 <?php $__currentLoopData = $hki; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $index => $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <tr class="border-b border-borderSoft transition hover:bg-gray-50">
-                                        <td class="px-4 py-3 text-sm text-textMuted whitespace-nowrap"><?php echo e($index + 1); ?></td>
+                                    <tr class="hki-row border-b border-borderSoft transition hover:bg-gray-50" data-index="<?php echo e($index); ?>">
+                                        <td class="hki-no px-4 py-3 text-sm text-textMuted"><?php echo e($index + 1); ?></td>
                                         <td class="px-4 py-3 text-sm text-textDark"><?php echo e($item->judul_karya); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->jenis_karya); ?></td>
                                         <td class="px-4 py-3 text-sm text-textMuted"><?php echo e($item->tahun); ?></td>
-                                        <td class="px-4 py-3 whitespace-nowrap">
+                                        <td class="px-4 py-3">
                                             <div class="flex items-center justify-center gap-2">
                                                 <a href="<?php echo e(route('admin.dosen.hki.edit', $item)); ?>" class="flex items-center justify-center rounded-lg bg-blue-50 p-2 text-blue-600 transition hover:bg-blue-100" title="Edit">
                                                     <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -409,6 +419,8 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                    <div id="hki-pagination" class="mt-4 flex items-center justify-center gap-2 text-sm text-textMuted"></div>
                 <?php else: ?>
                     <div class="py-8 text-center">
                         <p class="text-sm text-textMuted">Belum ada HKI/Paten yang ditambahkan.</p>
@@ -436,6 +448,127 @@
                 }, 5000);
             }
         });
+
+        // Pagination function
+        function initPagination(containerId, rowClass, paginationId, noClass, itemsPerPage = 5) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+
+            const rows = container.querySelectorAll('.' + rowClass);
+            const paginationEl = document.getElementById(paginationId);
+            if (!paginationEl || rows.length === 0) return;
+
+            const totalItems = rows.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage);
+            let currentPage = 1;
+
+            function showPage(page) {
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                rows.forEach((row, index) => {
+                    if (index >= start && index < end) {
+                        row.style.display = '';
+                        // Update nomor urut berdasarkan halaman aktif
+                        const noCell = row.querySelector('.' + noClass);
+                        if (noCell) {
+                            noCell.textContent = (page - 1) * itemsPerPage + (index - start) + 1;
+                        }
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Update pagination display
+                let paginationHTML = '';
+                if (totalPages > 1) {
+                    const prevDisabled = currentPage === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:text-primary';
+                    const nextDisabled = currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:text-primary';
+                    
+                    paginationHTML = `
+                        <button onclick="goToPage('${containerId}', '${rowClass}', ${currentPage - 1}, ${totalPages}, ${itemsPerPage}, '${noClass}')" 
+                            ${currentPage === 1 ? 'disabled' : ''} 
+                            class="${prevDisabled} px-2 py-1 rounded transition">
+                            &lt;
+                        </button>
+                        <span class="px-3">${currentPage} dari ${totalPages}</span>
+                        <button onclick="goToPage('${containerId}', '${rowClass}', ${currentPage + 1}, ${totalPages}, ${itemsPerPage}, '${noClass}')" 
+                            ${currentPage === totalPages ? 'disabled' : ''} 
+                            class="${nextDisabled} px-2 py-1 rounded transition">
+                            &gt;
+                        </button>
+                    `;
+                }
+                paginationEl.innerHTML = paginationHTML;
+            }
+
+            // Store pagination state
+            window[containerId + '_pagination'] = {
+                currentPage: 1,
+                totalPages: totalPages,
+                showPage: showPage,
+                noClass: noClass
+            };
+
+            // Show first page
+            showPage(1);
+        }
+
+        // Global function to navigate pages
+        window.goToPage = function(containerId, rowClass, page, totalPages, itemsPerPage, noClass) {
+            if (page < 1 || page > totalPages) return;
+            
+            const pagination = window[containerId + '_pagination'];
+            if (pagination) {
+                pagination.currentPage = page;
+                
+                // Update rows visibility and numbers
+                const container = document.getElementById(containerId);
+                const rows = container.querySelectorAll('.' + rowClass);
+                const start = (page - 1) * itemsPerPage;
+                const end = start + itemsPerPage;
+
+                rows.forEach((row, index) => {
+                    if (index >= start && index < end) {
+                        row.style.display = '';
+                        const noCell = row.querySelector('.' + noClass);
+                        if (noCell) {
+                            noCell.textContent = (page - 1) * itemsPerPage + (index - start) + 1;
+                        }
+                    } else {
+                        row.style.display = 'none';
+                    }
+                });
+
+                // Update pagination display
+                const paginationEl = document.getElementById(containerId.replace('-container', '-pagination'));
+                if (paginationEl && totalPages > 1) {
+                    const prevDisabled = page === 1 ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:text-primary';
+                    const nextDisabled = page === totalPages ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:text-primary';
+                    
+                    paginationEl.innerHTML = `
+                        <button onclick="goToPage('${containerId}', '${rowClass}', ${page - 1}, ${totalPages}, ${itemsPerPage}, '${noClass}')" 
+                            ${page === 1 ? 'disabled' : ''} 
+                            class="${prevDisabled} px-2 py-1 rounded transition">
+                            &lt;
+                        </button>
+                        <span class="px-3">${page} dari ${totalPages}</span>
+                        <button onclick="goToPage('${containerId}', '${rowClass}', ${page + 1}, ${totalPages}, ${itemsPerPage}, '${noClass}')" 
+                            ${page === totalPages ? 'disabled' : ''} 
+                            class="${nextDisabled} px-2 py-1 rounded transition">
+                            &gt;
+                        </button>
+                    `;
+                }
+            }
+        };
+
+        // Initialize pagination for each table
+        initPagination('jenis-karya-container', 'jenis-karya-row', 'jenis-karya-pagination', 'jenis-karya-no', 5);
+        initPagination('penelitian-container', 'penelitian-row', 'penelitian-pagination', 'penelitian-no', 5);
+        initPagination('pengabdian-container', 'pengabdian-row', 'pengabdian-pagination', 'pengabdian-no', 5);
+        initPagination('publikasi-container', 'publikasi-row', 'publikasi-pagination', 'publikasi-no', 5);
+        initPagination('hki-container', 'hki-row', 'hki-pagination', 'hki-no', 5);
     });
 </script>
 <?php $__env->stopSection(); ?>

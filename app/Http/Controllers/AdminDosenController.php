@@ -18,11 +18,11 @@ class AdminDosenController extends Controller
         $dosen = Dosen::orderBy('created_at', 'desc')->get();
         $jenisKarya = JenisKarya::orderBy('created_at', 'desc')->get();
         
-        // Import models untuk data lainnya
-        $penelitian = \App\Models\Penelitian::orderBy('created_at', 'desc')->get();
-        $pengabdian = \App\Models\Pengabdian::orderBy('created_at', 'desc')->get();
-        $publikasi = \App\Models\Publikasi::orderBy('created_at', 'desc')->get();
-        $hki = \App\Models\Hki::orderBy('created_at', 'desc')->get();
+        // Import models untuk data lainnya - urutkan berdasarkan tahun terbaru
+        $penelitian = \App\Models\Penelitian::orderBy('tahun', 'desc')->orderBy('created_at', 'desc')->get();
+        $pengabdian = \App\Models\Pengabdian::orderBy('tahun', 'desc')->orderBy('created_at', 'desc')->get();
+        $publikasi = \App\Models\Publikasi::orderBy('tahun', 'desc')->orderBy('created_at', 'desc')->get();
+        $hki = \App\Models\Hki::orderBy('tahun', 'desc')->orderBy('created_at', 'desc')->get();
         
         // Check if there's already a kepala program studi
         $hasKepalaProdi = Dosen::where('kepala_program_studi', true)->exists();

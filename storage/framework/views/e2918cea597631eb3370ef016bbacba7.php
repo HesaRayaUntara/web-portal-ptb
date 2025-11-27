@@ -194,13 +194,17 @@
                     <?php if(isset($dosenList) && $dosenList->count() > 0): ?>
                         <?php $__currentLoopData = $dosenList; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $dosen): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="hover:bg-accent/60">
-                                <td class="px-6 py-4 font-semibold"><?php echo e($dosen->nama ?? '-'); ?></td>
+                                <td class="px-6 py-4 font-semibold">
+                                    <div class="flex items-center gap-2">
+                                        <span><?php echo e($dosen->nama ?? '-'); ?></span>
+                                    </div>
+                                </td>
                                 <td class="px-6 py-4">
                                     <?php if(!empty($dosen->bidang_keahlian)): ?>
                                         <?php
                                             $bidangArray = array_filter(array_map('trim', explode("\n", $dosen->bidang_keahlian)));
                                             $bidangDisplay = array_slice($bidangArray, 0, 2);
-                    ?>
+                                        ?>
                                         <?php echo e(implode(', ', $bidangDisplay)); ?>
 
                                         <?php if(count($bidangArray) > 2): ?>
@@ -211,18 +215,18 @@
                                     <?php endif; ?>
                                 </td>
                                 <td class="px-6 py-4 text-primary"><?php echo e($dosen->email ?? '-'); ?></td>
-                            <td class="px-6 py-4">
+                                <td class="px-6 py-4">
                                     <?php if($dosen->slug): ?>
                                         <a href="<?php echo e(route('dosen.detail', $dosen->slug)); ?>"
-                                   class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
-                                    Detail
-                                </a>
+                                           class="inline-flex items-center gap-2 rounded-full bg-primary px-4 py-2 text-xs font-semibold text-white shadow-soft transition hover:-translate-y-0.5 hover:bg-primaryDark">
+                                            Detail
+                                        </a>
                                     <?php else: ?>
                                         <span class="text-xs text-textMuted">-</span>
                                     <?php endif; ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     <?php else: ?>
                         <tr>
                             <td colspan="4" class="px-6 py-4 text-center text-textMuted">Belum ada data dosen.</td>

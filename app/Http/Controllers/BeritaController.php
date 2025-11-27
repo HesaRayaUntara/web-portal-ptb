@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 
-class AdminBeritaController extends Controller
+class BeritaController extends Controller
 {
     /**
      * Display a listing of the resource.
