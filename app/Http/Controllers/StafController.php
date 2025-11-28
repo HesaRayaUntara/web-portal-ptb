@@ -46,7 +46,8 @@ class StafController extends Controller
             $data['foto'] = $path;
         }
 
-        if (Staf::create($data)) {
+        if ($staf = Staf::create($data)) {
+            $this->logActivity('menambah data staf', 'Staf: ' . $data['nama']);
             return redirect()->route('admin.staf.index')->with('success', 'Staf berhasil ditambahkan.');
         }
 
@@ -88,6 +89,7 @@ class StafController extends Controller
         }
 
         if ($staf->update($data)) {
+            $this->logActivity('mengedit data staf', 'Staf: ' . $data['nama']);
             return redirect()->route('admin.staf.index')->with('success', 'Staf berhasil diperbarui.');
         }
 
@@ -103,7 +105,9 @@ class StafController extends Controller
             Storage::disk('public')->delete($staf->foto);
         }
         
+        $namaStaf = $staf->nama;
         if ($staf->delete()) {
+            $this->logActivity('menghapus data staf', 'Staf: ' . $namaStaf);
             return redirect()->route('admin.staf.index')->with('success', 'Staf berhasil dihapus.');
         }
 

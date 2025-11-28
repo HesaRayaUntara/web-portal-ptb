@@ -41,6 +41,7 @@ class ProfilLulusanController extends Controller
         $profilLulusan = ProfilLulusan::create($data);
 
         if ($profilLulusan) {
+            $this->logActivity('menambah data profil lulusan', 'Profil Lulusan: ' . $data['peran']);
             return redirect()->route('admin.profil.index')->with('success', 'Profil Lulusan berhasil dibuat.');
         }
 
@@ -75,6 +76,7 @@ class ProfilLulusanController extends Controller
         ]);
 
         if ($profilLulusan->update($data)) {
+            $this->logActivity('mengedit data profil lulusan', 'Profil Lulusan: ' . $data['peran']);
             return redirect()->route('admin.profil.index')->with('success', 'Profil Lulusan berhasil diperbarui.');
         }
 
@@ -86,7 +88,9 @@ class ProfilLulusanController extends Controller
      */
     public function destroy(ProfilLulusan $profilLulusan)
     {
+        $peranLulusan = $profilLulusan->peran;
         if ($profilLulusan->delete()) {
+            $this->logActivity('menghapus data profil lulusan', 'Profil Lulusan: ' . $peranLulusan);
             return redirect()->route('admin.profil.index')->with('success', 'Profil Lulusan berhasil dihapus.');
         }
 

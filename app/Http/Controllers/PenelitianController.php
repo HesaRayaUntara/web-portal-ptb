@@ -33,7 +33,8 @@ class PenelitianController extends Controller
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
 
-        if (Penelitian::create($data)) {
+        if ($penelitian = Penelitian::create($data)) {
+            $this->logActivity('menambah data penelitian', 'Penelitian: ' . $data['judul_penelitian']);
             return redirect()->route('admin.dosen.index')->with('success', 'Penelitian berhasil ditambahkan.');
         }
 
@@ -49,6 +50,7 @@ class PenelitianController extends Controller
         ]);
 
         if ($penelitian->update($data)) {
+            $this->logActivity('mengedit data penelitian', 'Penelitian: ' . $data['judul_penelitian']);
             return redirect()->route('admin.dosen.index')->with('success', 'Penelitian berhasil diperbarui.');
         }
 
@@ -57,7 +59,9 @@ class PenelitianController extends Controller
 
     public function destroy(Penelitian $penelitian)
     {
+        $judulPenelitian = $penelitian->judul_penelitian;
         if ($penelitian->delete()) {
+            $this->logActivity('menghapus data penelitian', 'Penelitian: ' . $judulPenelitian);
             return redirect()->route('admin.dosen.index')->with('success', 'Penelitian berhasil dihapus.');
         }
 

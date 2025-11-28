@@ -36,6 +36,7 @@ class MitraController extends Controller
         $mitra = Mitra::create($data);
 
         if ($mitra) {
+            $this->logActivity('menambah data mitra', 'Mitra: ' . $data['nama_mitra']);
             return redirect()->route('admin.profil.index')->with('success', 'Mitra berhasil dibuat.');
         }
 
@@ -72,6 +73,7 @@ class MitraController extends Controller
         }
 
         if ($mitra->update($data)) {
+            $this->logActivity('mengedit data mitra', 'Mitra: ' . $data['nama_mitra']);
             return redirect()->route('admin.profil.index')->with('success', 'Mitra berhasil diperbarui.');
         }
 
@@ -87,7 +89,9 @@ class MitraController extends Controller
             Storage::disk('public')->delete($mitra->logo);
         }
 
+        $namaMitra = $mitra->nama_mitra;
         if ($mitra->delete()) {
+            $this->logActivity('menghapus data mitra', 'Mitra: ' . $namaMitra);
             return redirect()->route('admin.profil.index')->with('success', 'Mitra berhasil dihapus.');
         }
 

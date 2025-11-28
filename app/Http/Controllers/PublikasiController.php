@@ -37,7 +37,8 @@ class PublikasiController extends Controller
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
 
-        if (Publikasi::create($data)) {
+        if ($publikasi = Publikasi::create($data)) {
+            $this->logActivity('menambah data publikasi karya', 'Publikasi: ' . $data['judul_karya']);
             return redirect()->route('admin.dosen.index')->with('success', 'Publikasi karya berhasil ditambahkan.');
         }
 
@@ -54,6 +55,7 @@ class PublikasiController extends Controller
         ]);
 
         if ($publikasi->update($data)) {
+            $this->logActivity('mengedit data publikasi karya', 'Publikasi: ' . $data['judul_karya']);
             return redirect()->route('admin.dosen.index')->with('success', 'Publikasi karya berhasil diperbarui.');
         }
 
@@ -62,7 +64,9 @@ class PublikasiController extends Controller
 
     public function destroy(Publikasi $publikasi)
     {
+        $judulPublikasi = $publikasi->judul_karya;
         if ($publikasi->delete()) {
+            $this->logActivity('menghapus data publikasi karya', 'Publikasi: ' . $judulPublikasi);
             return redirect()->route('admin.dosen.index')->with('success', 'Publikasi karya berhasil dihapus.');
         }
 

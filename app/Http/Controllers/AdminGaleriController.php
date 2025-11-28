@@ -32,7 +32,8 @@ class AdminGaleriController extends Controller
             'nama' => 'required|string|max:255|unique:kategori_galeri,nama',
         ]);
 
-        if (KategoriGaleri::create($data)) {
+        if ($kategori = KategoriGaleri::create($data)) {
+            $this->logActivity('menambah data kategori galeri', 'Kategori: ' . $data['nama']);
             return redirect()->route('admin.galeri.index')->with('success', 'Kategori galeri berhasil ditambahkan.');
         }
 
@@ -48,7 +49,9 @@ class AdminGaleriController extends Controller
             return back()->with('error', 'Kategori tidak dapat dihapus karena masih digunakan dalam galeri.');
         }
 
+        $namaKategori = $kategoriGaleri->nama;
         if ($kategoriGaleri->delete()) {
+            $this->logActivity('menghapus data kategori galeri', 'Kategori: ' . $namaKategori);
             return redirect()->route('admin.galeri.index')->with('success', 'Kategori galeri berhasil dihapus.');
         }
 
@@ -80,7 +83,8 @@ class AdminGaleriController extends Controller
             $data['foto'] = null;
         }
 
-        if (Galeri::create($data)) {
+        if ($galeri = Galeri::create($data)) {
+            $this->logActivity('menambah data galeri', 'Galeri: ' . $data['judul']);
             return redirect()->route('admin.galeri.index')->with('success', 'Galeri berhasil ditambahkan.');
         }
 
@@ -137,6 +141,7 @@ class AdminGaleriController extends Controller
         }
 
         if ($galeri->update($data)) {
+            $this->logActivity('mengedit data galeri', 'Galeri: ' . $data['judul']);
             return redirect()->route('admin.galeri.index')->with('success', 'Galeri berhasil diperbarui.');
         }
 
@@ -152,7 +157,9 @@ class AdminGaleriController extends Controller
             Storage::disk('public')->delete($galeri->foto);
         }
         
+        $judulGaleri = $galeri->judul;
         if ($galeri->delete()) {
+            $this->logActivity('menghapus data galeri', 'Galeri: ' . $judulGaleri);
             return back()->with('success', 'Galeri berhasil dihapus.');
         }
 

@@ -480,6 +480,25 @@ Route::get('/admin/login', [AdminAuthController::class, 'showLoginForm'])->name(
 Route::post('/admin/login', [AdminAuthController::class, 'login'])->name('admin.login.submit');
 Route::post('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+// Route Admin Register (Hanya bisa diakses setelah login)
+Route::middleware('admin.auth')->group(function () {
+    Route::get('/admin/register', [AdminAuthController::class, 'showRegisterForm'])->name('admin.register');
+    Route::post('/admin/register', [AdminAuthController::class, 'register'])->name('admin.register.submit');
+    
+    // Route Admin Edit
+    Route::get('/admin/edit/{id}', [AdminAuthController::class, 'showEditForm'])->name('admin.edit');
+    Route::put('/admin/edit/{id}', [AdminAuthController::class, 'update'])->name('admin.edit.submit');
+    
+    // Route Admin Management CRUD
+    Route::get('/admin/manage', [\App\Http\Controllers\AdminManagementController::class, 'index'])->name('admin.manage.index');
+    Route::post('/admin/manage', [\App\Http\Controllers\AdminManagementController::class, 'store'])->name('admin.manage.store');
+    Route::put('/admin/manage/{id}', [\App\Http\Controllers\AdminManagementController::class, 'update'])->name('admin.manage.update');
+    Route::delete('/admin/manage/{id}', [\App\Http\Controllers\AdminManagementController::class, 'destroy'])->name('admin.manage.destroy');
+    
+    // Route Log Activity
+    Route::get('/admin/log-activity', [\App\Http\Controllers\AdminAuthController::class, 'getLogActivities'])->name('admin.log-activity');
+});
+
 // Route Admin Dashboard (protected)
 Route::middleware('admin.auth')->group(function () {
     Route::get('/admin', function () {

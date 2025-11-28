@@ -87,7 +87,8 @@ class AdminDosenController extends Controller
         $data['kepala_program_studi'] = $request->has('kepala_program_studi') && $request->kepala_program_studi ? true : null;
         $data['slug'] = Str::slug($data['nama']);
 
-        if (Dosen::create($data)) {
+        if ($dosen = Dosen::create($data)) {
+            $this->logActivity('menambah data dosen', 'Dosen: ' . $data['nama']);
             return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil ditambahkan.');
         }
 
@@ -139,6 +140,7 @@ class AdminDosenController extends Controller
         $data['slug'] = Str::slug($data['nama']);
 
         if ($dosen->update($data)) {
+            $this->logActivity('mengedit data dosen', 'Dosen: ' . $data['nama']);
             return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil diperbarui.');
         }
 
@@ -151,7 +153,9 @@ class AdminDosenController extends Controller
             Storage::disk('public')->delete($dosen->foto);
         }
         
+        $namaDosen = $dosen->nama;
         if ($dosen->delete()) {
+            $this->logActivity('menghapus data dosen', 'Dosen: ' . $namaDosen);
             return redirect()->route('admin.dosen.index')->with('success', 'Dosen berhasil dihapus.');
         }
 

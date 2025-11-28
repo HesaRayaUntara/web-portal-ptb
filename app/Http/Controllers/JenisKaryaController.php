@@ -13,7 +13,8 @@ class JenisKaryaController extends Controller
             'j_karya' => 'required|string|max:255',
         ]);
 
-        if (JenisKarya::create($data)) {
+        if ($jenisKarya = JenisKarya::create($data)) {
+            $this->logActivity('menambah data jenis karya', 'Jenis Karya: ' . $data['j_karya']);
             return redirect()->route('admin.dosen.index')->with('success', 'Jenis karya berhasil ditambahkan.');
         }
 
@@ -22,7 +23,9 @@ class JenisKaryaController extends Controller
 
     public function destroy(JenisKarya $jenisKarya)
     {
+        $namaJenisKarya = $jenisKarya->j_karya;
         if ($jenisKarya->delete()) {
+            $this->logActivity('menghapus data jenis karya', 'Jenis Karya: ' . $namaJenisKarya);
             return redirect()->route('admin.dosen.index')->with('success', 'Jenis karya berhasil dihapus.');
         }
 

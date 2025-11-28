@@ -34,7 +34,8 @@ class BeritaController extends Controller
             'nama' => 'required|string|max:255|unique:kategori_berita,nama',
         ]);
 
-        if (KategoriBerita::create($data)) {
+        if ($kategori = KategoriBerita::create($data)) {
+            $this->logActivity('menambah data kategori berita', 'Kategori: ' . $data['nama']);
             return redirect()->route('admin.berita.index')->with('success', 'Kategori berita berhasil ditambahkan.');
         }
 
@@ -50,7 +51,9 @@ class BeritaController extends Controller
             return back()->with('error', 'Kategori tidak dapat dihapus karena masih digunakan dalam berita.');
         }
 
+        $namaKategori = $kategoriBerita->nama;
         if ($kategoriBerita->delete()) {
+            $this->logActivity('menghapus data kategori berita', 'Kategori: ' . $namaKategori);
             return redirect()->route('admin.berita.index')->with('success', 'Kategori berita berhasil dihapus.');
         }
 
@@ -91,7 +94,8 @@ class BeritaController extends Controller
             $data['status'] = 'draft';
         }
 
-        if (Berita::create($data)) {
+        if ($berita = Berita::create($data)) {
+            $this->logActivity('menambah data berita', 'Berita: ' . $data['judul']);
             $message = $request->action === 'publikasikan' 
                 ? 'Berita berhasil dipublikasikan.' 
                 : 'Berita berhasil disimpan sebagai draft.';
@@ -182,6 +186,7 @@ class BeritaController extends Controller
         }
 
         if ($berita->update($data)) {
+            $this->logActivity('mengedit data berita', 'Berita: ' . $data['judul']);
             return redirect()->route($redirectRoute)->with('success', $message);
         }
 
@@ -237,6 +242,7 @@ class BeritaController extends Controller
         }
 
         if ($berita->update($data)) {
+            $this->logActivity('mengedit data berita', 'Berita: ' . $data['judul']);
             return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diperbarui.');
         }
 
@@ -248,7 +254,9 @@ class BeritaController extends Controller
      */
     public function destroyBerita(Berita $berita)
     {
+        $judulBerita = $berita->judul;
         if ($berita->delete()) {
+            $this->logActivity('menghapus data berita', 'Berita: ' . $judulBerita);
             return back()->with('success', 'Berita berhasil dihapus.');
         }
 

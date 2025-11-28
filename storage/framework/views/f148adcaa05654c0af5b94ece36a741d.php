@@ -17,8 +17,8 @@
         <div class="flex items-center gap-3 rounded-card bg-white px-4 py-3 shadow-soft mt-12 lg:mt-0">
             <img src="<?php echo e(asset('gambar/logo-ptb.png')); ?>" alt="Logo PTB" class="h-12 w-12 rounded-full border border-primary/30 object-cover">
             <div>
-                <p class="text-sm font-semibold text-textDark">Pemuliaan Tanaman</p>
-                <p class="text-xs text-textMuted">dan Teknologi Benih</p>
+                <p class="text-sm font-semibold text-textDark">Admin Web Portal PTB</p>
+                <p class="text-xs text-textMuted">Hai, <?php echo e(\App\Models\Admin::find(session('admin_id'))->username ?? 'Admin'); ?>!</p>
             </div>
         </div>
         <nav class="space-y-1 text-sm font-semibold text-textMuted">

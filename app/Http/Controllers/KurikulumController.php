@@ -51,7 +51,8 @@ class KurikulumController extends Controller
             return back()->withInput()->with('error', 'Data ' . $data['kode_mk'] . ' sudah ada. coba lagi');
         }
 
-        if (Kurikulum::create($data)) {
+        if ($kurikulum = Kurikulum::create($data)) {
+            $this->logActivity('menambah data kurikulum', 'Kurikulum: ' . $data['kode_mk'] . ' - ' . $data['nama_mk']);
             return redirect()->route('admin.kurikulum.index')->with('success', 'Mata kuliah berhasil ditambahkan.');
         }
 
@@ -74,10 +75,12 @@ class KurikulumController extends Controller
         
         if ($deskripsiKurikulum) {
             if ($deskripsiKurikulum->update($data)) {
+                $this->logActivity('mengedit data deskripsi kurikulum');
                 return redirect()->route('admin.kurikulum.index')->with('success', 'Deskripsi kurikulum berhasil diperbarui.');
             }
         } else {
             if (DeskripsiKurikulum::create($data)) {
+                $this->logActivity('menambah data deskripsi kurikulum');
                 return redirect()->route('admin.kurikulum.index')->with('success', 'Deskripsi kurikulum berhasil diperbarui.');
             }
         }
@@ -121,6 +124,7 @@ class KurikulumController extends Controller
         }
 
         if ($kurikulum->update($data)) {
+            $this->logActivity('mengedit data kurikulum', 'Kurikulum: ' . $data['kode_mk'] . ' - ' . $data['nama_mk']);
             return redirect()->route('admin.kurikulum.index')->with('success', 'Mata kuliah berhasil diperbarui.');
         }
 
@@ -132,7 +136,9 @@ class KurikulumController extends Controller
      */
     public function destroy(Kurikulum $kurikulum)
     {
+        $namaKurikulum = $kurikulum->kode_mk . ' - ' . $kurikulum->nama_mk;
         if ($kurikulum->delete()) {
+            $this->logActivity('menghapus data kurikulum', 'Kurikulum: ' . $namaKurikulum);
             return redirect()->route('admin.kurikulum.index')->with('success', 'Mata kuliah berhasil dihapus.');
         }
 

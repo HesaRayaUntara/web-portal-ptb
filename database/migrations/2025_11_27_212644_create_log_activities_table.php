@@ -11,8 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admins', function (Blueprint $table) {
+        Schema::create('log_activities', function (Blueprint $table) {
             $table->id();
+            $table->string('nama_admin');
+            $table->string('aktivitas'); // login, logout, tambah, edit, hapus
+            $table->string('data_yang_diubah')->nullable(); // data yang diubah (username admin, dll)
+            $table->timestamp('waktu');
             $table->timestamps();
         });
     }
@@ -22,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('log_activities');
     }
 };

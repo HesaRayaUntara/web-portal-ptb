@@ -2,7 +2,7 @@
 
 <?php $__env->startSection('content'); ?>
 <div class="rounded-section border border-borderSoft bg-white shadow-soft">
-    <div class="flex flex-col gap-8 lg:flex-row">
+    <div class="flex flex-col gap-8 lg:flex-row lg:items-stretch">
         <?php echo $__env->make('partials.admin-sidebar', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <main class="flex-1 p-4 md:p-6 lg:p-8">
             <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">

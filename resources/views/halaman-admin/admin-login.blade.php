@@ -3,119 +3,159 @@
 @section('title', 'Login Admin')
 
 @section('content')
-    <section class="min-h-[90vh] bg-[#f3f5f4] py-12">
-        <div class="mx-auto flex w-full max-w-5xl flex-col overflow-hidden rounded-[40px] bg-white shadow-[0_30px_80px_rgba(15,23,42,0.08)] lg:flex-row">
-            <div class="relative hidden w-1/2 overflow-hidden lg:block">
-                <img src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=900&q=80"
-                     alt="Pertanian PTB" class="h-full w-full object-cover brightness-90">
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/30 to-black/60"></div>
-                <div class="absolute inset-x-0 bottom-0 space-y-4 p-10 text-white">
-                    <p class="text-sm uppercase tracking-[0.4em] text-white/70">PTB Admin</p>
-                    <h2 class="text-3xl font-semibold leading-tight">Kelola informasi secara presisi</h2>
-                    <p class="text-sm text-white/80">Dashboard privat untuk memperbarui konten, galeri, dan komunikasi publik Program Studi PTB.</p>
+    <section class="flex py-8 items-center justify-center">
+        <div class="mx-auto flex w-full max-w-3xl flex-col overflow-hidden rounded-xl bg-white shadow-md lg:flex-row lg:shadow-lg">
+            <!-- Left Side - Branding (Visible on all screens but compact on mobile) -->
+            <div class="relative w-full overflow-hidden bg-gradient-to-br from-primary via-primaryDark to-secondary lg:w-2/5">
+                <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center opacity-20 mix-blend-overlay"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary/40 to-primary/80"></div>
+                
+                <div class="relative flex flex-col justify-center p-5 text-white sm:p-6 lg:p-8">
+                    <div class="space-y-2 sm:space-y-3">
+                        <div class="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-2.5 py-1 backdrop-blur-sm sm:px-3 sm:py-1.5">
+                            <span class="text-xs font-medium">Program Studi PTB</span>
+                        </div>
+                        <h2 class="font-bold leading-tight sm:text-xl lg:text-2xl">Selamat Datang Kembali</h2>
+                        <p class="text-xs leading-relaxed text-white/90 sm:text-sm">Kelola informasi program studi Pemuliaan Tanaman dan Teknologi Benih dengan mudah dan efisien.</p>
+                    </div>
+                    
+                    <div class="mt-4 space-y-2 sm:mt-5 sm:space-y-2.5">
+                        <div class="flex items-center gap-2 text-xs">
+                            <div class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm sm:h-7 sm:w-7">
+                                <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span>Kelola konten & informasi</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs">
+                            <div class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm sm:h-7 sm:w-7">
+                                <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span>Update galeri & publikasi</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-xs">
+                            <div class="flex h-6 w-6 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm sm:h-7 sm:w-7">
+                                <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                            </div>
+                            <span>Komunikasi publik yang efektif</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="w-full p-10 lg:w-1/2">
-                <div class="space-y-2 text-left">
-                    <p class="text-xs font-semibold uppercase tracking-[0.4em] text-primary/70">Admin Login</p>
-                    <h2 class="text-3xl font-semibold text-secondary">Welcome back</h2>
-                    <p class="text-xs text-textMuted">Masuk menggunakan kredensial resmi.</p>
-                </div>
-                <form class="mt-8 space-y-5" method="POST" action="{{ route('admin.login.submit') }}">
+            <!-- Right Side - Login Form -->
+            <div class="flex w-full items-center justify-center p-5 sm:p-6 lg:w-3/5 lg:p-8">
+                <div class="w-full max-w-xs space-y-5">
+                    <!-- Header -->
+                    <div class="space-y-1.5 text-center lg:text-left">
+                        <div class="inline-flex items-center gap-1.5">
+                            <h1 class="text-lg font-bold text-secondary sm:text-xl lg:text-2xl">Masuk ke Dashboard</h1>
+                        </div>
+                    </div>
+
+                    <!-- Error Messages -->
+                    @if ($errors->any())
+                        <div class="rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-700 sm:p-4 sm:text-sm">
+                            <div class="flex items-start gap-2">
+                                <svg class="mt-0.5 h-4 w-4 flex-shrink-0 sm:h-5 sm:w-5" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <p class="font-medium">Terjadi kesalahan</p>
+                                    <ul class="mt-1 list-disc list-inside space-y-1">
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Login Form -->
+                    <form class="space-y-3.5" method="POST" action="{{ route('admin.login.submit') }}" id="loginForm">
                         @csrf
-                    <div class="space-y-2">
-                        <label for="username" class="text-xs font-semibold uppercase tracking-[0.2em] text-textMuted">Username</label>
-                        <div class="flex items-center gap-3 rounded-2xl border border-borderSoft px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
-                            <span class="text-lg text-primary">👤</span>
-                            <input id="username" name="username" type="text" placeholder="admin@ptb.ac.id"
-                                class="flex-1 border-none bg-transparent text-sm text-textDark placeholder:text-textMuted focus:outline-none">
+                        
+                        <!-- Username Field -->
+                        <div class="space-y-1">
+                            <label for="username" class="block text-xs font-semibold text-textDark">
+                                Username
+                            </label>
+                            <div class="group relative">
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5">
+                                    <svg class="h-3.5 w-3.5 text-textMuted transition-colors group-focus-within:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    id="username" 
+                                    name="username" 
+                                    type="text" 
+                                    value="{{ old('username') }}"
+                                    placeholder="Masukkan username Anda"
+                                    required
+                                    autocomplete="username"
+                                    class="w-full rounded-lg border-2 border-gray-200 bg-gray-50 py-2 pl-9 pr-3 text-xs text-textDark placeholder:text-textMuted transition-all duration-200 focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/10 sm:text-sm"
+                                >
+                            </div>
                         </div>
-                    </div>
-                    <div class="space-y-2">
-                        <label for="password" class="text-xs font-semibold uppercase tracking-[0.2em] text-textMuted">Password</label>
-                        <div class="flex items-center gap-3 rounded-2xl border border-borderSoft px-4 py-3 focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/15">
-                            <span class="text-lg text-primary">🔒</span>
-                            <input id="password" name="password" type="password" placeholder="••••••••"
-                                class="flex-1 border-none bg-transparent text-sm text-textDark placeholder:text-textMuted focus:outline-none">
-                            <button type="button" id="toggle-password" class="text-xs font-semibold uppercase tracking-wide text-primary">Show</button>
-                        </div>
-                    </div>
-                    <div class="flex items-center justify-between text-xs text-textMuted">
-                        <label class="inline-flex items-center gap-2">
-                            <input type="checkbox" class="rounded border-borderSoft text-primary focus:ring-primary">
-                            Ingat saya
-                        </label>
-                        <button type="button" id="forgot-trigger" class="font-semibold text-primary transition hover:text-primaryDark">Lupa password?</button>
-                    </div>
-                    <button type="submit"
-                        class="flex w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-primary to-primaryDark py-4 text-sm font-semibold uppercase tracking-[0.3em] text-white shadow-[0_15px_40px_rgba(12,130,75,0.35)] transition hover:scale-[1.01]">
-                        <span>Masuk Dashboard</span>
-                        <span class="text-lg">↗</span>
-                    </button>
-                </form>
-                <p class="mt-6 text-center text-xs text-textMuted">Penggunaan diawasi. Pastikan keluar setelah selesai.</p>
-            </div>
-        </div>
 
-        <div id="forgot-overlay"
-            class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 px-6 py-10 backdrop-blur-sm opacity-0 transition-opacity duration-300">
-            <div data-forgot-panel
-                class="relative w-full max-w-xl scale-95 rounded-3xl bg-white p-8 opacity-0 shadow-2xl transition-all duration-300">
-                <button type="button" data-forgot-close
-                    class="absolute right-4 top-4 rounded-full bg-primary/10 p-2 text-primary transition hover:bg-primary/20"
-                    aria-label="Tutup popup">
-                    ✕
-                </button>
-                <div class="space-y-2 text-center">
-                    <p class="text-xs font-semibold uppercase tracking-wide text-primary">Reset Akses</p>
-                    <h3 class="text-2xl font-semibold text-secondary">Butuh bantuan masuk?</h3>
-                    <p class="text-sm text-textMuted">Isi detail di bawah, tim PTB akan mengirim instruksi pemulihan ke email resmi Anda.</p>
+                        <!-- Password Field -->
+                        <div class="space-y-1">
+                            <label for="password" class="block text-xs font-semibold text-textDark">
+                                Password
+                            </label>
+                            <div class="group relative">
+                                <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2.5">
+                                    <svg class="h-3.5 w-3.5 text-textMuted transition-colors group-focus-within:text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    id="password" 
+                                    name="password" 
+                                    type="password" 
+                                    placeholder="Masukkan password Anda"
+                                    required
+                                    autocomplete="current-password"
+                                    class="w-full rounded-lg border-2 border-gray-200 bg-gray-50 py-2 pl-9 pr-14 text-xs text-textDark placeholder:text-textMuted transition-all duration-200 focus:border-primary focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/10 sm:text-sm"
+                                >
+                                <button 
+                                    type="button" 
+                                    id="toggle-password" 
+                                    class="absolute inset-y-0 right-0 flex items-center pr-2.5 text-primary transition-colors hover:text-primaryDark"
+                                >
+                                    <!-- Icon mata tertutup (default saat password hidden) -->
+                                    <svg id="icon-eye-off" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 0 0 1.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.451 10.451 0 0 1 12 4.5c4.756 0 8.773 3.162 10.065 7.498a10.522 10.522 0 0 1-4.293 5.774M6.228 6.228 3 3m3.228 3.228 3.65 3.65m7.894 7.894L21 21m-3.228-3.228-3.65-3.65m0 0a3 3 0 1 0-4.243-4.243m4.242 4.242L9.88 9.88" />
+                                    </svg>
+                                    <!-- Icon mata terbuka (saat password visible) -->
+                                    <svg id="icon-eye" class="h-4 w-4 hidden" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button 
+                            type="submit"
+                            id="submitBtn"
+                            class="group relative w-full overflow-hidden rounded-lg bg-primary text-white py-2 text-xs font-semibold shadow-soft"
+                        >
+                            <span class="relative z-10 flex items-center justify-center gap-2">
+                                <span>Masuk ke Dashboard</span>
+                            </span>
+                            <div class="absolute inset-0 bg-gradient-to-r from-primaryDark to-secondary opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+                        </button>
+                    </form>
                 </div>
-
-                <form id="forgot-form" class="mt-6 space-y-4">
-                    <div>
-                        <label class="text-xs font-semibold text-textMuted">Email PTB</label>
-                        <input type="email" name="email" required placeholder="contoh: admin@ptb.ac.id"
-                            class="mt-1 w-full rounded-xl border border-borderSoft px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30">
-                    </div>
-                    <div class="grid gap-4 md:grid-cols-2">
-                        <div>
-                            <label class="text-xs font-semibold text-textMuted">Nomor kontak</label>
-                            <input type="text" name="phone" placeholder="+62 812 xxx"
-                                class="mt-1 w-full rounded-xl border border-borderSoft px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30">
-                        </div>
-                        <div>
-                            <label class="text-xs font-semibold text-textMuted">Prioritas</label>
-                            <select name="priority"
-                                class="mt-1 w-full rounded-xl border border-borderSoft px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30">
-                                <option value="Normal">Normal</option>
-                                <option value="Tinggi">Tinggi</option>
-                                <option value="Darurat">Darurat</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="text-xs font-semibold text-textMuted">Deskripsikan kendala</label>
-                        <textarea name="issue" rows="3" required placeholder="Contoh: lupa password atau autentikasi gagal"
-                            class="mt-1 w-full rounded-2xl border border-borderSoft px-4 py-3 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"></textarea>
-                    </div>
-                    <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div class="text-xs text-textMuted">
-                            <p>Respon rata-rata: <span class="font-semibold text-primary">± 10 menit</span></p>
-                            <p>Emergency hotline: <a class="font-semibold text-primary" href="tel:+622518600123">0251-8600123</a>
-                            </p>
-                        </div>
-                        <button type="submit"
-                            class="rounded-2xl bg-primary px-6 py-3 text-sm font-semibold uppercase tracking-wide text-white shadow-soft transition hover:bg-primaryDark">Kirim
-                            Permintaan</button>
-                    </div>
-                    <div id="forgot-success"
-                        class="hidden rounded-2xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
-                        Permintaan berhasil dikirim. ID tiket <span data-ticket class="font-semibold">PTB-0000</span>. Kami akan
-                        menghubungi Anda segera.
-                    </div>
-                </form>
             </div>
         </div>
     </section>
@@ -124,71 +164,48 @@
 @push('scripts')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const overlay = document.getElementById('forgot-overlay');
-            const trigger = document.getElementById('forgot-trigger');
-            const closeBtn = overlay?.querySelector('[data-forgot-close]');
-            const panel = overlay?.querySelector('[data-forgot-panel]');
-            const form = document.getElementById('forgot-form');
-            const successBox = document.getElementById('forgot-success');
-            const ticketSpan = successBox?.querySelector('[data-ticket]');
+            // Password Toggle
             const togglePasswordBtn = document.getElementById('toggle-password');
             const passwordInput = document.getElementById('password');
-
-            const openPanel = () => {
-                overlay?.classList.remove('hidden');
-                overlay?.classList.add('flex');
-                requestAnimationFrame(() => {
-                    overlay.classList.remove('opacity-0');
-                    overlay.classList.add('opacity-100');
-                    panel?.classList.remove('opacity-0', 'scale-95');
-                    panel?.classList.add('opacity-100', 'scale-100');
-                });
-                overlay?.querySelector('input[name="email"]')?.focus();
-            };
-
-            const closePanel = () => {
-                overlay?.classList.add('opacity-0');
-                overlay?.classList.remove('opacity-100');
-                panel?.classList.add('opacity-0', 'scale-95');
-                panel?.classList.remove('opacity-100', 'scale-100');
-                successBox?.classList.add('hidden');
-                setTimeout(() => {
-                    overlay?.classList.add('hidden');
-                    overlay?.classList.remove('flex');
-                }, 250);
-            };
-
-            trigger?.addEventListener('click', (e) => {
-                e.preventDefault();
-                openPanel();
-            });
-
-            closeBtn?.addEventListener('click', closePanel);
-            overlay?.addEventListener('click', (e) => {
-                if (e.target === overlay) {
-                    closePanel();
-                }
-            });
-
-            form?.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const ticket = `PTB-${Math.floor(Math.random() * 9000) + 1000}`;
-                if (ticketSpan) {
-                    ticketSpan.textContent = ticket;
-                }
-                successBox?.classList.remove('hidden');
-                form.reset();
-            });
 
             togglePasswordBtn?.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (!passwordInput) return;
                 const isPassword = passwordInput.type === 'password';
                 passwordInput.type = isPassword ? 'text' : 'password';
-                togglePasswordBtn.textContent = isPassword ? 'Hide' : 'Show';
+                
+                // Toggle icon visibility
+                const iconEyeOff = document.getElementById('icon-eye-off');
+                const iconEye = document.getElementById('icon-eye');
+                if (iconEyeOff && iconEye) {
+                    if (isPassword) {
+                        iconEyeOff.classList.add('hidden');
+                        iconEye.classList.remove('hidden');
+                    } else {
+                        iconEyeOff.classList.remove('hidden');
+                        iconEye.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Form Loading State
+            const loginForm = document.getElementById('loginForm');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            loginForm?.addEventListener('submit', () => {
+                if (submitBtn) {
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = `
+                        <span class="flex items-center justify-center gap-2">
+                            <svg class="h-3.5 w-3.5 animate-spin sm:h-4 sm:w-4" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <span>Memproses...</span>
+                        </span>
+                    `;
+                }
             });
         });
     </script>
 @endpush
-
-

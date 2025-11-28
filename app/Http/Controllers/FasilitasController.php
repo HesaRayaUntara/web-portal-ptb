@@ -44,7 +44,8 @@ class FasilitasController extends Controller
             $data['foto'] = $path;
         }
 
-        if (Fasilitas::create($data)) {
+        if ($fasilitas = Fasilitas::create($data)) {
+            $this->logActivity('menambah data fasilitas', 'Fasilitas: ' . $data['nama_fasilitas']);
             return redirect()->route('admin.fasilitas.index')->with('success', 'Fasilitas berhasil ditambahkan.');
         }
 
@@ -89,6 +90,7 @@ class FasilitasController extends Controller
         }
 
         if ($fasilitas->update($data)) {
+            $this->logActivity('mengedit data fasilitas', 'Fasilitas: ' . $data['nama_fasilitas']);
             return redirect()->route('admin.fasilitas.index')->with('success', 'Fasilitas berhasil diperbarui.');
         }
 
@@ -104,7 +106,9 @@ class FasilitasController extends Controller
             Storage::disk('public')->delete($fasilitas->foto);
         }
         
+        $namaFasilitas = $fasilitas->nama_fasilitas;
         if ($fasilitas->delete()) {
+            $this->logActivity('menghapus data fasilitas', 'Fasilitas: ' . $namaFasilitas);
             return redirect()->route('admin.fasilitas.index')->with('success', 'Fasilitas berhasil dihapus.');
         }
 

@@ -37,7 +37,8 @@ class HkiController extends Controller
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
 
-        if (Hki::create($data)) {
+        if ($hki = Hki::create($data)) {
+            $this->logActivity('menambah data HKI/Paten', 'HKI/Paten: ' . $data['judul_karya']);
             return redirect()->route('admin.dosen.index')->with('success', 'HKI/Paten berhasil ditambahkan.');
         }
 
@@ -54,6 +55,7 @@ class HkiController extends Controller
         ]);
 
         if ($hki->update($data)) {
+            $this->logActivity('mengedit data HKI/Paten', 'HKI/Paten: ' . $data['judul_karya']);
             return redirect()->route('admin.dosen.index')->with('success', 'HKI/Paten berhasil diperbarui.');
         }
 
@@ -62,7 +64,9 @@ class HkiController extends Controller
 
     public function destroy(Hki $hki)
     {
+        $judulHki = $hki->judul_karya;
         if ($hki->delete()) {
+            $this->logActivity('menghapus data HKI/Paten', 'HKI/Paten: ' . $judulHki);
             return redirect()->route('admin.dosen.index')->with('success', 'HKI/Paten berhasil dihapus.');
         }
 

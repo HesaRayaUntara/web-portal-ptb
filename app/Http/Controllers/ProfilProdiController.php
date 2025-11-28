@@ -85,6 +85,7 @@ class ProfilProdiController extends Controller
         $profilProdi = ProfilProdi::create($data);
 
         if ($profilProdi) {
+            $this->logActivity('menambah data profil program studi');
             return redirect()->route('admin.profil.index')->with('success', 'Profil Program Studi berhasil dibuat.');
         }
 
@@ -154,6 +155,7 @@ class ProfilProdiController extends Controller
         }
 
         if ($profilProdi->update($data)) {
+            $this->logActivity('mengedit data profil program studi');
             return redirect()->route('admin.profil.index')->with('success', 'Profil Program Studi berhasil diperbarui.');
         }
 
@@ -170,6 +172,7 @@ class ProfilProdiController extends Controller
         }
 
         if ($profilProdi->delete()) {
+            $this->logActivity('menghapus data profil program studi');
             return redirect()->route('admin.profil.index')->with('success', 'Profil Program Studi berhasil dihapus.');
         }
 

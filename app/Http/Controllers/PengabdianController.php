@@ -33,7 +33,8 @@ class PengabdianController extends Controller
             'tahun' => 'required|integer|min:1900|max:' . date('Y'),
         ]);
 
-        if (Pengabdian::create($data)) {
+        if ($pengabdian = Pengabdian::create($data)) {
+            $this->logActivity('menambah data pengabdian masyarakat', 'Pengabdian: ' . $data['judul_pengabdian']);
             return redirect()->route('admin.dosen.index')->with('success', 'Pengabdian masyarakat berhasil ditambahkan.');
         }
 
@@ -49,6 +50,7 @@ class PengabdianController extends Controller
         ]);
 
         if ($pengabdian->update($data)) {
+            $this->logActivity('mengedit data pengabdian masyarakat', 'Pengabdian: ' . $data['judul_pengabdian']);
             return redirect()->route('admin.dosen.index')->with('success', 'Pengabdian masyarakat berhasil diperbarui.');
         }
 
@@ -57,7 +59,9 @@ class PengabdianController extends Controller
 
     public function destroy(Pengabdian $pengabdian)
     {
+        $judulPengabdian = $pengabdian->judul_pengabdian;
         if ($pengabdian->delete()) {
+            $this->logActivity('menghapus data pengabdian masyarakat', 'Pengabdian: ' . $judulPengabdian);
             return redirect()->route('admin.dosen.index')->with('success', 'Pengabdian masyarakat berhasil dihapus.');
         }
 
